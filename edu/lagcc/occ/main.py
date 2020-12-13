@@ -1,22 +1,22 @@
 
-from edu.lagcc.occ.util.Utils import *
+from edu.lagcc.occ.classes.Classes import *
 from datetime import datetime
-import requests as req
-import time
+from bs4 import BeautifulSoup
 
 dt = datetime.now()
 
-session = req.Session()
+if __name__ == "__main__":
 
-CLG_TRM_FORM[CLG_TRM_NAME_KEY] = "2021 Spring Term"
-CLG_TRM_FORM[CLG_TRM_VAL_KEY] = "1212"
-res = session.post(URL, data=CLG_TRM_FORM)
-time.sleep(1)
-print(res.status_code, datetime.now()-dt)
+    term = "2021 Spring Term"
+    term_value = "1212"
+    subject_code = "VETE"
+    session_code = "1"
 
-CLASS_DETAILS_FORM[SUBJECT_NAME_KEY] = "VETE"
-CLASS_DETAILS_FORM[SESSION_KEY] = "1"
-res2 = session.post(URL, data=CLASS_DETAILS_FORM)
-print(res2.status_code, datetime.now()-dt)
-print(res2.text)
-
+    print(datetime.now()-dt)
+    results = SearchCriteriaPage().search_criteria_response(term, term_value, subject_code, session_code)
+    print(datetime.now()-dt)
+    soup = BeautifulSoup(results.text, 'html.parser')
+    class_names = soup.find_all("span", {"class": "cunylite_LABEL"})
+    for i in class_names:
+        print(i.text.strip())
+    print(datetime.now()-dt)
