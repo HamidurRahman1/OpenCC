@@ -1,5 +1,5 @@
 
-from edu.lagcc.opencc.util.Utils import COLLEGE, CLG_VALUE, URL, NEXT
+from edu.lagcc.occ.util.Utils import COLLEGE, CLG_VALUE, URL, NEXT
 
 from datetime import datetime
 import requests as req
