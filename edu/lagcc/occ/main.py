@@ -1,5 +1,5 @@
 
-from edu.lagcc.occ.classes.Classes import *
+from edu.lagcc.occ.cls.search_criteria import SearchCriteriaPage
 from datetime import datetime
 from bs4 import BeautifulSoup
 
