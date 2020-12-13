@@ -1,6 +1,5 @@
 
-from edu.lagcc.occ.util.Utils import COLLEGE, CLG_VALUE, URL, NEXT
-
+from edu.lagcc.occ.util.Utils import URL, CLG_TRM_FORM, CLG_TRM_NAME_KEY, CLG_TRM_VAL_KEY
 from datetime import datetime
 import requests as req
 import time
@@ -9,11 +8,9 @@ dt = datetime.now()
 term = "2021 Spring Term"
 term_val = "1212"
 
-clg_selector_form_data = {"selectedInstName": COLLEGE, "inst_selection": CLG_VALUE, "selectedTermName": term,
-                        "term_value": term_val, "next_btn": NEXT}
-
 session = req.Session()
-res = session.post(URL, data=clg_selector_form_data)
+CLG_TRM_FORM[CLG_TRM_NAME_KEY] = term
+CLG_TRM_FORM[CLG_TRM_VAL_KEY] = term_val
+res = session.post(URL, data=CLG_TRM_FORM)
 time.sleep(1)
-print(res.status_code, res.text)
-print(datetime.now()-dt)
+print(res.status_code, datetime.now()-dt)
