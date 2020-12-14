@@ -6,7 +6,7 @@ dt = datetime.now()
 
 if __name__ == "__main__":
 
-    term = "2021 Spring Term"
+    term = "2021 Spring"
     subject_code = "VETE"
     class_num_5_digit = "39345"
 

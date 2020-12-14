@@ -9,8 +9,8 @@ class SearchCriteria:
 
     def __init__(self, term_name, subject_code, class_num_5_digit):
         self.session = requests.Session()
-        self.term_name = term_name
-        self.__term_value = "1212"                  # determine from prop file using term_name
+        self.term_name = term_name + " " + TERM
+        self.__term_value = TERMS_VALUES_DICT[term_name]
         self.subject_code = subject_code
         self.class_num_5_digit = class_num_5_digit
         self.status = False
