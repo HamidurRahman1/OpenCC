@@ -1,7 +1,22 @@
 
-URL = "https://globalsearch.cuny.edu/CFGlobalSearchTool/CFSearchToolController"
+import os
 
+TERMS_VALUES_FILE_PATH = os.path.join(os.path.dirname(__file__), '../props/terms_values.txt')
 TERM = "Term"
+
+
+def load_terms_values():
+    terms_dict = dict()
+    f_obj = open(TERMS_VALUES_FILE_PATH)
+    for line in f_obj.readlines():
+        term_val = line.split("=")
+        terms_dict[term_val[0]] = term_val[1].strip()
+    return terms_dict
+
+
+TERMS_VALUES_DICT = load_terms_values()
+
+URL = "https://globalsearch.cuny.edu/CFGlobalSearchTool/CFSearchToolController"
 
 SESSION_1 = "1"
 SESSION_2 = "2"
