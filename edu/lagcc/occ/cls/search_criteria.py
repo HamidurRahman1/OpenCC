@@ -19,10 +19,10 @@ class SearchCriteria:
         self.cls_details_dict = CLASS_DETAILS_FORM.copy()
 
     def check_session_one(self):
-        return self.__do_extraction("1")
+        return self.__do_extraction(SESSION_1)
 
     def check_session_two(self):
-        return self.__do_extraction("2")
+        return self.__do_extraction(SESSION_2)
 
     def __do_extraction(self, session_code):
         self.clg_trm_dict[CLG_TRM_NAME_KEY] = self.term_name
@@ -31,7 +31,7 @@ class SearchCriteria:
         self.cls_details_dict[SUBJECT_NAME_KEY] = self.subject_code
         self.cls_details_dict[SESSION_KEY] = session_code
         soup = BeautifulSoup(self.session.post(URL, data=self.cls_details_dict).content, 'html.parser')
-        results = soup.find_all("td", {"class": "cunylite_LEVEL3GRIDROW"})
+        results = soup.find_all("td", {"class": FIVE_DIGIT_CLASS_LEVEL})
         i = 0
         for elem in results:
             val = elem.text.strip()
@@ -40,7 +40,7 @@ class SearchCriteria:
                 print("==> found", results[i+7])
                 print("==> ", elem.find_next("img")["title"])
                 # notify if open
-                if elem.find_next("img")["title"] == "Open":
+                if elem.find_next("img")["title"] == OPEN_STATUS:
                     self.status = True
                     break
             i = i+1

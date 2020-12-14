@@ -1,6 +1,16 @@
 
 URL = "https://globalsearch.cuny.edu/CFGlobalSearchTool/CFSearchToolController"
 
+TERM = "Term"
+
+SESSION_1 = "1"
+SESSION_2 = "2"
+
+FIVE_DIGIT_CLASS_LEVEL = "cunylite_LEVEL3GRIDROW"
+
+OPEN_STATUS = "Open"
+CLOSED_STATUS = "Open"
+
 CLG_TRM_NAME_KEY = "selectedTermName"
 CLG_TRM_VAL_KEY = "term_value"
 CLG_TRM_FORM = {"selectedInstName":     "LaGuardia CC",
