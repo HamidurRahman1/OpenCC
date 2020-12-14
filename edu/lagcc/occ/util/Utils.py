@@ -16,6 +16,7 @@ def load_terms_values():
     for line in f_obj.readlines():
         term_val = line.split("=")
         terms_dict[term_val[0]] = term_val[1].strip()
+    f_obj.close()
     return terms_dict
 
 
