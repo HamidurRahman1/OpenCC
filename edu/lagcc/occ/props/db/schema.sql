@@ -10,7 +10,7 @@ drop tables if exists users, terms, subjects, requests;
 create table users
 (
 	user_id int primary key auto_increment,
-    phone_num varchar(9) not null unique
+    phone_num varchar(10) not null unique
 );
 
 create table terms
