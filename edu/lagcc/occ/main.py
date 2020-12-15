@@ -2,6 +2,7 @@
 from edu.lagcc.occ.searcher.class_searcher import OpenClassSearcher
 from edu.lagcc.occ.models.term import Term
 from edu.lagcc.occ.models.user import User
+from edu.lagcc.occ.models.subject import Subject
 from datetime import datetime
 
 dt = datetime.now()
@@ -14,6 +15,7 @@ if __name__ == "__main__":
 
     print(Term(term, "1212"))
     print(User("2124700016", 89))
+    print(Subject("MATH", "MAT 115"))
 
     print(datetime.now()-dt)
     obj = OpenClassSearcher(term, subject_code, class_num_5_digit).check_session_one()
