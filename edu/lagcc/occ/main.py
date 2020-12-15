@@ -1,6 +1,7 @@
 
 from edu.lagcc.occ.searcher.class_searcher import SearchCriteria
 from edu.lagcc.occ.models.term import Term
+from edu.lagcc.occ.models.user import User
 from datetime import datetime
 
 dt = datetime.now()
@@ -12,6 +13,7 @@ if __name__ == "__main__":
     class_num_5_digit = "55576"
 
     print(Term(term, "1212"))
+    print(User("2124700016", 89))
 
     print(datetime.now()-dt)
     obj = SearchCriteria(term, subject_code, class_num_5_digit).check_session_one()
