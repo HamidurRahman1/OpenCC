@@ -3,9 +3,10 @@ import os
 import logging
 
 APP_NAME = "OpenCC"
+
 TERMS_VALUES_FILE_PATH = os.path.join(os.path.dirname(__file__), '../props/terms_values.properties')
-URL = "https://globalsearch.cuny.edu/CFGlobalSearchTool/CFSearchToolController"
 LOG_FILE_PATH = os.path.join(os.path.dirname(__file__), '../logs/logs.log')
+
 LOG_FORMAT = "$ "+APP_NAME+" ---> %(levelname)s :: %(message)s"
 logging.basicConfig(filename=LOG_FILE_PATH, filemode='w', level=logging.INFO, format=LOG_FORMAT)
 

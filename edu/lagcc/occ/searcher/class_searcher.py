@@ -1,11 +1,13 @@
 
-from edu.lagcc.occ.util.Utils import *
+from edu.lagcc.occ.config.starter import TERMS_VALUES_DICT
 from bs4 import BeautifulSoup
 import requests
 import re
 
 
 class SearchCriteria:
+
+    URL = "https://globalsearch.cuny.edu/CFGlobalSearchTool/CFSearchToolController"
 
     def __init__(self, term_name, subject_code, class_num_5_digit):
         self.session = requests.Session()
@@ -45,9 +47,9 @@ class SearchCriteria:
         return self.__class_finder("2")
 
     def __class_finder(self, session_code):
-        self.session.post(URL, data=self.clg_trm_dict)
+        self.session.post(SearchCriteria.URL, data=self.clg_trm_dict)
         self.cls_details_dict["class_session"] = session_code
-        soup = BeautifulSoup(self.session.post(URL, data=self.cls_details_dict).content, 'html.parser')
+        soup = BeautifulSoup(self.session.post(SearchCriteria.URL, data=self.cls_details_dict).content, 'html.parser')
         results = soup.find_all("td", {"class": "cunylite_LEVEL3GRIDROW"})
         i = 0
         for elem in results:
