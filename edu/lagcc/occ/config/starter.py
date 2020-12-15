@@ -33,4 +33,4 @@ def load_sub_codes_to_names():
 
 
 TERMS_VALUES_DICT = load_terms_values()
-SUB_CODES_TO_SUB_LIST = load_sub_codes_to_names()
+SUB_CODES_TO_SUB_SET = load_sub_codes_to_names()

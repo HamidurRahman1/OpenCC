@@ -19,7 +19,7 @@ if __name__ == "__main__":
     print(Subject("MATH", "MAT 115"))
 
     print(TERMS_VALUES_DICT)
-    print(SUB_CODES_TO_SUB_LIST)
+    print(SUB_CODES_TO_SUB_SET)
 
     print(datetime.now()-dt)
     obj = OpenClassSearcher(term, subject_code, class_num_5_digit).check_session_one()
