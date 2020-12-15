@@ -3,7 +3,7 @@ import os
 import logging
 
 APP_NAME = "OpenCC"
-TERMS_VALUES_FILE_PATH = os.path.join(os.path.dirname(__file__), '../props/terms_values.txt')
+TERMS_VALUES_FILE_PATH = os.path.join(os.path.dirname(__file__), '../props/terms_values.properties')
 URL = "https://globalsearch.cuny.edu/CFGlobalSearchTool/CFSearchToolController"
 LOG_FILE_PATH = os.path.join(os.path.dirname(__file__), '../logs/logs.log')
 LOG_FORMAT = "$ "+APP_NAME+" ---> %(levelname)s :: %(message)s"
@@ -15,7 +15,7 @@ def load_terms_values():
     f_obj = open(TERMS_VALUES_FILE_PATH)
     for line in f_obj.readlines():
         term_val = line.split("=")
-        terms_dict[term_val[0]] = term_val[1].strip()
+        terms_dict[term_val[1].strip()] = term_val[0].strip()
     f_obj.close()
     return terms_dict
 
