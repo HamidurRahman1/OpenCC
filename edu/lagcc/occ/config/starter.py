@@ -5,6 +5,7 @@ import logging
 APP_NAME = "OpenCC"
 
 TERMS_VALUES_FILE_PATH = os.path.join(os.path.dirname(__file__), '../props/terms_values.properties')
+SUB_CODES_FILE_PATH = os.path.join(os.path.dirname(__file__), '../props/sub_codes.properties')
 LOG_FILE_PATH = os.path.join(os.path.dirname(__file__), '../logs/logs.log')
 
 LOG_FORMAT = "$ "+APP_NAME+" ---> %(levelname)s :: %(message)s"
@@ -21,4 +22,15 @@ def load_terms_values():
     return terms_dict
 
 
+def load_sub_codes_to_names():
+    sub_code_to_names = dict()
+    f_obj = open(SUB_CODES_FILE_PATH)
+    for line in f_obj.readlines():
+        code_names = line.split("=")
+        sub_code_to_names[code_names[0].strip()] = set(code_names[1].strip().split(","))
+    f_obj.close()
+    return sub_code_to_names
+
+
 TERMS_VALUES_DICT = load_terms_values()
+SUB_CODES_TO_SUB_LIST = load_sub_codes_to_names()
