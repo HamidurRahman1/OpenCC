@@ -5,7 +5,7 @@ import requests
 import re
 
 
-class SearchCriteria:
+class OpenClassSearcher:
 
     URL = "https://globalsearch.cuny.edu/CFGlobalSearchTool/CFSearchToolController"
 
@@ -47,9 +47,9 @@ class SearchCriteria:
         return self.__class_finder("2")
 
     def __class_finder(self, session_code):
-        self.session.post(SearchCriteria.URL, data=self.clg_trm_dict)
+        self.session.post(OpenClassSearcher.URL, data=self.clg_trm_dict)
         self.cls_details_dict["class_session"] = session_code
-        soup = BeautifulSoup(self.session.post(SearchCriteria.URL, data=self.cls_details_dict).content, 'html.parser')
+        soup = BeautifulSoup(self.session.post(OpenClassSearcher.URL, data=self.cls_details_dict).content, 'html.parser')
         results = soup.find_all("td", {"class": "cunylite_LEVEL3GRIDROW"})
         i = 0
         for elem in results:
