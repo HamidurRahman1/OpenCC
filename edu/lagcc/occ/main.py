@@ -1,5 +1,6 @@
 
 from edu.lagcc.occ.searcher.class_searcher import SearchCriteria
+from edu.lagcc.occ.models.term import Term
 from datetime import datetime
 
 dt = datetime.now()
@@ -9,6 +10,8 @@ if __name__ == "__main__":
     term = "2021 Spring"
     subject_code = "VETE"
     class_num_5_digit = "55576"
+
+    print(Term(term, "1212"))
 
     print(datetime.now()-dt)
     obj = SearchCriteria(term, subject_code, class_num_5_digit).check_session_one()
