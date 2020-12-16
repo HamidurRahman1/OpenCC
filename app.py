@@ -5,6 +5,7 @@ from edu.lagcc.occ.models.term import Term
 from edu.lagcc.occ.models.user import User
 from edu.lagcc.occ.models.subject import Subject
 from datetime import datetime
+from flask import current_app
 
 dt = datetime.now()
 
@@ -21,9 +22,9 @@ if __name__ == "__main__":
     print(TERMS_VALUES_DICT)
     print(SUB_CODES_TO_SUB_SET)
 
-    print(datetime.now()-dt)
-    obj = OpenClassSearcher(term, subject_code, class_num_5_digit).check_session_one()
-    if not obj.found:
-        print("session 2")
-        obj.check_session_two()
-    print(datetime.now()-dt)
+    # print(datetime.now()-dt)
+    # obj = OpenClassSearcher(term, subject_code, class_num_5_digit).check_session_one()
+    # if not obj.found:
+    #     print("session 2")
+    #     obj.check_session_two()
+    # print(datetime.now()-dt)
