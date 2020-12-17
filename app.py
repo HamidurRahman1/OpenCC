@@ -1,30 +1,25 @@
 
-from edu.lagcc.occ.searcher.class_searcher import OpenClassSearcher
-from edu.lagcc.occ.config.starter import *
-from edu.lagcc.occ.models.term import Term
-from edu.lagcc.occ.models.user import User
-from edu.lagcc.occ.models.subject import Subject
-from datetime import datetime
-from flask import current_app
+from flask import Flask
+from edu.lagcc.occ.config.starter import APP_NAME
 
-dt = datetime.now()
+app = Flask(__name__)
+app.name = APP_NAME
+
+
+@app.route('/', methods=['GET'])
+def index():
+    return "home page"
+
 
 if __name__ == "__main__":
+
+    app.config.from_pyfile('edu/lagcc/occ/config/config.py')
+    app.run()
+
+    print(app.config.get("MYSQL_HOST"))
+    print(app.config.get("MYSQL_USER"))
+    print(app.config.get("MYSQL_DB"))
 
     term = "2021 Spring"
     subject_code = "VETE"
     class_num_5_digit = "55576"
-
-    print(Term(term, "1212"))
-    print(User("2124700016", 89))
-    print(Subject("MATH", "MAT 115"))
-
-    print(TERMS_VALUES_DICT)
-    print(SUB_CODES_TO_SUB_SET)
-
-    # print(datetime.now()-dt)
-    # obj = OpenClassSearcher(term, subject_code, class_num_5_digit).check_session_one()
-    # if not obj.found:
-    #     print("session 2")
-    #     obj.check_session_two()
-    # print(datetime.now()-dt)
