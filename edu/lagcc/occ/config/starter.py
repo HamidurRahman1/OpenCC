@@ -9,7 +9,7 @@ SUB_CODES_FILE_PATH = os.path.join(os.path.dirname(__file__), '../props/sub_code
 LOG_FILE_PATH = os.path.join(os.path.dirname(__file__), '../logs/logs.log')
 
 LOG_FORMAT = "$ "+APP_NAME+" ---> %(levelname)s :: %(message)s"
-logging.basicConfig(filename=LOG_FILE_PATH, filemode='w', level=logging.INFO, format=LOG_FORMAT)
+logging.basicConfig(filename=LOG_FILE_PATH, filemode='a', level=logging.INFO, format=LOG_FORMAT)
 
 
 def load_terms_values():

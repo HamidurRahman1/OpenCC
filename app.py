@@ -12,13 +12,10 @@ if __name__ == "__main__":
 
     @app.route('/', methods=['GET'])
     def index():
-        # ts = TermService(mysql.connection)
-        # for t in ts.get_all_terms():
-        #     print(t)
-        # print(ts.get_term_by_name("2025 Spring"))
+        s = "===> \n"
         for key in environ:
-            print(key, "=> ", environ.get(key))
-        return "my home page 1"
+            s = s + key + "=> " + environ.get(key)
+        return s+"\n <==="
 
     app.run()
 
