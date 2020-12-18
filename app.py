@@ -1,5 +1,6 @@
 
 from edu.lagcc.occ.services.term_service import TermService
+from edu.lagcc.occ.config.starter import *
 from edu.lagcc.occ.singletons.flask_instance import SingletonFlaskInstance
 from edu.lagcc.occ.singletons.mysql_instance import SingletonMySQLInstance
 from os import environ
