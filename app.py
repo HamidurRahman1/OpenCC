@@ -17,7 +17,7 @@ if __name__ == "__main__":
         #     print(t)
         # print(ts.get_term_by_name("2025 Spring"))
         for key in environ:
-            print("=> ", environ.get(key))
+            print(key, "=> ", environ.get(key))
         return "my home page 1"
 
     app.run()
