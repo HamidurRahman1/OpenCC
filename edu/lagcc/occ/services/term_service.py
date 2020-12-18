@@ -13,6 +13,13 @@ class TermService:
         terms_list = set()
         cur.execute(query)
         for term in cur.fetchall():
-            terms_list.add(Term(term[1], term[2], term[0]))
+            terms_list.add(Term(term_id=term[0], term_name=term[1], term_value=term[2]))
         cur.close()
         return terms_list
+
+    def get_term_by_name(self, term_name):
+        query = """select * from terms where term_name = '%s' """ % term_name
+        cur = self.connection.cursor()
+        cur.execute(query)
+        term = cur.fetchone()
+        return Term(term_id=term[0], term_name=term[1], term_value=term[2])

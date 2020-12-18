@@ -12,8 +12,10 @@ if __name__ == "__main__":
 
     @app.route('/', methods=['GET'])
     def index():
-        for term in TermService(mysql.connection).get_all_terms():
-            print(term)
+        ts = TermService(mysql.connection)
+        for t in ts.get_all_terms():
+            print(t)
+        print(ts.get_term_by_name("2025 Spring"))
         return "my home page 1"
 
     app.run()
