@@ -1,17 +1,10 @@
 
 import os
-import logging
 
 APP_NAME = "OpenCC"
 
-ROOT_DIR = os.path.normpath(os.getcwd() + os.sep + os.pardir + os.sep + os.pardir + os.sep + os.pardir)
-
 TERMS_VALUES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/terms_values.properties")
 SUB_CODES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/sub_codes.properties")
-LOG_FILE_PATH = os.path.join(ROOT_DIR, "edu/lagcc/occ/log/logs.log")
-
-LOG_FORMAT = "$ "+APP_NAME+" ---> %(levelname)s :: %(message)s"
-logging.basicConfig(filename=LOG_FILE_PATH, filemode='a', level=logging.INFO, format=LOG_FORMAT)
 
 
 def load_terms_values():
