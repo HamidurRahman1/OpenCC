@@ -1,7 +1,7 @@
 
-from edu.lagcc.occ.factory.flask_factory import FlaskFactoryInstance
+from edu.lagcc.occ.singletons.flask_instance import SingletonFlaskInstance
 
-app = FlaskFactoryInstance.get_instance()
+app = SingletonFlaskInstance.get_instance()
 
 
 @app.route('/', methods=['GET'])
@@ -11,7 +11,7 @@ def index():
     # for i in cur.fetchall():
     #     print(i)
     # cur.close()
-    return "my home page"
+    return "my home page 1"
 
 
 if __name__ == "__main__":
