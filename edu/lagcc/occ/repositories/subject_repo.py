@@ -2,7 +2,7 @@
 from edu.lagcc.occ.models.subject import Subject
 
 
-class SubjectService:
+class SubjectRepository:
 
     def __init__(self, connection):
         self.connection = connection

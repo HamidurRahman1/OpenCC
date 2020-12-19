@@ -2,7 +2,7 @@
 from edu.lagcc.occ.models.term import Term
 
 
-class TermService:
+class TermRepository:
 
     def __init__(self, connection):
         self.connection = connection
