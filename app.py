@@ -10,7 +10,9 @@ mysql = MySQLInstance.get_instance()
 
 @app.route('/', methods=['GET'])
 def index():
-    return UserRepository(mysql.connection).save_user(1111111113).__str__()
+    s = str(app.__str__())
+    s = s.replace('<', '').replace('>', '')
+    return str(app.__hash__()) + " => " + s
 
     # s = "===> \n"
     # for key in environ:
