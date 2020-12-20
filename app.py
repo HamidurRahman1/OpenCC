@@ -1,11 +1,11 @@
 
 from edu.lagcc.occ.repositories.user_repo import UserRepository
-from edu.lagcc.occ.singletons.flask_instance import SingletonFlaskInstance
-from edu.lagcc.occ.singletons.mysql_instance import SingletonMySQLInstance
+from edu.lagcc.occ.instances.flask_instance import FlaskInstance
+from edu.lagcc.occ.instances.mysql_instance import MySQLInstance
 from os import environ
 
-app = SingletonFlaskInstance.get_instance()
-mysql = SingletonMySQLInstance.get_instance()
+app = FlaskInstance.get_instance()
+mysql = MySQLInstance.get_instance()
 
 
 @app.route('/', methods=['GET'])
