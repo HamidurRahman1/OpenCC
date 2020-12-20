@@ -10,9 +10,12 @@ mysql = MySQLInstance.get_instance()
 
 @app.route('/', methods=['GET'])
 def index():
-
-    for i in RequestRepository(mysql.connection).get_requests_to_notify():
-        print(i)
+    d = RequestRepository(mysql.connection).get_requests_to_search_and_notify()
+    print(len(d))
+    for k in d:
+        print(k, " => ")
+        for s in d.get(k):
+            print(s)
     return "home"
 
     # s = "===> \n"
