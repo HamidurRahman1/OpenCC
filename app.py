@@ -1,5 +1,5 @@
 
-from edu.lagcc.occ.repositories.request_repo import RequestRepository
+from edu.lagcc.occ.repositories.term_repo import TermRepository
 from edu.lagcc.occ.instances.flask_instance import FlaskInstance
 from edu.lagcc.occ.instances.mysql_instance import MySQLInstance
 from os import environ
@@ -10,13 +10,7 @@ mysql = MySQLInstance.get_instance()
 
 @app.route('/', methods=['GET'])
 def index():
-    RequestRepository(mysql.connection).add_request(2222222222, 1289, "MAT 200", "MATH", 44644)
-    d = RequestRepository(mysql.connection).get_requests_to_search_and_notify()
-    print(len(d))
-    for k in d:
-        print(k, " => ")
-        for s in d.get(k):
-            print(s)
+    print(TermRepository(mysql.connection).get_term_by_name("2025 Fall"))
     return "home"
 
     # s = "===> \n"
