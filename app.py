@@ -10,6 +10,7 @@ mysql = MySQLInstance.get_instance()
 
 @app.route('/', methods=['GET'])
 def index():
+    RequestRepository(mysql.connection).add_request(2222222222, 1289, "MAT 200", "MATH", 44644)
     d = RequestRepository(mysql.connection).get_requests_to_search_and_notify()
     print(len(d))
     for k in d:

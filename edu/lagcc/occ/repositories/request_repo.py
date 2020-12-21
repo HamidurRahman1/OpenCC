@@ -31,4 +31,19 @@ class RequestRepository:
                 class_num_to_requests.get(request_obj.class_num_5_digit).add(request_obj)
             else:
                 class_num_to_requests[request_obj.class_num_5_digit] = {request_obj}
+        cur.close()
         return class_num_to_requests
+
+    def add_request(self, phone_number, term_value, subject_name, subject_code, class_num_5_digit):
+        query = """
+                insert into requests (fk_user_id, fk_term_id, fk_subject_id, class_num_5_digit) values 
+                ((select user_id from users where phone_num = %s), 
+                (select term_id from terms where term_value = %s),
+                (select subject_id from subjects where subject_name = %s and subject_code = %s),
+                %s);
+                """
+        cur = self.connection.cursor()
+        row = cur.execute(query, (phone_number, term_value, subject_name, subject_code, class_num_5_digit))
+        if row == 1:
+            self.connection.commit()
+        cur.close()
