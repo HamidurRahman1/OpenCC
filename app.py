@@ -1,5 +1,5 @@
 
-from edu.lagcc.occ.repositories.term_repo import TermRepository
+from edu.lagcc.occ.repositories.user_repo import UserRepository
 from edu.lagcc.occ.instances.flask_instance import FlaskInstance
 from edu.lagcc.occ.instances.mysql_instance import MySQLInstance
 from os import environ
@@ -10,7 +10,7 @@ mysql = MySQLInstance.get_instance()
 
 @app.route('/', methods=['GET'])
 def index():
-    print(TermRepository(mysql.connection).get_term_by_name("2025 Fall"))
+    UserRepository(mysql.connection).save_user(9099098008)
     return "home"
 
     # s = "===> \n"
