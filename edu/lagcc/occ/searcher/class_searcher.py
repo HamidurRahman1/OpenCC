@@ -2,7 +2,7 @@
 from edu.lagcc.occ.config.starter import TERMS_VALUES_DICT
 from bs4 import BeautifulSoup
 import requests
-import re
+from re import match
 
 
 class OpenClassSearcher:
@@ -54,11 +54,8 @@ class OpenClassSearcher:
         i = 0
         for elem in results:
             val = elem.text.strip()
-            if re.match("^\\d+$", val) and self.class_num_5_digit == val:
+            if match("^\\d+$", val) and self.class_num_5_digit == int(val):
                 self.found = True
-                print("==> ", results[i+7])
-                print("==> ", elem.find_next("img")["title"])
-                # notify if open
                 if elem.find_next("img")["title"] == "Open":
                     self.status = True
                     break
