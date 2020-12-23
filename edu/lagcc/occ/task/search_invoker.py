@@ -1,14 +1,23 @@
 
 import asyncio
 import threading
-import urllib3
 import time
+import MySQLdb
+import logging
+from os import environ
 
 
 def invoke_class_searcher():
-    response = urllib3.PoolManager().request("GET", "https://opencclagcc.herokuapp.com/____cc_search__")
-    print(response.status, response.data.decode("utf-8"))
-    time.sleep(60)
+    db = MySQLdb.connect(host=environ.get("MYSQL_HOST"), user=environ.get("MYSQL_USER"),
+                         passwd=environ.get("MYSQL_PASSWORD"), db=environ.get("MYSQL_DB"))
+    cur = db.cursor()
+    cur.execute("SELECT * FROM users")
+    s = ""
+    for row in cur.fetchall():
+        s = s + str(row[0]) + " " + row[1] + " => "
+    logging.info(s)
+    db.close()
+    time.sleep(10)
     return set()
 
 
