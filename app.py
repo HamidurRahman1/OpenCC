@@ -3,6 +3,7 @@ from flask import Flask
 from flask import render_template
 from flask_mysqldb import MySQL
 from edu.lagcc.occ.config.starter import APP_NAME
+from edu.lagcc.occ.repositories.term_repo import TermRepository
 from edu.lagcc.occ.task.search_invoker import init
 
 
@@ -47,6 +48,7 @@ class Controller:
     @staticmethod
     @app.route("/", methods=["GET"])
     def index():
+        print(next(iter(TermRepository(mysql.connection).get_all_terms())))
         return render_template("index.html")
 
 
