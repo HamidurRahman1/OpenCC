@@ -3,20 +3,19 @@ import asyncio
 import threading
 import time
 import MySQLdb
-import logging
 from os import environ
+from edu.lagcc.occ.repositories.request_repo import RequestRepository
 
 
 def invoke_class_searcher():
-    db = MySQLdb.connect(host=environ.get("MYSQL_HOST"), user=environ.get("MYSQL_USER"),
+    connection = MySQLdb.connect(host=environ.get("MYSQL_HOST"), user=environ.get("MYSQL_USER"),
                          passwd=environ.get("MYSQL_PASSWORD"), db=environ.get("MYSQL_DB"))
-    cur = db.cursor()
-    cur.execute("SELECT * FROM users")
-    s = ""
-    for row in cur.fetchall():
-        s = s + str(row[0]) + " " + row[1] + " => "
-    logging.info(s)
-    db.close()
+    d = RequestRepository(connection).get_requests_to_search_and_notify()
+    for k in d.keys():
+        print(k, "==>")
+        for j in d.get(k):
+            print(j)
+    connection.close()
     time.sleep(10)
     return set()
 
