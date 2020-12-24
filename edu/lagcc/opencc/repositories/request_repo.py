@@ -1,8 +1,8 @@
 
-from edu.lagcc.occ.models.request import Request
-from edu.lagcc.occ.models.term import Term
-from edu.lagcc.occ.models.subject import Subject
-from edu.lagcc.occ.models.user import User
+from edu.lagcc.opencc.models.request import Request
+from edu.lagcc.opencc.models.term import Term
+from edu.lagcc.opencc.models.subject import Subject
+from edu.lagcc.opencc.models.user import User
 
 
 class RequestRepository:

@@ -1,5 +1,5 @@
 
-from edu.lagcc.occ.config.starter import TERMS_VALUES_DICT
+from edu.lagcc.opencc.config.starter import TERMS_VALUES_DICT
 from bs4 import BeautifulSoup
 import requests
 from re import match

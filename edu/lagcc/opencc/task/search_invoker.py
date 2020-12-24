@@ -4,8 +4,8 @@ import threading
 import time
 import MySQLdb
 from os import environ
-from edu.lagcc.occ.repositories.request_repo import RequestRepository
-from edu.lagcc.occ.searcher.class_searcher import OpenClassSearcher
+from edu.lagcc.opencc.repositories.request_repo import RequestRepository
+from edu.lagcc.opencc.searcher.class_searcher import OpenClassSearcher
 
 
 def _search(class_num, requests_set):

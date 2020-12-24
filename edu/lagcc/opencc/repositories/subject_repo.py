@@ -1,5 +1,5 @@
 
-from edu.lagcc.occ.models.subject import Subject
+from edu.lagcc.opencc.models.subject import Subject
 
 
 class SubjectRepository:

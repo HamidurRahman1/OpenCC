@@ -1,5 +1,5 @@
 
-from edu.lagcc.occ.models.term import Term
+from edu.lagcc.opencc.models.term import Term
 
 
 class TermRepository:

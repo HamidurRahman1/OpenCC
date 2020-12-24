@@ -1,5 +1,5 @@
 
-from edu.lagcc.occ.models.user import User
+from edu.lagcc.opencc.models.user import User
 
 
 class UserRepository:

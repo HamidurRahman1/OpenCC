@@ -2,9 +2,9 @@
 from flask import Flask
 from flask import render_template
 from flask_mysqldb import MySQL
-from edu.lagcc.occ.config.starter import APP_NAME
-from edu.lagcc.occ.repositories.request_repo import RequestRepository
-from edu.lagcc.occ.task.search_invoker import class_search_scheduler
+from edu.lagcc.opencc.config.starter import APP_NAME
+from edu.lagcc.opencc.repositories.request_repo import RequestRepository
+from edu.lagcc.opencc.task.search_invoker import class_search_scheduler
 
 
 class FlaskInstance:
