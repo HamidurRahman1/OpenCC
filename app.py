@@ -57,6 +57,6 @@ class Controller:
 
 
 if __name__ == "__main__":
-    class_search_scheduler()
+    # class_search_scheduler()
     app.run(use_reloader=False)
 
