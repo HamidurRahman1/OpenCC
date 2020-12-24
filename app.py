@@ -3,9 +3,8 @@ from flask import Flask
 from flask import render_template
 from flask_mysqldb import MySQL
 from edu.lagcc.occ.config.starter import APP_NAME
-from edu.lagcc.occ.notifier.sms_sender import SMSSender
-from edu.lagcc.occ.repositories.term_repo import TermRepository
-from edu.lagcc.occ.task.search_invoker import init
+from edu.lagcc.occ.repositories.request_repo import RequestRepository
+from edu.lagcc.occ.task.search_invoker import class_search_scheduler
 
 
 class FlaskInstance:
@@ -49,11 +48,15 @@ class Controller:
     @staticmethod
     @app.route("/", methods=["GET"])
     def index():
-        print(next(iter(TermRepository(mysql.connection).get_all_terms())))
+        d = RequestRepository(mysql.connection).get_requests_to_search_and_notify()
+        for k in d.keys():
+            print(k, "==>")
+            for j in d.get(k):
+                print(j)
         return render_template("index.html")
 
 
 if __name__ == "__main__":
-    init()
+    class_search_scheduler()
     app.run(use_reloader=False)
 
