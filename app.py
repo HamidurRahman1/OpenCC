@@ -15,7 +15,7 @@ class FlaskInstance:
         if FlaskInstance.__app_instance is None:
             FlaskInstance.__app_instance = Flask(__name__)
             FlaskInstance.__app_instance.name = APP_NAME
-            FlaskInstance.__app_instance.config.from_pyfile("edu/lagcc/occ/config/config.py")
+            FlaskInstance.__app_instance.config.from_pyfile("edu/lagcc/opencc/config/config.py")
 
     @staticmethod
     def get_instance():
@@ -43,11 +43,8 @@ app = FlaskInstance.get_instance()
 mysql = MySQLInstance.get_instance()
 
 
-class Controller:
-
-    @staticmethod
-    @app.route("/", methods=["GET"])
-    def index():
+@app.route("/", methods=["GET"])
+def index():
         d = RequestRepository(mysql.connection).get_requests_to_search_and_notify()
         for k in d.keys():
             print(k, "==>")
