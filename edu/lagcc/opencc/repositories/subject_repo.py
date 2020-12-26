@@ -1,5 +1,5 @@
 
-from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloper
+from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
 from edu.lagcc.opencc.models.subject import Subject
 
 
@@ -23,4 +23,4 @@ class SubjectRepository:
             cur.close()
             return subjects_set
         except Exception as ex:
-            raise NotifyDeveloper(type(ex).__name__, ex.args)
+            raise NotifyDeveloperException(type(ex).__name__, ex.args)
