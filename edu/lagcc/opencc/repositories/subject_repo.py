@@ -1,13 +1,18 @@
 
+from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloper
 from edu.lagcc.opencc.models.subject import Subject
 
 
 class SubjectRepository:
 
+    """ This repository replicates `subjects` table in database. The constructor takes a database connection."""
+
     def __init__(self, connection):
         self.connection = connection
 
     def get_all_subjects(self):
+        """ Returns all available subjects in the database. """
+
         query = "select * from subjects"
         try:
             cur = self.connection.cursor()
@@ -18,7 +23,4 @@ class SubjectRepository:
             cur.close()
             return subjects_set
         except Exception as ex:
-            template = "Exception of type '{0}' with arguments:\n{1!r}"
-            message = template.format(type(ex).__name__, ex.args)
-            print(message)
-            pass    # raise DevNotify Exception
+            raise NotifyDeveloper(type(ex).__name__, ex.args)
