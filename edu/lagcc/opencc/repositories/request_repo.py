@@ -4,6 +4,8 @@ from edu.lagcc.opencc.models.request import Request
 from edu.lagcc.opencc.models.term import Term
 from edu.lagcc.opencc.models.subject import Subject
 from edu.lagcc.opencc.models.user import User
+from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequest
+from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloper
 
 
 class RequestRepository:
@@ -37,10 +39,7 @@ class RequestRepository:
             cur.close()
             return tuple_class_num_term_to_requests
         except Exception as ex:
-            template = "Exception of type '{0}' with arguments:\n{1!r}"
-            message = template.format(type(ex).__name__, ex.args)
-            print(message)
-            pass  # raise DevNotify Exception
+            raise NotifyDeveloper(type(ex).__name__, ex.args)
 
     def add_request(self, phone_number, term_value, subject_name, subject_code, class_num_5_digit):
         query = """
@@ -59,9 +58,6 @@ class RequestRepository:
             return True
         except IntegrityError as ex:
             if "for key 'fk_user_id'" in ex.args[1]:
-                print("user has already made this request")  # raise exception
+                raise DuplicateRequest(phone_number=phone_number, subject_name=subject_name, class_num_5_digit=class_num_5_digit)
         except Exception as ex:
-            template = "Exception of type '{0}' with arguments:\n{1!r}"
-            message = template.format(type(ex).__name__, ex.args)
-            print(message)
-            pass  # raise DevNotify Exception
+            raise NotifyDeveloper(type(ex).__name__, ex.args)
