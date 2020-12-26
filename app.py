@@ -4,6 +4,7 @@ from flask import render_template
 from flask_mysqldb import MySQL
 from edu.lagcc.opencc.config.starter import APP_NAME
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
+from edu.lagcc.opencc.repositories.user_repo import UserRepository
 from edu.lagcc.opencc.task.search_invoker import class_search_scheduler
 
 
@@ -45,7 +46,7 @@ mysql = MySQLInstance.get_instance()
 
 @app.route("/", methods=["GET"])
 def index():
-    d = RequestRepository(mysql.connection).add_request(1111111111, 1212, "BTA 112", "ACCT", 30004)
+    d = UserRepository(mysql.connection).get_user_by_phone_num(2124700015)
     print(d, "success")
     return render_template("index.html")
 
