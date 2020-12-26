@@ -1,6 +1,7 @@
 
 class DuplicatePhoneNumber(Exception):
-    """Exception raised when account with the given phone number exists.
+    """
+    Exception raised when account with the given phone number exists.
     Attributes:
         phone_number --> indicating the existing user with this phone number
     """
@@ -11,7 +12,8 @@ class DuplicatePhoneNumber(Exception):
 
 
 class DuplicateRequest(Exception):
-    """Exception raised user attempts to make a request for the same class that exists.
+    """
+    Exception raised user attempts to make a request for the same class that exists.
     Attributes:
         phone_number --> indicating the existing phone number
         subject_name --> indicates subject
@@ -24,8 +26,21 @@ class DuplicateRequest(Exception):
         super().__init__(self.message)
 
 
-class NotifyDeveloper(Exception):
-    """Exception raised when cause is completely unknown and/or database is down, and/or application is down.
+class NotFoundException(Exception):
+    """
+    Exception raised when a record is not found.
+    Attributes:
+        message --> a message to get hint of the error
+    """
+
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+
+class NotifyDeveloperException(Exception):
+    """
+    Exception raised when cause is completely unknown and/or database is down, and/or application is down.
     Attributes:
         error_type --> indicating the existing phone number
         partial_message --> a message to get hint of the error
