@@ -61,8 +61,8 @@ class OpenClassSearcher:
                 self.found = True
                 if elem.find_next("img")["title"] == "Open":
                     self.status = True
-                    self.session.close()
-                    soup.clear()
-                    break
+                self.session.close()
+                soup.clear()
+                break
             i = i+1
         return self
