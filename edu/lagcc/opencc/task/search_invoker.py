@@ -9,12 +9,12 @@ from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.searcher.class_searcher import OpenClassSearcher
 
 
-def _search(class_num, requests_set):
+def _search(tuple_class_num_term, requests_set):
     req_obj = next(iter(requests_set))
-    obj = OpenClassSearcher(req_obj.term.term_name, req_obj.subject.subject_code, class_num).check_session_one()
+    obj = OpenClassSearcher(req_obj.term.term_name, req_obj.subject.subject_code, tuple_class_num_term).check_session_one()
     if obj.found:
         if obj.status:
-            SMSSender(req_obj.user.phone_number, req_obj.subject.subject_name, class_num, req_obj.term.term_name).send()
+            SMSSender(req_obj.user.phone_number, req_obj.subject.subject_name, tuple_class_num_term[0], req_obj.term.term_name).send()
             print(len(requests_set), "users notified")
         else:
             print("class still closed in session 1")
@@ -22,16 +22,16 @@ def _search(class_num, requests_set):
         obj = obj.check_session_two()
         if obj.found:
             if obj.status:
-                SMSSender(req_obj.user.phone_number, req_obj.subject.subject_name, class_num, req_obj.term.term_name).send()
+                SMSSender(req_obj.user.phone_number, req_obj.subject.subject_name, tuple_class_num_term[0], req_obj.term.term_name).send()
                 print(len(requests_set), "users notified")
             else:
                 print("class still closed in session 2")
 
 
-def _process(class_num_to_req_dict):
+def _process(tuple_to_req_dict):
     threads = []
-    for class_num in class_num_to_req_dict.keys():
-        thread = threading.Thread(target=_search, args=[class_num, class_num_to_req_dict.get(class_num)])
+    for tuple_key in tuple_to_req_dict.keys():
+        thread = threading.Thread(target=_search, args=[tuple_key, tuple_to_req_dict.get(tuple_key)])
         thread.start()
         threads.append(thread)
 
@@ -46,14 +46,14 @@ def _invoke_class_searcher():
     connection = MySQLdb.connect(host=environ.get("MYSQL_HOST"), user=environ.get("MYSQL_USER"),
                                  passwd=environ.get("MYSQL_PASSWORD"), db=environ.get("MYSQL_DB"))
 
-    class_num_to_requests = RequestRepository(connection).get_requests_to_search_and_notify()
+    tuple_class_num_term_to_requests = RequestRepository(connection).get_requests_to_search_and_notify()
     connection.close()
-    # for k in class_num_to_requests.keys():
-    #     print(k, "==>")
-    #     for j in class_num_to_requests.get(k):
-    #         print(j)
+    for k in tuple_class_num_term_to_requests.keys():
+        print(k, "==>")
+        for j in tuple_class_num_term_to_requests.get(k):
+            print(j)
     ss = time.time()
-    _process(class_num_to_requests)
+    _process(tuple_class_num_term_to_requests)
     print(time.time()-ss, "pro")
     end = round(time.time()-start)
     print(time.time()-start, "all")
