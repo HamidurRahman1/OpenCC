@@ -1,5 +1,5 @@
 
-class DuplicatePhoneNumber(Exception):
+class UserExistsException(Exception):
     """
     Exception raised when account with the given phone number exists.
     Attributes:
@@ -11,7 +11,7 @@ class DuplicatePhoneNumber(Exception):
         super().__init__(self.message)
 
 
-class DuplicateRequest(Exception):
+class DuplicateRequestException(Exception):
     """
     Exception raised user attempts to make a request for the same class that exists.
     Attributes:
