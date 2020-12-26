@@ -1,5 +1,5 @@
-from MySQLdb._exceptions import IntegrityError
 
+from MySQLdb._exceptions import IntegrityError
 from edu.lagcc.opencc.models.request import Request
 from edu.lagcc.opencc.models.term import Term
 from edu.lagcc.opencc.models.subject import Subject
@@ -18,22 +18,29 @@ class RequestRepository:
                 inner join users u on u.user_id = r.fk_user_id
                 inner join terms t on r.fk_term_id = t.term_id
                 inner join subjects s on r.fk_subject_id = s.subject_id
-                order by u.user_id
                 """
-        cur = self.connection.cursor()
-        cur.execute(query)
-        class_num_to_requests = dict()
-        for request in cur.fetchall():
-            user_obj = User(user_id=request[0], phone_number=request[1])
-            term_obj = Term(term_name=request[2], term_value=request[3])
-            subject_obj = Subject(subject_code=request[4], subject_name=request[5])
-            request_obj = Request(user=user_obj, term=term_obj, subject=subject_obj, class_num_5_digit=request[6])
-            if (request_obj.class_num_5_digit, request_obj.term.term_name) in class_num_to_requests:
-                class_num_to_requests.get((request_obj.class_num_5_digit, request_obj.term.term_name)).add(request_obj)
-            else:
-                class_num_to_requests[(request_obj.class_num_5_digit, request_obj.term.term_name)] = {request_obj}
-        cur.close()
-        return class_num_to_requests
+        try:
+            cur = self.connection.cursor()
+            cur.execute(query)
+            tuple_class_num_term_to_requests = dict()
+            for request in cur.fetchall():
+                user_obj = User(user_id=request[0], phone_number=request[1])
+                term_obj = Term(term_name=request[2], term_value=request[3])
+                subject_obj = Subject(subject_code=request[4], subject_name=request[5])
+                request_obj = Request(user=user_obj, term=term_obj, subject=subject_obj, class_num_5_digit=request[6])
+                if (request_obj.class_num_5_digit, request_obj.term.term_name) in tuple_class_num_term_to_requests:
+                    tuple_class_num_term_to_requests.get(
+                        (request_obj.class_num_5_digit, request_obj.term.term_name)).add(request_obj)
+                else:
+                    tuple_class_num_term_to_requests[(request_obj.class_num_5_digit, request_obj.term.term_name)]={
+                        request_obj}
+            cur.close()
+            return tuple_class_num_term_to_requests
+        except Exception as ex:
+            template = "Exception of type '{0}' with arguments:\n{1!r}"
+            message = template.format(type(ex).__name__, ex.args)
+            print(message)
+            pass  # raise DevNotify Exception
 
     def add_request(self, phone_number, term_value, subject_name, subject_code, class_num_5_digit):
         query = """
@@ -53,3 +60,8 @@ class RequestRepository:
         except IntegrityError as ex:
             if "for key 'fk_user_id'" in ex.args[1]:
                 print("user has already made this request")  # raise exception
+        except Exception as ex:
+            template = "Exception of type '{0}' with arguments:\n{1!r}"
+            message = template.format(type(ex).__name__, ex.args)
+            print(message)
+            pass  # raise DevNotify Exception
