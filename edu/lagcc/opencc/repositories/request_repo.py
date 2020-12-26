@@ -27,10 +27,10 @@ class RequestRepository:
             term_obj = Term(term_name=request[2], term_value=request[3])
             subject_obj = Subject(subject_code=request[4], subject_name=request[5])
             request_obj = Request(user=user_obj, term=term_obj, subject=subject_obj, class_num_5_digit=request[6])
-            if request_obj.class_num_5_digit in class_num_to_requests:
-                class_num_to_requests.get(request_obj.class_num_5_digit).add(request_obj)
+            if (request_obj.class_num_5_digit, request_obj.term.term_name) in class_num_to_requests:
+                class_num_to_requests.get((request_obj.class_num_5_digit, request_obj.term.term_name)).add(request_obj)
             else:
-                class_num_to_requests[request_obj.class_num_5_digit] = {request_obj}
+                class_num_to_requests[(request_obj.class_num_5_digit, request_obj.term.term_name)] = {request_obj}
         cur.close()
         return class_num_to_requests
 
