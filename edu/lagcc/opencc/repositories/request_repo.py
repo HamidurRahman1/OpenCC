@@ -1,3 +1,4 @@
+from MySQLdb._exceptions import IntegrityError
 
 from edu.lagcc.opencc.models.request import Request
 from edu.lagcc.opencc.models.term import Term
@@ -42,8 +43,13 @@ class RequestRepository:
                 (select subject_id from subjects where subject_name = %s and subject_code = %s),
                 %s);
                 """
-        cur = self.connection.cursor()
-        row = cur.execute(query, (phone_number, term_value, subject_name, subject_code, class_num_5_digit))
-        if row == 1:
-            self.connection.commit()
-        cur.close()
+        try:
+            cur = self.connection.cursor()
+            row = cur.execute(query, (phone_number, term_value, subject_name, subject_code, class_num_5_digit))
+            if row == 1:
+                self.connection.commit()
+            cur.close()
+            return True
+        except IntegrityError as ex:
+            if "for key 'fk_user_id'" in ex.args[1]:
+                print("user has already made this request")  # raise exception

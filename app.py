@@ -45,15 +45,12 @@ mysql = MySQLInstance.get_instance()
 
 @app.route("/", methods=["GET"])
 def index():
-    d = RequestRepository(mysql.connection).get_requests_to_search_and_notify()
-    for k in d.keys():
-        print(k, "==>")
-        for j in d.get(k):
-            print(j)
+    d = RequestRepository(mysql.connection).add_request(1111111111, 1212, "BTA 112", "ACCT", 30004)
+    print(d, "success")
     return render_template("index.html")
 
 
 if __name__ == "__main__":
-    class_search_scheduler()
+    # class_search_scheduler()
     app.run(use_reloader=False)
 
