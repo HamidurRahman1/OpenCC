@@ -11,7 +11,7 @@ from edu.lagcc.opencc.searcher.class_searcher import OpenClassSearcher
 
 def _search(tuple_class_num_term, requests_set):
     req_obj = next(iter(requests_set))
-    obj = OpenClassSearcher(req_obj.term.term_name, req_obj.subject.subject_code, tuple_class_num_term).check_session_one()
+    obj = OpenClassSearcher(req_obj.term.term_name, req_obj.subject.subject_code, tuple_class_num_term[0]).check_session_one()
     if obj.found:
         if obj.status:
             SMSSender(req_obj.user.phone_number, req_obj.subject.subject_name, tuple_class_num_term[0], req_obj.term.term_name).send()
