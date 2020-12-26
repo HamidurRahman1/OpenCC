@@ -1,4 +1,5 @@
 
+from MySQLdb._exceptions import IntegrityError
 from edu.lagcc.opencc.models.user import User
 
 
@@ -43,8 +44,20 @@ class UserRepository:
 
     def save_user(self, phone_number):
         query = """insert into users (phone_num) value (%s)"""
-        cur = self.connection.cursor()
-        i = cur.execute(query, (phone_number,))
-        if i == 1:
-            self.connection.commit()
-            cur.close()
+        try:
+            cur = self.connection.cursor()
+            i = cur.execute(query, (phone_number,))
+            if i == 1:
+                self.connection.commit()
+                cur.close()
+                return True
+        except IntegrityError as ex:
+            template = "Exception of type '{0}' with arguments:\n{1!r}"
+            message = template.format(type(ex).__name__, ex.args)
+            print(message)
+            pass  # raise DevNotify Exception
+        except Exception as ex:
+            template = "Exception of type '{0}' with arguments:\n{1!r}"
+            message = template.format(type(ex).__name__, ex.args)
+            print(message)
+            pass  # raise DevNotify Exception
