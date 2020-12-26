@@ -44,7 +44,10 @@ class OpenClassSearcher:
         return self.__class_finder("1")
 
     def check_session_two(self):
-        return self.__class_finder("2")
+        obj = self.__class_finder("2")
+        if not obj.found:
+            self.session.close()
+        return obj
 
     def __class_finder(self, session_code):
         self.session.post(OpenClassSearcher.URL, data=self.clg_trm_dict)
@@ -58,6 +61,8 @@ class OpenClassSearcher:
                 self.found = True
                 if elem.find_next("img")["title"] == "Open":
                     self.status = True
+                    self.session.close()
+                    soup.clear()
                     break
             i = i+1
         return self
