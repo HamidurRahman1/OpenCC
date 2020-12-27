@@ -1,6 +1,7 @@
 
-from edu.lagcc.opencc.models.user import User
 from MySQLdb._exceptions import IntegrityError
+from MySQLdb._exceptions import MySQLError
+from edu.lagcc.opencc.models.user import User
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
 from edu.lagcc.opencc.exceptions.exceptions import UserExistsException
 from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
@@ -25,7 +26,7 @@ class UserRepository:
             if user is None:
                 raise NotFoundException("No user with user_id={} exists".format(user_id))
             return User(user_id=user[0], phone_number=user[1])
-        except Exception as ex:
+        except MySQLError as ex:
             raise NotifyDeveloperException(type(ex).__name__, ex.args)
 
     def get_user_by_phone_num(self, phone_number):
@@ -40,7 +41,7 @@ class UserRepository:
             if user is None:
                 raise NotFoundException("No user with phone_number={} exists".format(phone_number))
             return User(user_id=user[0], phone_number=user[1])
-        except Exception as ex:
+        except MySQLError as ex:
             raise NotifyDeveloperException(type(ex).__name__, ex.args)
 
     def save_user(self, phone_number):
@@ -53,9 +54,8 @@ class UserRepository:
             if i == 1:
                 self.connection.commit()
                 cur.close()
-                return True
         except IntegrityError as ex:
             if "for key 'phone_num'" in ex.args[1]:
                 raise UserExistsException(phone_number=phone_number)
-        except Exception as ex:
+        except MySQLError as ex:
             raise NotifyDeveloperException(type(ex).__name__, ex.args)

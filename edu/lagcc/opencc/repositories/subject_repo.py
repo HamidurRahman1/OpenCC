@@ -1,4 +1,5 @@
 
+from MySQLdb._exceptions import MySQLError
 from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
 from edu.lagcc.opencc.models.subject import Subject
 
@@ -22,5 +23,5 @@ class SubjectRepository:
                 subjects_set.add(Subject(subject_id=subject[0], subject_code=subject[1], subject_name=subject[2]))
             cur.close()
             return subjects_set
-        except Exception as ex:
+        except MySQLError as ex:
             raise NotifyDeveloperException(type(ex).__name__, ex.args)

@@ -46,7 +46,7 @@ mysql = MySQLInstance.get_instance()
 
 @app.route("/", methods=["GET"])
 def index():
-    d = UserRepository(mysql.connection).save_user(1111111111)
+    d = RequestRepository(None).add_request(1111111112, 1212, "SCB 201", "BIOL", 45323)
     print(d, "success")
     return render_template("index.html")
 

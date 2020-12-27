@@ -1,5 +1,6 @@
 
 from MySQLdb._exceptions import IntegrityError
+from MySQLdb._exceptions import MySQLError
 from edu.lagcc.opencc.models.request import Request
 from edu.lagcc.opencc.models.term import Term
 from edu.lagcc.opencc.models.subject import Subject
@@ -7,6 +8,7 @@ from edu.lagcc.opencc.models.user import User
 from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequestException
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
 from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
+from edu.lagcc.opencc.repositories.user_repo import UserRepository
 
 
 class RequestRepository:
@@ -15,6 +17,7 @@ class RequestRepository:
 
     def __init__(self, connection):
         self.connection = connection
+        self.user_repository = UserRepository(connection)
 
     def get_requests_to_search_and_notify(self):
         """
@@ -50,7 +53,7 @@ class RequestRepository:
                 return tuple_class_num_term_to_requests
             else:
                 raise NotFoundException("No requests found to notify.")
-        except Exception as ex:
+        except MySQLError as ex:
             raise NotifyDeveloperException(type(ex).__name__, ex.args)
 
     def add_request(self, phone_number, term_value, subject_name, subject_code, class_num_5_digit):
@@ -64,6 +67,10 @@ class RequestRepository:
                 %s);
                 """
         try:
+            try:
+                self.user_repository.get_user_by_phone_num(phone_number)
+            except NotFoundException:
+                self.user_repository.save_user(phone_number)
             cur = self.connection.cursor()
             row = cur.execute(query, (phone_number, term_value, subject_name, subject_code, class_num_5_digit))
             if row == 1:
@@ -73,5 +80,5 @@ class RequestRepository:
         except IntegrityError as ex:
             if "for key 'fk_user_id'" in ex.args[1]:
                 raise DuplicateRequestException(phone_number=phone_number, subject_name=subject_name, class_num_5_digit=class_num_5_digit)
-        except Exception as ex:
+        except MySQLError as ex:
             raise NotifyDeveloperException(type(ex).__name__, ex.args)
