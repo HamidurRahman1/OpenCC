@@ -4,9 +4,18 @@ import threading
 import time
 import MySQLdb
 from os import environ
+from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
+from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
 from edu.lagcc.opencc.notifier.sms_sender import SMSSender
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.searcher.class_searcher import OpenClassSearcher
+
+
+def print_requests(t_dict):
+    for k in t_dict.keys():
+        print(k, "==>")
+        for j in t_dict.get(k):
+            print(j)
 
 
 def _search(tuple_class_num_term, requests_set):
@@ -41,24 +50,35 @@ def _process(tuple_to_req_dict):
 
 def _invoke_class_searcher():
     start = time.time()
-    expected_end = 120
+    expected_end = 360
 
-    connection = MySQLdb.connect(host=environ.get("MYSQL_HOST"), user=environ.get("MYSQL_USER"),
-                                 passwd=environ.get("MYSQL_PASSWORD"), db=environ.get("MYSQL_DB"))
+    # check if the global_search_site is up
+        # if up then check if req > 0
+            # if not then sleep for 5 min
+        # search and send texts
+    # if not then sleep for 5 min
 
-    tuple_class_num_term_to_requests = RequestRepository(connection).get_requests_to_search_and_notify()
-    connection.close()
-    for k in tuple_class_num_term_to_requests.keys():
-        print(k, "==>")
-        for j in tuple_class_num_term_to_requests.get(k):
-            print(j)
-    ss = time.time()
-    _process(tuple_class_num_term_to_requests)
-    print(time.time()-ss, "pro")
-    end = round(time.time()-start)
-    print(time.time()-start, "all")
-    if end < expected_end:
-        time.sleep(expected_end-end)
+    try:
+        connection = MySQLdb.connect(host=environ.get("MYSQL_HOST"), user=environ.get("MYSQL_USER"),
+                                   passwd=environ.get("MYSQL_PASSWORD"), db=environ.get("MYSQL_DB"))
+
+        tuple_class_num_term_to_requests = RequestRepository(connection).get_requests_to_search_and_notify()
+        connection.close()
+
+        print_requests(tuple_class_num_term_to_requests)
+
+        _process(tuple_class_num_term_to_requests)
+
+        end = round(time.time()-start)
+        print(end, "all")
+        if end < expected_end:
+            time.sleep(expected_end-end)
+    except NotFoundException:
+        time.sleep(expected_end)
+    except NotifyDeveloperException as dex:
+        pass
+    except Exception as e:
+        pass
     return set()
 
 
