@@ -5,9 +5,9 @@ from twilio.rest import Client
 
 class SMSSender:
 
-    __account_sid = environ.get("TWILIO_ACCOUNT_SID")
-    __auth_token = environ.get("TWILIO_AUTH_TOKEN")
-    __from = environ.get("TWILIO_NUMBER")
+    __account_sid = 'environ.get("TWILIO_ACCOUNT_SID")'
+    __auth_token = 'environ.get("TWILIO_AUTH_TOKEN")'
+    __from = 'environ.get("TWILIO_NUMBER")'
 
     def __init__(self, phone_number, subject_name, class_num_5_digit, term_name, is_first=False):
         self.__client = Client(SMSSender.__account_sid, SMSSender.__auth_token)

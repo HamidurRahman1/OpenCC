@@ -59,8 +59,12 @@ def _invoke_class_searcher():
     # if not then sleep for 5 min
 
     try:
-        connection = MySQLdb.connect(host=environ.get("MYSQL_HOST"), user=environ.get("MYSQL_USER"),
-                                   passwd=environ.get("MYSQL_PASSWORD"), db=environ.get("MYSQL_DB"))
+        from edu.lagcc.opencc.config.config import MYSQL_HOST
+        from edu.lagcc.opencc.config.config import MYSQL_USER
+        from edu.lagcc.opencc.config.config import MYSQL_PASSWORD
+        from edu.lagcc.opencc.config.config import MYSQL_DB
+
+        connection = MySQLdb.connect(host=MYSQL_HOST, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DB)
 
         tuple_class_num_term_to_requests = RequestRepository(connection).get_requests_to_search_and_notify()
         connection.close()
