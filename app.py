@@ -5,6 +5,7 @@ from flask_mysqldb import MySQL
 from edu.lagcc.opencc.config.starter import APP_NAME
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.repositories.user_repo import UserRepository
+from edu.lagcc.opencc.searcher.class_searcher import OpenClassSearcher
 from edu.lagcc.opencc.task.search_invoker import class_search_scheduler
 
 
@@ -53,5 +54,6 @@ def index():
 
 if __name__ == "__main__":
     # class_search_scheduler()
-    app.run(use_reloader=False)
+    print(OpenClassSearcher.is_site_up())
+    # app.run(use_reloader=False)
 

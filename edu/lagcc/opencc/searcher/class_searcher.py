@@ -1,7 +1,8 @@
 
+import requests
+import time
 from edu.lagcc.opencc.config.starter import TERMS_VALUES_DICT
 from bs4 import BeautifulSoup
-import requests
 from re import match
 
 
@@ -61,9 +62,16 @@ class OpenClassSearcher:
                 self.found = True
                 if elem.find_next("img")["title"] == "Open":
                     self.status = True
-                self.session.close()
-                soup.clear(decompose=True)
+                    self.session.close()
                 break
             i = i+1
         soup.clear(decompose=True)
         return self
+
+    @staticmethod
+    def is_site_up():
+        try:
+            return requests.get(OpenClassSearcher.URL).status_code == 200
+        except:
+            time.sleep(2)
+            return OpenClassSearcher.is_site_up()
