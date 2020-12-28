@@ -18,12 +18,17 @@ def print_requests(t_dict):
             print(j)
 
 
+def _send_notification(requests_set):
+    for request in requests_set:
+        SMSSender(request.user.phone_number, request.subject.subject_name, request.class_num_5_digit, request.term.term_name).send()
+
+
 def _search(tuple_class_num_term, requests_set):
     req_obj = next(iter(requests_set))
     obj = OpenClassSearcher(req_obj.term.term_name, req_obj.subject.subject_code, tuple_class_num_term[0]).check_session_one()
     if obj.found:
         if obj.status:
-            SMSSender(req_obj.user.phone_number, req_obj.subject.subject_name, tuple_class_num_term[0], req_obj.term.term_name).send()
+            _send_notification(requests_set)
             print(len(requests_set), "users notified")
         else:
             print("class still closed in session 1")
@@ -31,7 +36,7 @@ def _search(tuple_class_num_term, requests_set):
         obj = obj.check_session_two()
         if obj.found:
             if obj.status:
-                SMSSender(req_obj.user.phone_number, req_obj.subject.subject_name, tuple_class_num_term[0], req_obj.term.term_name).send()
+                _send_notification(requests_set)
                 print(len(requests_set), "users notified")
             else:
                 print("class still closed in session 2")
@@ -50,7 +55,7 @@ def _process(tuple_to_req_dict):
 
 def _invoke_class_searcher():
     start = time.time()
-    expected_end = 360
+    expected_end = 120
 
     try:
         if not OpenClassSearcher.is_site_up():
