@@ -2,11 +2,8 @@
 from flask import Flask
 from flask import render_template
 from flask_mysqldb import MySQL
-from edu.lagcc.opencc.config.starter import APP_NAME
+from edu.lagcc.opencc.utils.util import APP_NAME
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
-from edu.lagcc.opencc.repositories.user_repo import UserRepository
-from edu.lagcc.opencc.searcher.class_searcher import OpenClassSearcher
-from edu.lagcc.opencc.task.search_invoker import class_search_scheduler
 
 
 class FlaskInstance:
