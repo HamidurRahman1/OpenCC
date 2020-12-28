@@ -52,11 +52,13 @@ def _invoke_class_searcher():
     start = time.time()
     expected_end = 360
 
-    # check if the global_search_site is up
-        # if up then check if req > 0
-            # if not then sleep for 5 min
-        # search and send texts
-    # if not then sleep for 5 min
+    try:
+        if not OpenClassSearcher.is_site_up():
+            time.sleep(expected_end)
+            return set()
+    except:
+        time.sleep(expected_end)
+        return set()
 
     try:
         from edu.lagcc.opencc.config.config import MYSQL_HOST
@@ -65,7 +67,6 @@ def _invoke_class_searcher():
         from edu.lagcc.opencc.config.config import MYSQL_DB
 
         connection = MySQLdb.connect(host=MYSQL_HOST, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DB)
-
         tuple_class_num_term_to_requests = RequestRepository(connection).get_requests_to_search_and_notify()
         connection.close()
 
