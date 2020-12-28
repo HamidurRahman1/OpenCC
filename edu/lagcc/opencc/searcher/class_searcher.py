@@ -1,9 +1,8 @@
 
 import requests
-import time
-from edu.lagcc.opencc.config.starter import TERMS_VALUES_DICT
 from bs4 import BeautifulSoup
 from re import match
+from edu.lagcc.opencc.utils.util import TERMS_VALUES_DICT
 
 
 class OpenClassSearcher:
@@ -73,5 +72,4 @@ class OpenClassSearcher:
         try:
             return requests.get(OpenClassSearcher.URL).status_code == 200
         except:
-            time.sleep(2)
-            return OpenClassSearcher.is_site_up()
+            return False
