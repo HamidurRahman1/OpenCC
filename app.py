@@ -49,6 +49,16 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/add/request", methods=["POST"])
+def add_request():
+    return "add request"
+
+
+@app.route("/delete/request", methods=["DELETE"])
+def delete_request():
+    return "delete request"
+
+
 if __name__ == "__main__":
     # class_search_scheduler()
     app.run(use_reloader=False)
