@@ -1,5 +1,5 @@
 
-from flask import Flask
+from flask import Flask, redirect
 from flask import request
 from flask import render_template
 from flask_mysqldb import MySQL
@@ -47,23 +47,35 @@ mysql = MySQLInstance.get_instance()
 
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html", terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
+    return render_template("index.html",
+                           title=APP_NAME,
+                           terms=POSSIBLE_TERMS,
+                           subs=SUB_CODES_TO_SUB_SET)
 
 
-@app.route("/add/request", methods=["POST"])
+@app.route("/request", methods=["POST"])
 def add_request():
-    print(request.form['term'])
-    print(request.form['phone-number'])
-    return render_template("reqs.html", success="we have processed your request. check out for a notification",
-                           terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
+    print(request.form.get("phone-number"))
+    print(request.form.get("term"))
+    print(request.form.get("subject").split(","))
+
+    # process request
+    # if request exists then add req already exists
+    # else return success and notify user with user_id
+
+    return render_template("index.html",
+                           title=APP_NAME,
+                           request_message="we have processed your request. Check out for a notification.",
+                           terms=POSSIBLE_TERMS,
+                           subs=SUB_CODES_TO_SUB_SET)
 
 
-@app.route("/user/requests", methods=["GET"])
+@app.route("/requests", methods=["GET"])
 def get():
     return render_template("reqs.html", rs="a", terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
 
 
-@app.route("/delete/request", methods=["DELETE"])
+@app.route("/request", methods=["DELETE"])
 def delete_request():
     return "delete request"
 
