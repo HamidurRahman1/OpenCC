@@ -3,7 +3,9 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask_mysqldb import MySQL
-from edu.lagcc.opencc.utils.util import APP_NAME, TERMS_VALUES_DICT, SUB_CODES_TO_SUB_SET
+from edu.lagcc.opencc.utils.util import APP_NAME
+from edu.lagcc.opencc.utils.util import POSSIBLE_TERMS
+from edu.lagcc.opencc.utils.util import SUB_CODES_TO_SUB_SET
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 
 
@@ -45,7 +47,7 @@ mysql = MySQLInstance.get_instance()
 
 @app.route("/", methods=["GET"])
 def index():
-    return render_template("index.html", terms=TERMS_VALUES_DICT, subs=SUB_CODES_TO_SUB_SET)
+    return render_template("index.html", terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
 
 
 @app.route("/add/request", methods=["POST"])
@@ -53,12 +55,12 @@ def add_request():
     print(request.form['term'])
     print(request.form['phone-number'])
     return render_template("reqs.html", success="we have processed your request. check out for a notification",
-                           terms=TERMS_VALUES_DICT, subs=SUB_CODES_TO_SUB_SET)
+                           terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
 
 
 @app.route("/user/requests", methods=["GET"])
 def get():
-    return render_template("reqs.html", rs="a", terms=TERMS_VALUES_DICT, subs=SUB_CODES_TO_SUB_SET)
+    return render_template("reqs.html", rs="a", terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
 
 
 @app.route("/delete/request", methods=["DELETE"])
