@@ -1,12 +1,11 @@
 
-from flask import Flask, redirect
+from flask import Flask
 from flask import request
 from flask import render_template
 from flask_mysqldb import MySQL
 from edu.lagcc.opencc.utils.util import APP_NAME
 from edu.lagcc.opencc.utils.util import POSSIBLE_TERMS
 from edu.lagcc.opencc.utils.util import SUB_CODES_TO_SUB_SET
-from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 
 
 class FlaskInstance:
@@ -45,16 +44,7 @@ app = FlaskInstance.get_instance()
 mysql = MySQLInstance.get_instance()
 
 
-@app.route("/", methods=["GET"])
-def index():
-    return render_template("index.html",
-                           title=APP_NAME,
-                           terms=POSSIBLE_TERMS,
-                           subs=SUB_CODES_TO_SUB_SET)
-
-
-@app.route("/request", methods=["POST"])
-def add_request():
+def __add_request():
     print(request.form.get("phone-number"))
     print(request.form.get("term"))
     print(request.form.get("subject").split(","))
@@ -63,21 +53,17 @@ def add_request():
     # if request exists then add req already exists
     # else return success and notify user with user_id
 
-    return render_template("index.html",
-                           title=APP_NAME,
-                           request_message="we have processed your request. Check out for a notification.",
-                           terms=POSSIBLE_TERMS,
-                           subs=SUB_CODES_TO_SUB_SET)
+    return "we have processed your request. Check out for a notification."
 
 
-@app.route("/requests", methods=["GET"])
-def get():
-    return render_template("reqs.html", rs="a", terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
-
-
-@app.route("/request", methods=["DELETE"])
-def delete_request():
-    return "delete request"
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "GET":
+        return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
+    elif request.method == "POST":
+        status = __add_request()
+        return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET,
+                               request_message=status)
 
 
 if __name__ == "__main__":

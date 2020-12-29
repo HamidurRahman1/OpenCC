@@ -10,14 +10,14 @@
 <body>
 
     <div>
-        <div class="request-successful">
+        <div class="request-message">
             {% if request_message %}
             <div>{{request_message}}</div>
             {% endif %}
         </div>
 
         <div class="add-request">
-            <form method="post" action="http://127.0.0.1:5000/request" id="add-request" name="add-request">
+            <form method="post" action="http://127.0.0.1:5000" id="add-request" name="add-request">
 
                 <strong>Enter your phone number:</strong>
                 <input type="tel" id="phone-number" name="phone-number" placeholder="123456789">

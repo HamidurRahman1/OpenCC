@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}" type="text/css">
+    <script src="{{ url_for('static', filename = 'main.js') }}" charset="utf-8" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{title}}</title>
 </head>
 <body>
 <div>
-    <p>-----> delete Request start</p>
     <div>
-        <form method="get" action="http://127.0.0.1:5000/user/requests">
+        <form method="get" action="http://127.0.0.1:5000">
             <label for="phone-number-del">Enter your phone number:</label><br>
             <input type="tel" id="phone-number-del" name="phone-number" placeholder="12345678">
             <!--              pattern="[0-9]{3}[0-9]{3}[0-9]{4}"-->
@@ -18,12 +20,6 @@
             <input type="submit" value="Delete Req">
         </form>
     </div>
-
-    {% if rs %}
-    <div>{{rs}}</div>
-    {% endif %}
-
-    <p>-----> delete Request start</p>
 </div>
 </body>
 </html>

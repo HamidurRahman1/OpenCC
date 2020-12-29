@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}" type="text/css">
-    <script src="{{ url_for('static', filename = 'main.js') }}" charset="utf-8" type="text/javascript"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{{title}}</title>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}" type="text/css">
+  <script src="{{ url_for('static', filename = 'main.js') }}" charset="utf-8" type="text/javascript"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{title}}</title>
+</head>
+<body>
 
-  {% include "header.html" %}
-  {% include "banner.html" %}
-  {% include "request.html" %}
-  {% include "get-reqs.html" %}
-  {% include "footer.html" %}
+{% include "header.html" %}
+{% include "banner.html" %}
+{% include "request.html" %}
+{% include "get-reqs.html" %}
+{% include "footer.html" %}
 
-  </body>
+</body>
 </html>
