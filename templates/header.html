@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}" type="text/css">
+    <script src="{{ url_for('static', filename = 'main.js') }}" charset="utf-8" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{title}}</title>
+</head>
+<body>
+
+    <header id="header">
+        <div>
+            <nav>
+                <a href="http://127.0.0.1:5000" target="_self">Home</a>
+                <a href="#" onclick="func()" id="about_link">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="about_content" class="modal">
+        <div class="modal-content">
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 
 import os
+import datetime
 
 APP_NAME = "OpenCC"
 
@@ -27,5 +28,40 @@ def load_sub_codes_to_names():
     return sub_code_to_names
 
 
+def possible_terms():
+    d = datetime.datetime.now()
+    terms = list()
+    SP = " Spring Term"
+    FA = " Fall Term"
+
+    if d.month == 1 and d.day < 10:
+        terms.append(str(d.year-1) + FA)
+        terms.append(str(d.year) + SP)
+    elif d.month >= 1 and d.month <= 5:
+        if d.month == 5 and d.day >= 15:
+            terms.append(str(d.year) + SP)
+            terms.append(str(d.year) + FA)
+        else:
+            terms.append(str(d.year) + SP)
+    elif d.month == 5 or d.month == 6:
+        if d.month == 6 and d.day >= 25:
+            terms.append(str(d.year) + FA)
+        else:
+            terms.append(str(d.year) + SP)
+            terms.append(str(d.year) + FA)
+    elif d.month >= 6 and d.month <= 10:
+        if d.month == 10 and d.day >= 15:
+            terms.append(str(d.year+1) + SP)
+            terms.append(str(d.year) + FA)
+        else:
+            terms.append(str(d.year) + FA)
+    else:
+        terms.append(str(d.year) + FA)
+        terms.append(str(d.year+1) + SP)
+    return terms
+
+
 TERMS_VALUES_DICT = load_terms_values()
 SUB_CODES_TO_SUB_SET = load_sub_codes_to_names()
+POSSIBLE_TERMS = possible_terms()
+
