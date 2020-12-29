@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% include "headers.html" %}
+{% include "banner.html" %}
+
+{% if success %}
+<div>{{success}}</div>
+{% endif %}
+
+{% include "request.html" %}
+{% include "get-reqs.html" %}
+{% include "footer.html" %}
+
+</body>
+</html>

@@ -1,7 +1,6 @@
 
-import time
-import json
-from flask import Flask, request, jsonify
+from flask import Flask
+from flask import request
 from flask import render_template
 from flask_mysqldb import MySQL
 from edu.lagcc.opencc.utils.util import APP_NAME, TERMS_VALUES_DICT, SUB_CODES_TO_SUB_SET
@@ -46,16 +45,20 @@ mysql = MySQLInstance.get_instance()
 
 @app.route("/", methods=["GET"])
 def index():
-    print("success")
-    return render_template("index.html", terms=TERMS_VALUES_DICT, subs=json.dumps(SUB_CODES_TO_SUB_SET))
+    return render_template("index.html", terms=TERMS_VALUES_DICT, subs=SUB_CODES_TO_SUB_SET)
 
 
 @app.route("/add/request", methods=["POST"])
 def add_request():
     print(request.form['term'])
     print(request.form['phone-number'])
-    time.sleep(50)
-    return "add request"
+    return render_template("reqs.html", success="we have processed your request. check out for a notification",
+                           terms=TERMS_VALUES_DICT, subs=SUB_CODES_TO_SUB_SET)
+
+
+@app.route("/user/requests", methods=["GET"])
+def get():
+    return render_template("reqs.html", rs="a", terms=TERMS_VALUES_DICT, subs=SUB_CODES_TO_SUB_SET)
 
 
 @app.route("/delete/request", methods=["DELETE"])
