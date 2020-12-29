@@ -1,8 +1,10 @@
 
-from flask import Flask
+import time
+import json
+from flask import Flask, request, jsonify
 from flask import render_template
 from flask_mysqldb import MySQL
-from edu.lagcc.opencc.utils.util import APP_NAME
+from edu.lagcc.opencc.utils.util import APP_NAME, TERMS_VALUES_DICT, SUB_CODES_TO_SUB_SET
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 
 
@@ -44,13 +46,15 @@ mysql = MySQLInstance.get_instance()
 
 @app.route("/", methods=["GET"])
 def index():
-    d = RequestRepository(None).add_request(1111111112, 1212, "SCB 201", "BIOL", 45323)
-    print(d, "success")
-    return render_template("index.html")
+    print("success")
+    return render_template("index.html", terms=TERMS_VALUES_DICT, subs=json.dumps(SUB_CODES_TO_SUB_SET))
 
 
 @app.route("/add/request", methods=["POST"])
 def add_request():
+    print(request.form['term'])
+    print(request.form['phone-number'])
+    time.sleep(50)
     return "add request"
 
 

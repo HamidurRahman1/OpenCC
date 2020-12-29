@@ -22,7 +22,7 @@ def load_sub_codes_to_names():
     f_obj = open(SUB_CODES_FILE_PATH)
     for line in f_obj.readlines():
         code_names = line.split("=")
-        sub_code_to_names[code_names[0].strip()] = set(code_names[1].strip().split(","))
+        sub_code_to_names[code_names[0].strip()] = list(code_names[1].strip().split(","))
     f_obj.close()
     return sub_code_to_names
 

@@ -1,13 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}" type="text/css">
-    <script src="{{ url_for('static', filename = 'js.js') }}" charset="utf-8" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename = 'main.js') }}" charset="utf-8" type="text/javascript"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>OpenCC</title>
   </head>
   <body>
-    <h3>OpenCC landing page</h3>
+
+  <div id="subs" style="display: none;">{{subs}}</div>
+
+  <header id="header">
+    <div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#about">About</a>
+            <a href="#faqs">FAQs</a>
+        </nav>
+    </div>
+  </header>
+
+  <div class="banner">
+    <h1>Welcome to OpenCC</h1>
+        OpenCC: A free open source application that notifies LaGCC student via text if their requested class becomes open.
+    </div>
+
+  <div>
+      <div class="add-request">
+          <form method="post" action="http://127.0.0.1:5000/add/request" id="add-request" name="add-request">
+              <label for="phone-number">Enter your phone number:</label><br><br>
+              <input type="tel" id="phone-number" name="phone-number" placeholder="12345678" pattern="[0-9]{3}[0-9]{3}[0-9]{4}">
+              <small>Format: 12345678</small><br><br>
+
+              <strong>Term:</strong>
+              <select id="term" name="term">
+                  {% for key in terms %}
+                    <option value="{{ terms.get(key) }}">{{key}}</option>
+                  {% endfor %}
+              </select>
+
+              <input type="submit" value="Add Request" onclick="add_request()">
+          </form>
+    </div>
+  </div>
+
+  <footer>
+      <div class="copyright">
+        OpenCC  Copyright (C) 2020  Hamidur Rahman
+      </div>
+  </footer>
   </body>
 </html>
