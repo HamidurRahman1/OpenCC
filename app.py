@@ -56,26 +56,26 @@ def __add_request__():
         class_num_5_digit = int(request.form.get("class-num-5"))
 
         req_repo = RequestRepository(mysql.connection)
-        user_repo = UserRepository(mysql.connection)
         status = req_repo.add_request(phone_number, int(term_value), subject_name, subject_code, class_num_5_digit)
 
         if status:
-            user = user_repo.get_user_by_phone_num(phone_number)
             SMSSender(phone_number=phone_number, subject_name=subject_name, class_num_5_digit=class_num_5_digit,
-                      term_name=term_name, request=True, user_id=user.user_id).send()
-            return "Dear {} user, we have processed your request for {} - {} for {} Term. You user id is: {}. " \
-                   "It is needed when you get the requested class(es) and would like to opt out from " \
-                   "getting notification.".format(APP_NAME, subject_name, class_num_5_digit, term_name, user.user_id)
+                      term_name=term_name, request=True).send()
+            return "Dear {} user, we have processed your request for {} - {} for {} Term."\
+                    .format(APP_NAME, subject_name, class_num_5_digit, term_name)
     except DuplicateRequestException as dex:
         return "Dear {} user, {} You may add a different request for a different class if necessary."\
-                .format(APP_NAME, dex)
+                .format(APP_NAME, str(dex).lower())
     except Exception as ex:
         SMSSender(dev=True, dev_msg=ex.args).send()
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    if request.method == "GET":
+    if request.method == "GET" and len(request.args) == 0:
+        return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
+    elif request.method == "GET" and len(request.args) == 1:
+        print(request.args["uid"])
         return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
     elif request.method == "POST":
         status = __add_request__()
