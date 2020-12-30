@@ -3,8 +3,13 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask_mysqldb import MySQL
+from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequestException
+from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
+from edu.lagcc.opencc.repositories.request_repo import RequestRepository
+from edu.lagcc.opencc.repositories.user_repo import UserRepository
 from edu.lagcc.opencc.utils.util import APP_NAME
 from edu.lagcc.opencc.utils.util import POSSIBLE_TERMS
+from edu.lagcc.opencc.utils.util import TERMS_VALUES_DICT
 from edu.lagcc.opencc.utils.util import SUB_CODES_TO_SUB_SET
 
 
@@ -44,16 +49,28 @@ app = FlaskInstance.get_instance()
 mysql = MySQLInstance.get_instance()
 
 
-def __add_request():
-    print(request.form.get("phone-number"))
-    print(request.form.get("term"))
-    print(request.form.get("subject").split(","))
+def __add_request__():
+    try:
+        phone_number = int(request.form.get("phone-number"))
+        term_name, term_value = request.form.get("term").split(",")
+        subject_code, subject_name = request.form.get("subject").split(",")
+        class_num_5_digit = int(request.form.get("class-num-5"))
 
-    # process request
-    # if request exists then add req already exists
-    # else return success and notify user with user_id
+        req_repo = RequestRepository(mysql.connection)
+        user_repo = UserRepository(mysql.connection)
+        status = req_repo.add_request(phone_number, int(term_value), subject_name, subject_code, class_num_5_digit)
 
-    return "we have processed your request. Check out for a notification."
+        if status:
+            user = user_repo.get_user_by_phone_num(phone_number)
+            return "Dear {} user, we have processed your request for {} - {} for {} Term. You user id is: {}. " \
+                   "It is needed in case you get the requested class(es) and would like to opt out from " \
+                   "getting notification.".format(APP_NAME, subject_name, class_num_5_digit, term_name, user.user_id)
+    except DuplicateRequestException:
+        return "dear user you already have made a request for this class ..."
+    except NotifyDeveloperException as nex:
+        print()
+    except Exception as ex:
+        print(ex.args)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -61,7 +78,7 @@ def index():
     if request.method == "GET":
         return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
     elif request.method == "POST":
-        status = __add_request()
+        status = __add_request__()
         return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET,
                                request_message=status)
 

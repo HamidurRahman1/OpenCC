@@ -28,8 +28,9 @@
 
                 <strong>Term:</strong>
                 <select id="term" name="term" required>
+                    <option value="None">Select Term</option>
                     {% for key in terms %}
-                    <option value="{{ terms.get(key) }}">{{key}}</option>
+                    <option value="{{ key }},{{ terms.get(key) }}">{{key}}</option>
                     {% endfor %}
                 </select>
                 <br>
@@ -46,6 +47,9 @@
                 </select>
                 <br>
                 <br>
+
+                <label for="class-num-5">5 digit class number:</label>
+                <input type="text" id="class-num-5" name="class-num-5" maxlength="5" minlength="5" size="5" required pattern="\d{5}"><br><br>
 
                 <input type="submit" value="Add Request">
             </form>
