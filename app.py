@@ -4,12 +4,11 @@ from flask import request
 from flask import render_template
 from flask_mysqldb import MySQL
 from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequestException
-from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
+from edu.lagcc.opencc.notifier.sms_sender import SMSSender
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.repositories.user_repo import UserRepository
 from edu.lagcc.opencc.utils.util import APP_NAME
 from edu.lagcc.opencc.utils.util import POSSIBLE_TERMS
-from edu.lagcc.opencc.utils.util import TERMS_VALUES_DICT
 from edu.lagcc.opencc.utils.util import SUB_CODES_TO_SUB_SET
 
 
@@ -62,15 +61,16 @@ def __add_request__():
 
         if status:
             user = user_repo.get_user_by_phone_num(phone_number)
+            SMSSender(phone_number=phone_number, subject_name=subject_name, class_num_5_digit=class_num_5_digit,
+                      term_name=term_name, request=True, user_id=user.user_id).send()
             return "Dear {} user, we have processed your request for {} - {} for {} Term. You user id is: {}. " \
-                   "It is needed in case you get the requested class(es) and would like to opt out from " \
+                   "It is needed when you get the requested class(es) and would like to opt out from " \
                    "getting notification.".format(APP_NAME, subject_name, class_num_5_digit, term_name, user.user_id)
-    except DuplicateRequestException:
-        return "dear user you already have made a request for this class ..."
-    except NotifyDeveloperException as nex:
-        print()
+    except DuplicateRequestException as dex:
+        return "Dear {} user, {} You may add a different request for a different class if necessary."\
+                .format(APP_NAME, dex)
     except Exception as ex:
-        print(ex.args)
+        SMSSender(dev=True, dev_msg=ex.args).send()
 
 
 @app.route("/", methods=["GET", "POST"])
