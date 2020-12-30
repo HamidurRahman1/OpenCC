@@ -20,7 +20,8 @@ def print_requests(t_dict):
 
 def _send_notification(requests_set):
     for request in requests_set:
-        SMSSender(request.user.phone_number, request.subject.subject_name, request.class_num_5_digit, request.term.term_name).send()
+        SMSSender(phone_number=request.user.phone_number, subject_name=request.subject.subject_name,
+                  class_num_5_digit=request.class_num_5_digit, term_name=request.term.term_name).send()
 
 
 def _search(tuple_class_num_term, requests_set):
