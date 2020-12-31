@@ -4,10 +4,11 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from flask_mysqldb import MySQL
+from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequestException
 from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
 from edu.lagcc.opencc.notifier.sms_sender import SMSSender
-from edu.lagcc.opencc.repositories.request_repo import RequestRepository
+from edu.lagcc.opencc.notifier.sms_sender import Option
 from edu.lagcc.opencc.utils.util import APP_NAME
 from edu.lagcc.opencc.utils.util import POSSIBLE_TERMS
 from edu.lagcc.opencc.utils.util import SUB_CODES_TO_SUB_SET
@@ -47,15 +48,15 @@ def __add_request__():
         status = req_repo.add_request(phone_number, int(term_value), subject_name, subject_code, class_num_5_digit)
 
         if status:
-            SMSSender(phone_number=phone_number, subject_name=subject_name, class_num_5_digit=class_num_5_digit,
-                      term_name=term_name, request=True).send()
+            SMSSender(option=Option.REQUEST, phone_number=phone_number, subject_name=subject_name,
+                      class_num_5_digit=class_num_5_digit, term_name=term_name).send()
             return "Dear {} user, we have processed your request for {} - {} for {} Term."\
-                    .format(APP_NAME, subject_name, class_num_5_digit, term_name)
+                   .format(APP_NAME, subject_name, class_num_5_digit, term_name)
     except DuplicateRequestException as dex:
         return "Dear {} user, {} You may add a different request for a different class if necessary."\
                 .format(APP_NAME, str(dex).lower())
     except NotifyDeveloperException as nex:
-        SMSSender(dev=True, dev_msg=nex).send()
+        SMSSender(option=Option.DEV, msg=nex).send()
     except:
         pass
 
@@ -70,7 +71,7 @@ def index():
         return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
 
 
-@_app.route("/delete", methods=["POST"])
+@_app.route("/"+environ.get("TWILIO_RSP_URI"), methods=["POST"])
 def unsubscribe_user():
     try:
         from_number = str(request.form['From']).replace("+", "")
@@ -78,15 +79,15 @@ def unsubscribe_user():
         body_length = len(body)
 
         # 'cancel all' --> delete all requests that exists with the this phone number
-        if body_length == 10:
+        if body_length == 10 and body == "cancel all":
             if RequestRepository(mysql.connection).delete_request(from_number):
-                SMSSender(phone_number=from_number).send()
+                SMSSender(option=Option.UN_SUB_ALL, phone_number=from_number).send()
         # 'cancel [5-digit-code]' --> delete the request that exists with the this phone number and 5-digit-class-num
-        elif body_length == 12:
+        elif body_length == 12 and body.startswith("cancel"):
             cls_5_digit = body.split(" ")[1]
             if len(cls_5_digit) == 5 and cls_5_digit.isdigit():
                 if RequestRepository(mysql.connection).delete_request(from_number, int(cls_5_digit)):
-                    SMSSender(phone_number=from_number).send()
+                    SMSSender(option=Option.UN_SUB_1, phone_number=from_number, class_num_5_digit=cls_5_digit).send()
     except:
         pass
 
