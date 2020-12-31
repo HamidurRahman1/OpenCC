@@ -2,7 +2,6 @@
 from MySQLdb._exceptions import MySQLError
 from edu.lagcc.opencc.models.models import Term
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
-from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
 
 
 class TermRepository:
@@ -25,7 +24,7 @@ class TermRepository:
             cur.close()
             return terms_set
         except MySQLError as ex:
-            raise NotifyDeveloperException(type(ex).__name__, ex.args)
+            raise ex
 
     def get_term_by_name(self, term_name):
         """ Returns a Term object if an associated record found with the given term_name. """
@@ -40,4 +39,4 @@ class TermRepository:
                 raise NotFoundException("No term exists with the name={}".format(term_name))
             return Term(term_id=term[0], term_name=term[1], term_value=term[2])
         except MySQLError as ex:
-            raise NotifyDeveloperException(type(ex).__name__, ex.args)
+            raise ex

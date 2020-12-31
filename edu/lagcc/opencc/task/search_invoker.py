@@ -1,13 +1,14 @@
 
-import asyncio
-import threading
 import time
+import asyncio
+import logging
 import MySQLdb
+import threading
 from os import environ
 from edu.lagcc.opencc.notifier.sms_sender import Option
+from edu.lagcc.opencc.utils.util import EXCEPTION_LOG_NAME
 from edu.lagcc.opencc.notifier.sms_sender import SMSSender
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
-from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.searcher.class_searcher import OpenClassSearcher
 
@@ -56,7 +57,8 @@ def _invoke_class_searcher():
         if not OpenClassSearcher.is_site_up():
             time.sleep(expected_end)
             return set()
-    except:
+    except Exception as e:
+        logging.getLogger(EXCEPTION_LOG_NAME).error("CUNY global search page is down. {}".format(e))
         time.sleep(expected_end)
         return set()
 
@@ -79,13 +81,11 @@ def _invoke_class_searcher():
             time.sleep(expected_end-end)
     except NotFoundException:
         time.sleep(expected_end)
-    except NotifyDeveloperException as dex:
-        SMSSender(option=Option.DEV, msg=dex).send()
+    except Exception as ex:
+        logging.getLogger(EXCEPTION_LOG_NAME).error(ex)
         end = round(time.time()-start)
         if end < expected_end:
             time.sleep(expected_end-end)
-    except:
-        pass
     return set()
 
 

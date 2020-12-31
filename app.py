@@ -97,7 +97,7 @@ def unsubscribe_user():
     except TwilioRestException as rex:
         logging.getLogger(UNK_MSG_LOG_NAME).error(rex)
     except Exception as e:
-        logging.getLogger(UNK_MSG_LOG_NAME).error(e)
+        logging.getLogger(EXCEPTION_LOG_NAME).error(e)
 
 
 if __name__ == "__main__":

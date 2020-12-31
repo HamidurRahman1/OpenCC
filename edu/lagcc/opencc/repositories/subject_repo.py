@@ -1,7 +1,6 @@
 
 from MySQLdb._exceptions import MySQLError
 from edu.lagcc.opencc.models.models import Subject
-from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
 
 
 class SubjectRepository:
@@ -24,4 +23,4 @@ class SubjectRepository:
             cur.close()
             return subjects_set
         except MySQLError as ex:
-            raise NotifyDeveloperException(type(ex).__name__, ex.args)
+            raise ex

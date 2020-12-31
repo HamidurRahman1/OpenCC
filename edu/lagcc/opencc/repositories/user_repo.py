@@ -4,7 +4,6 @@ from MySQLdb._exceptions import IntegrityError
 from edu.lagcc.opencc.models.models import User
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
 from edu.lagcc.opencc.exceptions.exceptions import UserExistsException
-from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
 
 
 class UserRepository:
@@ -27,7 +26,7 @@ class UserRepository:
                 raise NotFoundException("No user with user_id={} exists".format(user_id))
             return User(user_id=user[0], phone_number=user[1])
         except MySQLError as ex:
-            raise NotifyDeveloperException(type(ex).__name__, ex.args)
+            raise MySQLError("Possible malformed input. {}".format(ex))
 
     def get_user_by_phone_num(self, phone_number):
         """ Returns a User object if an associated user with phone_num exists. """
@@ -42,7 +41,7 @@ class UserRepository:
                 raise NotFoundException("No user with phone_number={} exists".format(phone_number))
             return User(user_id=user[0], phone_number=user[1])
         except MySQLError as ex:
-            raise NotifyDeveloperException(type(ex).__name__, ex.args)
+            raise MySQLError("Possible malformed input. {}".format(ex))
 
     def save_user(self, phone_number):
         """ Creates a user record in the database using the this phone number. """
@@ -58,4 +57,4 @@ class UserRepository:
             if "for key 'phone_num'" in ex.args[1]:
                 raise UserExistsException(phone_number=phone_number)
         except MySQLError as ex:
-            raise NotifyDeveloperException(type(ex).__name__, ex.args)
+            raise MySQLError("Possible malformed input. {}".format(ex))
