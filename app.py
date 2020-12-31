@@ -62,12 +62,12 @@ def __add_request__():
 
 @_app.route("/", methods=["GET", "POST"])
 def index():
-    if request.method == "GET" and len(request.args) == 0:
-        return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
-    elif request.method == "POST":
+    if request.method == "POST":
         status = __add_request__()
         return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET,
                                request_message=status)
+    else:
+        return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
 
 
 @_app.route("/delete", methods=["POST"])
@@ -81,8 +81,8 @@ def unsubscribe_user():
         if body_length == 10:
             RequestRepository(mysql.connection).delete_request(from_number)
             # notify That All Reqs Are Deleted
-        # 'cancel (5-digit-code)' --> delete the request that exists with the this phone number and 5-digit-class-num
-        elif body_length == 11:
+        # 'cancel [5-digit-code]' --> delete the request that exists with the this phone number and 5-digit-class-num
+        elif body_length == 12:
             cls_5_digit = body.split(" ")[1]
             if len(cls_5_digit) == 5 and cls_5_digit.isdigit():
                 RequestRepository(mysql.connection).delete_request(from_number, int(cls_5_digit))

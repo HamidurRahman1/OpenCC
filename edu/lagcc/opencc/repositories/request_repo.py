@@ -75,10 +75,37 @@ class RequestRepository:
             row = cur.execute(query, (phone_number, term_value, subject_name, subject_code, class_num_5_digit))
             if row == 1:
                 self.connection.commit()
+                cur.close()
+                return True
             cur.close()
-            return True
         except IntegrityError as ex:
             if "for key 'fk_user_id'" in ex.args[1]:
                 raise DuplicateRequestException(phone_number=phone_number, subject_name=subject_name, class_num_5_digit=class_num_5_digit)
+        except MySQLError as ex:
+            raise NotifyDeveloperException(type(ex).__name__, ex.args)
+
+    def delete_request(self, from_number, class_num_5_digit=False):
+        """
+            If class_num_5_digit is false then deletes all requested associated with the phone number, otherwise
+            delete the request associated the phone number and class_num_5_digit.
+        """
+        try:
+            query = None
+            data = None
+            if class_num_5_digit:
+                query = """delete from requests where class_num_5_digit = %(class_num)s and 
+                        fk_user_id = (select user_id from users where phone_num = %(phone)s)"""
+                data = {'phone': from_number, 'class_num': class_num_5_digit}
+            else:
+                query = """delete from requests where fk_user_id = 
+                        (select user_id from users where phone_num = %(phone)s)"""
+                data = {'phone': from_number}
+            cur = self.connection.cursor()
+            row = cur.execute(query, data)
+            if row >= 1:
+                self.connection.commit()
+                cur.close()
+                return True
+            cur.close()
         except MySQLError as ex:
             raise NotifyDeveloperException(type(ex).__name__, ex.args)
