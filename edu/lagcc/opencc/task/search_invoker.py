@@ -4,9 +4,10 @@ import threading
 import time
 import MySQLdb
 from os import environ
+from edu.lagcc.opencc.notifier.sms_sender import Option
+from edu.lagcc.opencc.notifier.sms_sender import SMSSender
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
 from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
-from edu.lagcc.opencc.notifier.sms_sender import SMSSender
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.searcher.class_searcher import OpenClassSearcher
 
@@ -20,7 +21,7 @@ def print_requests(t_dict):
 
 def _send_notification(requests_set):
     for request in requests_set:
-        SMSSender(phone_number=request.user.phone_number, subject_name=request.subject.subject_name,
+        SMSSender(option=Option.OPEN, phone_number=request.user.phone_number, subject_name=request.subject.subject_name,
                   class_num_5_digit=request.class_num_5_digit, term_name=request.term.term_name).send()
 
 
@@ -30,17 +31,10 @@ def _search(tuple_class_num_term, requests_set):
     if obj.found:
         if obj.status:
             _send_notification(requests_set)
-            print(len(requests_set), "users notified")
-        else:
-            print("class still closed in session 1")
     else:
         obj = obj.check_session_two()
-        if obj.found:
-            if obj.status:
-                _send_notification(requests_set)
-                print(len(requests_set), "users notified")
-            else:
-                print("class still closed in session 2")
+        if obj.found and obj.status:
+            _send_notification(requests_set)
 
 
 def _process(tuple_to_req_dict):
@@ -56,7 +50,7 @@ def _process(tuple_to_req_dict):
 
 def _invoke_class_searcher():
     start = time.time()
-    expected_end = 120
+    expected_end = 180
 
     try:
         if not OpenClassSearcher.is_site_up():
@@ -81,14 +75,16 @@ def _invoke_class_searcher():
         _process(tuple_class_num_term_to_requests)
 
         end = round(time.time()-start)
-        print(end, "all")
         if end < expected_end:
             time.sleep(expected_end-end)
     except NotFoundException:
         time.sleep(expected_end)
     except NotifyDeveloperException as dex:
-        pass
-    except Exception as e:
+        SMSSender(option=Option.DEV, msg=dex).send()
+        end = round(time.time()-start)
+        if end < expected_end:
+            time.sleep(expected_end-end)
+    except:
         pass
     return set()
 
