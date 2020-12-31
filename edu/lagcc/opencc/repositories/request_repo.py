@@ -1,14 +1,14 @@
 
-from MySQLdb._exceptions import IntegrityError
 from MySQLdb._exceptions import MySQLError
-from edu.lagcc.opencc.models.request import Request
-from edu.lagcc.opencc.models.term import Term
-from edu.lagcc.opencc.models.subject import Subject
-from edu.lagcc.opencc.models.user import User
-from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequestException
+from MySQLdb._exceptions import IntegrityError
+from edu.lagcc.opencc.models.models import User
+from edu.lagcc.opencc.models.models import Term
+from edu.lagcc.opencc.models.models import Subject
+from edu.lagcc.opencc.models.models import Request
+from edu.lagcc.opencc.repositories.user_repo import UserRepository
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
 from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
-from edu.lagcc.opencc.repositories.user_repo import UserRepository
+from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequestException
 
 
 class RequestRepository:

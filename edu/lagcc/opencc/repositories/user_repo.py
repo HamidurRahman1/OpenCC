@@ -1,7 +1,7 @@
 
-from MySQLdb._exceptions import IntegrityError
 from MySQLdb._exceptions import MySQLError
-from edu.lagcc.opencc.models.user import User
+from MySQLdb._exceptions import IntegrityError
+from edu.lagcc.opencc.models.models import User
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
 from edu.lagcc.opencc.exceptions.exceptions import UserExistsException
 from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException

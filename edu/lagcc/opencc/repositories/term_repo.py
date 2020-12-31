@@ -1,6 +1,6 @@
 
 from MySQLdb._exceptions import MySQLError
-from edu.lagcc.opencc.models.term import Term
+from edu.lagcc.opencc.models.models import Term
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
 from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
 

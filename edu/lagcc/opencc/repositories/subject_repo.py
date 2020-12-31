@@ -1,7 +1,7 @@
 
 from MySQLdb._exceptions import MySQLError
+from edu.lagcc.opencc.models.models import Subject
 from edu.lagcc.opencc.exceptions.exceptions import NotifyDeveloperException
-from edu.lagcc.opencc.models.subject import Subject
 
 
 class SubjectRepository:
