@@ -33,6 +33,5 @@ class EmailNotifier:
             server.login(EmailNotifier.__user_name, EmailNotifier.__password)
             server.sendmail(self.sent_from, self.to, self.email_text)
             server.close()
-            print("sent")
         except Exception:
-            print("error")
+            pass
