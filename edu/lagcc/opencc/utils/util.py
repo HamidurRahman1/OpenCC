@@ -35,33 +35,33 @@ def possible_terms():
     FA = " Fall"
 
     if d.month == 1 and d.day < 10:
-        terms[str(d.year-1) + FA] = TERMS_VALUES_DICT[str(d.year-1) + FA]
-        terms[str(d.year) + SP] = TERMS_VALUES_DICT[str(d.year) + SP]
+        terms[str(d.year-1) + FA] = TERM_NAMES_TO_VALUES[str(d.year-1)+FA]
+        terms[str(d.year) + SP] = TERM_NAMES_TO_VALUES[str(d.year)+SP]
     elif d.month >= 1 and d.month <= 5:
         if d.month == 5 and d.day >= 15:
-            terms[str(d.year) + SP] = TERMS_VALUES_DICT[str(d.year) + SP]
-            terms[str(d.year) + FA] = TERMS_VALUES_DICT[str(d.year) + FA]
+            terms[str(d.year) + SP] = TERM_NAMES_TO_VALUES[str(d.year)+SP]
+            terms[str(d.year) + FA] = TERM_NAMES_TO_VALUES[str(d.year)+FA]
         else:
-            terms[str(d.year) + SP] = TERMS_VALUES_DICT[str(d.year) + SP]
+            terms[str(d.year) + SP] = TERM_NAMES_TO_VALUES[str(d.year)+SP]
     elif d.month == 5 or d.month == 6:
         if d.month == 6 and d.day >= 25:
-            terms[str(d.year) + FA] = TERMS_VALUES_DICT[str(d.year) + FA]
+            terms[str(d.year) + FA] = TERM_NAMES_TO_VALUES[str(d.year)+FA]
         else:
-            terms[str(d.year) + SP] = TERMS_VALUES_DICT[str(d.year) + SP]
-            terms[str(d.year) + FA] = TERMS_VALUES_DICT[str(d.year) + FA]
+            terms[str(d.year) + SP] = TERM_NAMES_TO_VALUES[str(d.year)+SP]
+            terms[str(d.year) + FA] = TERM_NAMES_TO_VALUES[str(d.year)+FA]
     elif d.month >= 6 and d.month <= 10:
         if d.month == 10 and d.day >= 15:
-            terms[str(d.year+1) + SP] = TERMS_VALUES_DICT[str(d.year+1) + SP]
-            terms[str(d.year) + FA] = TERMS_VALUES_DICT[str(d.year) + FA]
+            terms[str(d.year+1) + SP] = TERM_NAMES_TO_VALUES[str(d.year+1)+SP]
+            terms[str(d.year) + FA] = TERM_NAMES_TO_VALUES[str(d.year)+FA]
         else:
-            terms[str(d.year) + FA] = TERMS_VALUES_DICT[str(d.year) + FA]
+            terms[str(d.year) + FA] = TERM_NAMES_TO_VALUES[str(d.year)+FA]
     else:
-        terms[str(d.year) + FA] = TERMS_VALUES_DICT[str(d.year) + FA]
-        terms[str(d.year+1) + SP] = TERMS_VALUES_DICT[str(d.year+1) + SP]
+        terms[str(d.year) + FA] = TERM_NAMES_TO_VALUES[str(d.year)+FA]
+        terms[str(d.year+1) + SP] = TERM_NAMES_TO_VALUES[str(d.year+1)+SP]
     return terms
 
 
-TERMS_VALUES_DICT = load_terms_values()
+TERM_NAMES_TO_VALUES = load_terms_values()
 SUB_CODES_TO_SUB_NAMES = load_sub_codes_to_names()
 POSSIBLE_TERMS = possible_terms()
 
