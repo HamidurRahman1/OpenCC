@@ -11,7 +11,7 @@ from edu.lagcc.opencc.notifier.sms_sender import SMSSender
 from edu.lagcc.opencc.notifier.sms_sender import Option
 from edu.lagcc.opencc.utils.util import APP_NAME
 from edu.lagcc.opencc.utils.util import POSSIBLE_TERMS
-from edu.lagcc.opencc.utils.util import SUB_CODES_TO_SUB_SET
+from edu.lagcc.opencc.utils.util import SUB_CODES_TO_SUB_NAMES
 
 
 _app = Flask(__name__)
@@ -65,10 +65,10 @@ def __add_request__():
 def index():
     if request.method == "POST":
         status = __add_request__()
-        return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET,
+        return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
                                request_message=status)
     else:
-        return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_SET)
+        return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES)
 
 
 @_app.route("/"+environ.get("TWILIO_RSP_URI"), methods=["POST"])
