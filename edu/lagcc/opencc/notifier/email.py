@@ -1,6 +1,8 @@
 
+import logging
 import smtplib
 from os import environ
+from edu.lagcc.opencc.utils.util import EXCEPTION_LOG_NAME
 
 
 class EmailNotifier:
@@ -33,5 +35,5 @@ class EmailNotifier:
             server.login(EmailNotifier.__user_name, EmailNotifier.__password)
             server.sendmail(self.sent_from, self.to, self.email_text)
             server.close()
-        except Exception:
-            pass
+        except Exception as ex:
+            logging.getLogger(EXCEPTION_LOG_NAME).error(ex)
