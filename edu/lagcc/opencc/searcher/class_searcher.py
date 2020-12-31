@@ -2,7 +2,7 @@
 import requests
 from bs4 import BeautifulSoup
 from re import match
-from edu.lagcc.opencc.utils.util import TERMS_VALUES_DICT
+from edu.lagcc.opencc.utils.util import TERM_NAMES_TO_VALUES
 
 
 class OpenClassSearcher:
@@ -12,7 +12,7 @@ class OpenClassSearcher:
     def __init__(self, term_name, subject_code, class_num_5_digit):
         self.session = requests.Session()
         self.term_name = term_name + " Term"
-        self.__term_value = TERMS_VALUES_DICT[term_name]
+        self.__term_value = TERM_NAMES_TO_VALUES[term_name]
         self.subject_code = subject_code
         self.class_num_5_digit = class_num_5_digit
         self.status = False
