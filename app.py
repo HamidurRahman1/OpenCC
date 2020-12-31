@@ -73,20 +73,20 @@ def index():
 @_app.route("/delete", methods=["POST"])
 def unsubscribe_user():
     try:
-        from_number = request.form['From']
+        from_number = str(request.form['From']).replace("+", "")
         body = str(request.form['Body']).strip().lower()
         body_length = len(body)
 
         # 'cancel all' --> delete all requests that exists with the this phone number
         if body_length == 10:
-            RequestRepository(mysql.connection).delete_request(from_number)
-            # notify That All Reqs Are Deleted
+            if RequestRepository(mysql.connection).delete_request(from_number):
+                SMSSender(phone_number=from_number).send()
         # 'cancel [5-digit-code]' --> delete the request that exists with the this phone number and 5-digit-class-num
         elif body_length == 12:
             cls_5_digit = body.split(" ")[1]
             if len(cls_5_digit) == 5 and cls_5_digit.isdigit():
-                RequestRepository(mysql.connection).delete_request(from_number, int(cls_5_digit))
-                # notify That specific req is Deleted
+                if RequestRepository(mysql.connection).delete_request(from_number, int(cls_5_digit)):
+                    SMSSender(phone_number=from_number).send()
     except:
         pass
 

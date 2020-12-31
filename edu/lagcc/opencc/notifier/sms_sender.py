@@ -1,7 +1,16 @@
 
+from enum import Enum
 from os import environ
 from twilio.rest import Client
 from edu.lagcc.opencc.utils.util import APP_NAME
+
+
+class Option(Enum):
+    DEV = 1
+    OPEN = 2
+    REQUEST = 3
+    UN_SUB_1 = 4
+    UN_SUB_ALL = 5
 
 
 class SMSSender:
@@ -11,22 +20,32 @@ class SMSSender:
     __from = 'environ.get("TWILIO_NUMBER")'
     __dev_num = 'environ.get("DEV_NUMBER")'
 
-    def __init__(self, phone_number=None, subject_name=None, class_num_5_digit=None, term_name=None, request=False,
-                 dev=False, dev_msg=None):
+    def __init__(self, option, phone_number=None, subject_name=None, class_num_5_digit=None, term_name=None, msg=None):
 
         self.__client = Client(SMSSender.__account_sid, SMSSender.__auth_token)
-        self.__to = "+1"+str(phone_number)
-        self.__from_ = SMSSender.__from
-        if request:
-            self.__body = "Dear {} user, requested {}-{} for {} has been added and will get "\
-                          "notified once it's open. I have got you with your classes,🤝. Cheers!"\
-                            .format(APP_NAME, subject_name, class_num_5_digit, term_name)
-        elif dev:
-            self.__to = SMSSender.__dev_num
-            self.__body = dev_msg
-        else:
-            self.__body = "Dear {} user, your requested class {} - {} for {} is now OPEN ✅. Good Luck!"\
-                            .format(APP_NAME, subject_name, class_num_5_digit, term_name)
+
+        if option == Option.DEV:
+            self._to = SMSSender.__dev_num
+            self._body = msg
+        elif option == Option.REQUEST:
+            self._to = "+1"+str(phone_number)
+            self._body = "Dear {} user, requested {}-{} for {} has been added and will get notified once it's open. I "\
+                         "have got you with your classes,🤝. Cheers!".format(APP_NAME, subject_name, class_num_5_digit, term_name)
+        elif option == Option.OPEN:
+            self._to = "+1"+str(phone_number)
+            self._body = "Dear {} user, your requested class {} - {} for {} is now OPEN ✅. Good Luck!"\
+                         .format(APP_NAME, subject_name, class_num_5_digit, term_name)
+        elif option == Option.UN_SUB_1:
+            self._to = "+1"+str(phone_number)
+            self._body = "Dear {} user, you have been UNSUBSCRIBE from Class Number: {}.".format(APP_NAME, class_num_5_digit)
+        elif option == Option.UN_SUB_ALL:
+            self._to = "+1"+str(phone_number)
+            self._body = "Dear {} user, you have been UNSUBSCRIBE from all your classes.".format(APP_NAME)
+
+        self._from = SMSSender.__from
 
     def send(self):
-        self.__client.api.account.messages.create(to=self.__to, from_=self.__from, body=self.__body)
+        try:
+            self.__client.api.account.messages.create(to=self._to, from_=self._from, body=self._body)
+        except:
+            pass
