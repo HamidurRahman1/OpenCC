@@ -53,12 +53,7 @@ def _invoke_class_searcher():
     start = time.time()
     expected_end = 180
 
-    try:
-        if not OpenClassSearcher.is_site_up():
-            time.sleep(expected_end)
-            return set()
-    except Exception as e:
-        logging.getLogger(EXCEPTION_LOG_NAME).error("CUNY global search page is down. {}".format(e))
+    if not OpenClassSearcher.is_site_up():
         time.sleep(expected_end)
         return set()
 

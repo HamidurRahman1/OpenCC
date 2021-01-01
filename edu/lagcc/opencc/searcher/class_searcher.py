@@ -1,7 +1,9 @@
 
+import logging
 import requests
-from bs4 import BeautifulSoup
 from re import match
+from bs4 import BeautifulSoup
+from edu.lagcc.opencc.utils.util import EXCEPTION_LOG_NAME
 from edu.lagcc.opencc.utils.util import TERM_NAMES_TO_VALUES
 
 
@@ -71,5 +73,6 @@ class OpenClassSearcher:
     def is_site_up():
         try:
             return requests.get(OpenClassSearcher.URL).status_code == 200
-        except:
+        except Exception as e:
+            logging.getLogger(EXCEPTION_LOG_NAME).error("CUNY global class search page is down. {}".format(e))
             return False

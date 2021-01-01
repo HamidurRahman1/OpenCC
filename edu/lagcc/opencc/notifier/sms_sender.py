@@ -4,7 +4,7 @@ from enum import Enum
 from os import environ
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
-from edu.lagcc.opencc.utils.util import APP_NAME, UNK_MSG_LOG_NAME
+from edu.lagcc.opencc.utils.util import APP_NAME, MSG_LOG_NAME
 
 
 class Option(Enum):
@@ -50,6 +50,6 @@ class SMSSender:
         try:
             self.__client.api.account.messages.create(to=self._to, from_=self._from, body=self._body)
         except TwilioRestException as rex:
-            logging.getLogger(UNK_MSG_LOG_NAME).error(rex)
+            logging.getLogger(MSG_LOG_NAME).error(rex)
         except Exception as ex:
-            logging.getLogger(UNK_MSG_LOG_NAME).error(ex)
+            logging.getLogger(MSG_LOG_NAME).error(ex)

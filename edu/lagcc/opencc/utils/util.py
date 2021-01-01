@@ -1,31 +1,27 @@
 
 import os
+import sys
 import logging
 import datetime
 
 APP_NAME = "OpenCC"
 
+# possibly change it and read from database at startup
 TERMS_VALUES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/terms_values.properties")
 SUB_CODES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/sub_codes.properties")
 
-UNK_MSG_LOG_NAME = "unk_msg_log"         # logger name for unknown messages
-EXCEPTION_LOG_NAME = "exception_log"     # logger name for exceptions
+MSG_LOG_NAME = "msg_log"                    # logger name for exception related to messages
+EXCEPTION_LOG_NAME = "exception_log"        # logger name for other exceptions
 
-EXCEPTION_LOG_FILE = os.path.join(os.path.dirname(__file__), "../logs/exceptions.log")
-UNK_MSGs_LOG_FILE = os.path.join(os.path.dirname(__file__), "../logs/unk_messages.log")
-
-LOG_FORMATTER = logging.Formatter("$ "+APP_NAME+" -> %(asctime)s : %(levelname)s : %(module)s : %(message)s",
-                                  "%m-%d-%Y %I:%M:%S %p")
+LOG_FORMATTER = "$ {} -> %(asctime)s : %(levelname)s : %(module)s :: %(message)s".format(APP_NAME)
+LOG_TIME_FMT = "%m-%d-%Y %I:%M:%S %p"
 
 
-def setup_logger(logger_name, log_file, level=logging.INFO):
+def setup_logger(logger_name, level):
 
-    handler = logging.FileHandler(log_file)
-    handler.setFormatter(LOG_FORMATTER)
-
+    logging.basicConfig(format=LOG_FORMATTER, datefmt=LOG_TIME_FMT, stream=sys.stdout)
     logger = logging.getLogger(logger_name)
     logger.setLevel(level)
-    logger.addHandler(handler)
 
 
 def load_terms_values():
@@ -81,8 +77,8 @@ def possible_terms():
     return terms
 
 
-setup_logger(UNK_MSG_LOG_NAME, UNK_MSGs_LOG_FILE, logging.DEBUG)
-setup_logger(EXCEPTION_LOG_NAME, EXCEPTION_LOG_FILE, logging.ERROR)
+setup_logger(MSG_LOG_NAME, logging.DEBUG)
+setup_logger(EXCEPTION_LOG_NAME, logging.ERROR)
 
 TERM_NAMES_TO_VALUES = load_terms_values()
 SUB_CODES_TO_SUB_NAMES = load_sub_codes_to_names()

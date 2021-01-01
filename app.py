@@ -11,7 +11,7 @@ from edu.lagcc.opencc.notifier.sms_sender import Option
 from edu.lagcc.opencc.notifier.sms_sender import SMSSender
 from edu.lagcc.opencc.utils.util import APP_NAME
 from edu.lagcc.opencc.utils.util import POSSIBLE_TERMS
-from edu.lagcc.opencc.utils.util import UNK_MSG_LOG_NAME
+from edu.lagcc.opencc.utils.util import MSG_LOG_NAME
 from edu.lagcc.opencc.utils.util import EXCEPTION_LOG_NAME
 from edu.lagcc.opencc.utils.util import SUB_CODES_TO_SUB_NAMES
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
@@ -95,7 +95,7 @@ def unsubscribe_user():
                 if RequestRepository(mysql.connection).delete_request(from_number, int(cls_5_digit)):
                     SMSSender(option=Option.UN_SUB_1, phone_number=from_number, class_num_5_digit=cls_5_digit).send()
     except TwilioRestException as rex:
-        logging.getLogger(UNK_MSG_LOG_NAME).error(rex)
+        logging.getLogger(MSG_LOG_NAME).error(rex)
     except Exception as e:
         logging.getLogger(EXCEPTION_LOG_NAME).error(e)
 
