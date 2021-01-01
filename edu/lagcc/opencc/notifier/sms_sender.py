@@ -20,7 +20,7 @@ class SMSSender:
     __account_sid = environ.get("TWILIO_ACCOUNT_SID")
     __auth_token = environ.get("TWILIO_AUTH_TOKEN")
     __from = environ.get("TWILIO_NUMBER")
-    __msg_service_id = "MGcdc08e23e6b841de9dbae5d66dab9434"
+    __msg_service_id = environ.get("MSG_SERVICE_ID")
 
     def __init__(self, option, phone_number, subject_name=None, class_num_5_digit=None, term_name=None):
 
