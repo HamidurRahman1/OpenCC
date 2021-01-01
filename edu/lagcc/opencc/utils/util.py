@@ -10,10 +10,10 @@ APP_NAME = "OpenCC"
 TERMS_VALUES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/terms_values.properties")
 SUB_CODES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/sub_codes.properties")
 
-MSG_LOG_NAME = "msg_log"                    # logger name for exception related to messages
-EXCEPTION_LOG_NAME = "exception_log"        # logger name for other exceptions
+MSG_LOG_NAME = "MESSAGING_LOG"                      # logger name for exception related to messages
+EXCEPTION_LOG_NAME = "EXCEPTION_LOG"                # logger name for other exceptions
 
-LOG_FORMATTER = "$ {} -> %(asctime)s : %(levelname)s : %(module)s :: %(message)s".format(APP_NAME)
+LOG_FORMATTER = "$ {} -> %(asctime)s ::  %(name)s :: %(levelname)s :: %(module)s :: %(message)s".format(APP_NAME)
 LOG_TIME_FMT = "%m-%d-%Y %I:%M:%S %p"
 
 

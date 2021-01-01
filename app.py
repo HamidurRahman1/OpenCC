@@ -79,16 +79,12 @@ def index():
 
 @_app.route("/"+environ.get("TWILIO_RSP_URI"), methods=["POST"])
 def unsubscribe_user():
+    from_number = None
+    body = None
     try:
-        logging.getLogger(MSG_LOG_NAME).debug(request.form['From'])
-
         from_number = str(request.form['From']).replace("+1", "")
         body = str(request.form['Body']).strip().lower()
         body_length = len(body)
-
-        logging.getLogger(MSG_LOG_NAME).debug(body)
-        logging.getLogger(MSG_LOG_NAME).debug(from_number)
-        logging.getLogger(MSG_LOG_NAME).debug(body_length)
 
         # 'cancel all' --> delete all requests that exists with the this phone number
         if body_length == 10 and body == "cancel all":
@@ -100,10 +96,16 @@ def unsubscribe_user():
             if len(cls_5_digit) == 5 and cls_5_digit.isdigit():
                 if RequestRepository(mysql.connection).delete_request(from_number, int(cls_5_digit)):
                     SMSSender(option=Option.UN_SUB_1, phone_number=from_number, class_num_5_digit=cls_5_digit).send()
+        logging.getLogger(MSG_LOG_NAME).info("Phone: {}, Message: {}".format(from_number, body))
+        return str()
     except TwilioRestException as rex:
         logging.getLogger(MSG_LOG_NAME).error(rex)
+        logging.getLogger(MSG_LOG_NAME).error("Phone: {}, Message: {}".format(from_number, body))
+        return str()
     except Exception as e:
         logging.getLogger(EXCEPTION_LOG_NAME).error(e)
+        logging.getLogger(MSG_LOG_NAME).error("Phone: {}, Message: {}".format(from_number, body))
+        return str()
 
 
 if __name__ == "__main__":
