@@ -45,12 +45,12 @@ except MySQLError as mex:
     logging.getLogger(EXCEPTION_LOG_NAME).error(mex)
 
 
-def __add_request__():
+def __add_request__(form):
     try:
-        phone_number = int(request.form.get("phone-number"))
-        term_name, term_value = request.form.get("term").split(",")
-        subject_code, subject_name = request.form.get("subject").split(",")
-        class_num_5_digit = int(request.form.get("class-num-5"))
+        phone_number = int(form.get("phone-number"))
+        term_name, term_value = form.get("term").split(",")
+        subject_code, subject_name = form.get("subject").split(",")
+        class_num_5_digit = int(form.get("class-num-5"))
 
         req_repo = RequestRepository(mysql.connection)
         status = req_repo.add_request(phone_number, int(term_value), subject_name, subject_code, class_num_5_digit)
@@ -70,7 +70,7 @@ def __add_request__():
 @_app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        status = __add_request__()
+        status = __add_request__(request.form)
         return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
                                request_message=status)
     else:
