@@ -1,1 +1,1 @@
-web: gunicorn app:app --preload -w 2 --threads 10
+web: gunicorn app:_app --preload -w 2 --threads 10
