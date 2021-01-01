@@ -80,11 +80,15 @@ def index():
 @_app.route("/"+environ.get("TWILIO_RSP_URI"), methods=["POST"])
 def unsubscribe_user():
     try:
-        from_number = str(request.form['From']).replace("+", "")
+        logging.getLogger(MSG_LOG_NAME).debug(request.form['From'])
+
+        from_number = str(request.form['From']).replace("+1", "")
         body = str(request.form['Body']).strip().lower()
         body_length = len(body)
 
-        print(from_number, body, body_length)
+        logging.getLogger(MSG_LOG_NAME).debug(body)
+        logging.getLogger(MSG_LOG_NAME).debug(from_number)
+        logging.getLogger(MSG_LOG_NAME).debug(body_length)
 
         # 'cancel all' --> delete all requests that exists with the this phone number
         if body_length == 10 and body == "cancel all":

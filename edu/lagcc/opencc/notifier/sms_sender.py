@@ -20,6 +20,7 @@ class SMSSender:
     __account_sid = environ.get("TWILIO_ACCOUNT_SID")
     __auth_token = environ.get("TWILIO_AUTH_TOKEN")
     __from = environ.get("TWILIO_NUMBER")
+    __msg_service_id = "MGcdc08e23e6b841de9dbae5d66dab9434"
 
     def __init__(self, option, phone_number, subject_name=None, class_num_5_digit=None, term_name=None):
 
@@ -28,17 +29,21 @@ class SMSSender:
         self._from = SMSSender.__from
 
         if option == Option.REQUEST:
-            self._body = "Dear {} user, requested {}-{} for {} has been added and will get notified once it's open. I "\
-                         "have got you with your classes,🤝. Cheers!".format(APP_NAME, subject_name, class_num_5_digit, term_name)
+            # self._body = "Dear {} user, requested {}-{} for {} has been added and will get notified once it's open. I "\
+            #              "have got you with your classes,🤝. Cheers!".format(APP_NAME, subject_name, class_num_5_digit, term_name)
+            self._body = "Added {}-{}".format(subject_name, class_num_5_digit)
         elif option == Option.OPEN:
-            self._body = "Dear {} user, your requested class {} - {} for {} is now OPEN ✅. Good Luck!"\
-                         .format(APP_NAME, subject_name, class_num_5_digit, term_name)
+            # self._body = "Dear {} user, your requested class {} - {} for {} is now OPEN ✅. Good Luck!"\
+            #              .format(APP_NAME, subject_name, class_num_5_digit, term_name)
+            self._body = "Open {}-{}".format(subject_name, class_num_5_digit)
         elif option == Option.UN_SUB_1:
-            self._body = "Dear {} user, you have been UNSUBSCRIBED from Class Number: {} and won't get notification" \
-                         "for this class anymore.".format(APP_NAME, class_num_5_digit)
+            # self._body = "Dear {} user, you have been UNSUBSCRIBED from Class Number: {} and won't get notification" \
+            #              "for this class anymore.".format(APP_NAME, class_num_5_digit)
+            self._body = "Unsubscribed {}".format(class_num_5_digit)
         elif option == Option.UN_SUB_ALL:
-            self._body = "Dear {} user, you have been UNSUBSCRIBED from all your classes but you can always go ahead" \
-                         "and add new requests again.".format(APP_NAME)
+            # self._body = "Dear {} user, you have been UNSUBSCRIBED from all your classes but you can always go ahead" \
+            #              "and add new requests again.".format(APP_NAME)
+            self._body = "Unsubscribed all"
 
     def send(self):
         try:
