@@ -84,6 +84,8 @@ def unsubscribe_user():
         body = str(request.form['Body']).strip().lower()
         body_length = len(body)
 
+        print(from_number, body, body_length)
+
         # 'cancel all' --> delete all requests that exists with the this phone number
         if body_length == 10 and body == "cancel all":
             if RequestRepository(mysql.connection).delete_request(from_number):

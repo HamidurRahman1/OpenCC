@@ -4,7 +4,6 @@ from os import environ
 
 TESTING = False
 DEBUG = True
-FLASK_ENV = "development"
 
 MYSQL_HOST = "localhost"
 MYSQL_USER = "root"
