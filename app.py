@@ -111,18 +111,9 @@ def unsubscribe_user():
         return str()
 
 
-def search_scheduler():
-    logging.getLogger(JOB_LOG_NAME).debug("job started")
-    time.sleep(3)
-    logging.getLogger(JOB_LOG_NAME).debug("job ended")
-
-
 if __name__ == "__main__":
     try:
         # class_search_scheduler()
-        scheduler = BackgroundScheduler()
-        scheduler.add_job(search_scheduler, "interval", seconds=10)
-        scheduler.start()
         _app.run(use_reloader=False)
     except Exception as ex:
         logging.getLogger(EXCEPTION_LOG_NAME).error(ex)
