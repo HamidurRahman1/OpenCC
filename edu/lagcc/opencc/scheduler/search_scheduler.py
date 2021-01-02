@@ -33,12 +33,12 @@ def _search_request(tuple_class_num_term, requests_set):
     if obj.found:
         if obj.status:
             # _send_notification(requests_set)
-            print(len(requests_set), "users notified")
+            pass
     else:
         obj = obj.check_session_two()
         if obj.found and obj.status:
             # _send_notification(requests_set)
-            print(len(requests_set), "users notified")
+            pass
 
 
 def _process_request(tuple_to_req_dict):
@@ -54,11 +54,16 @@ def _process_request(tuple_to_req_dict):
 
 def _get_requests_and_search():
     start = time.time()
-    expected_end = 180
+
+    """
+        expecting to complete all search by 2.5 mins, if all the search is completed in less than 2.5 mins
+        then the scheduler will sleep (2.5 mins - time taken to search) secs.
+    """
+    expected_end = 150
 
     if not OpenClassSearcher.is_site_up():
         time.sleep(expected_end)
-        return set()
+        return
 
     try:
         connection = MySQLdb.connect(host=environ.get("MYSQL_HOST"), user=environ.get("MYSQL_USER"),
@@ -66,16 +71,14 @@ def _get_requests_and_search():
         tuple_class_num_term_to_requests = RequestRepository(connection).get_requests_to_search_and_notify()
         connection.close()
 
-        # print_requests(tuple_class_num_term_to_requests)
-
-        s = time.time()
+        searching = time.time()
         _process_request(tuple_class_num_term_to_requests)
-        logging.getLogger(MSG_LOGGER).info("total time taken to search 60 requests and notify users is: {}".format(time.time()-s))
+        logging.getLogger(MSG_LOGGER).info("total time taken to search 60 requests and notify users is: {}".format(time.time()-searching))
 
-        # end = round(time.time()-start)
-        # if end < expected_end:
-        #     time.sleep(expected_end-end)
-        logging.getLogger(MSG_LOGGER).info("total time taken by scheduler for 60 requests is: {}".format(time.time()-start))
+        end = round(time.time()-start)
+        logging.getLogger(MSG_LOGGER).info("total time taken by scheduler for 60 requests is: {}".format(time.time()-end))
+        if end < expected_end:
+            time.sleep(expected_end-end)
     except NotFoundException:
         time.sleep(expected_end)
     except Exception as ex:
@@ -83,13 +86,11 @@ def _get_requests_and_search():
         end = round(time.time()-start)
         if end < expected_end:
             time.sleep(expected_end-end)
-    return set()
 
 
-@asyncio.coroutine
-def _search_scheduler():
+async def _search_scheduler():
     while True:
-        yield from _get_requests_and_search()
+        await _get_requests_and_search()
 
 
 scheduler = AsyncIOScheduler()
