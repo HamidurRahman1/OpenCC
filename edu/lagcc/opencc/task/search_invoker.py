@@ -5,12 +5,11 @@ import logging
 import MySQLdb
 import threading
 from os import environ
-from edu.lagcc.opencc.notifier.sms_sender import Option
-from edu.lagcc.opencc.utils.util import EXCEPTION_LOG_NAME
-from edu.lagcc.opencc.notifier.sms_sender import SMSSender
+from edu.lagcc.opencc.notifier.sms_sender import Option, SMSSender
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
-from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.searcher.class_searcher import OpenClassSearcher
+from edu.lagcc.opencc.utils.util import MSG_LOG_NAME, EXCEPTION_LOG_NAME
+from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 
 
 def print_requests(t_dict):
@@ -31,11 +30,13 @@ def _search(tuple_class_num_term, requests_set):
     obj = OpenClassSearcher(req_obj.term.term_name, req_obj.subject.subject_code, tuple_class_num_term[0]).check_session_one()
     if obj.found:
         if obj.status:
-            _send_notification(requests_set)
+            # _send_notification(requests_set)
+            print(len(requests_set), "users notified")
     else:
         obj = obj.check_session_two()
         if obj.found and obj.status:
-            _send_notification(requests_set)
+            # _send_notification(requests_set)
+            print(len(requests_set), "users notified")
 
 
 def _process(tuple_to_req_dict):
@@ -58,22 +59,23 @@ def _invoke_class_searcher():
         return set()
 
     try:
-        from edu.lagcc.opencc.config.config import MYSQL_HOST
-        from edu.lagcc.opencc.config.config import MYSQL_USER
-        from edu.lagcc.opencc.config.config import MYSQL_PASSWORD
-        from edu.lagcc.opencc.config.config import MYSQL_DB
-
-        connection = MySQLdb.connect(host=MYSQL_HOST, user=MYSQL_USER, passwd=MYSQL_PASSWORD, db=MYSQL_DB)
+        logging.getLogger(MSG_LOG_NAME).info("connecting to db")
+        connection = MySQLdb.connect(host=environ.get("MYSQL_HOST"), user=environ.get("MYSQL_USER"),
+                                     passwd=environ.get("MYSQL_PASSWORD"), db=environ.get("MYSQL_DB"))
         tuple_class_num_term_to_requests = RequestRepository(connection).get_requests_to_search_and_notify()
         connection.close()
 
         print_requests(tuple_class_num_term_to_requests)
 
+        s = time.time()
+        logging.getLogger(MSG_LOG_NAME).info("starting search: {}".format(s))
         _process(tuple_class_num_term_to_requests)
+        logging.getLogger(MSG_LOG_NAME).info("total time taken to search 60 requests and notify users is: {}".format(time.time()-s))
 
         end = round(time.time()-start)
         if end < expected_end:
             time.sleep(expected_end-end)
+        logging.getLogger(MSG_LOG_NAME).info("total time taken by scheduler for 60 requests is: {}".format(time.time()-start))
     except NotFoundException:
         time.sleep(expected_end)
     except Exception as ex:

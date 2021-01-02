@@ -14,6 +14,7 @@ from edu.lagcc.opencc.utils.util import POSSIBLE_TERMS
 from edu.lagcc.opencc.utils.util import MSG_LOG_NAME
 from edu.lagcc.opencc.utils.util import EXCEPTION_LOG_NAME
 from edu.lagcc.opencc.utils.util import SUB_CODES_TO_SUB_NAMES
+from edu.lagcc.opencc.task.search_invoker import class_search_scheduler
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequestException
 
@@ -110,7 +111,7 @@ def unsubscribe_user():
 
 if __name__ == "__main__":
     try:
-        # class_search_scheduler()
+        class_search_scheduler()
         _app.run(use_reloader=False)
     except Exception as ex:
         logging.getLogger(EXCEPTION_LOG_NAME).error(ex)
