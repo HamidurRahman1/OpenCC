@@ -12,6 +12,7 @@ SUB_CODES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/sub_code
 
 MSG_LOG_NAME = "MESSAGING_LOG"                      # logger name for exception related to messages
 EXCEPTION_LOG_NAME = "EXCEPTION_LOG"                # logger name for other exceptions
+JOB_LOG_NAME = "SCHEDULER_LOG"                      # logger name for class search scheduler
 
 LOG_FORMATTER = "$ {} -> %(asctime)s ::  %(name)s :: %(levelname)s :: %(module)s :: %(message)s".format(APP_NAME)
 LOG_TIME_FMT = "%m-%d-%Y %I:%M:%S %p"
@@ -78,6 +79,7 @@ def possible_terms():
 
 
 setup_logger(MSG_LOG_NAME, logging.DEBUG)
+setup_logger(JOB_LOG_NAME, logging.DEBUG)
 setup_logger(EXCEPTION_LOG_NAME, logging.ERROR)
 
 TERM_NAMES_TO_VALUES = load_terms_values()
