@@ -10,11 +10,11 @@ APP_NAME = "OpenCC"
 TERMS_VALUES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/terms_values.properties")
 SUB_CODES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/sub_codes.properties")
 
-MSG_LOG_NAME = "MESSAGING_LOG"                      # logger name for exception related to messages
-EXCEPTION_LOG_NAME = "EXCEPTION_LOG"                # logger name for other exceptions
-JOB_LOG_NAME = "SCHEDULER_LOG"                      # logger name for class search scheduler
+MSG_LOGGER = "MESSAGE"                      # logger name for exception related to messages
+EXCEPTION_LOGGER = "EXCEPTION"                # logger name for other exceptions
+SCHEDULER_LOGGER = "SCHEDULER"                # logger name for class search scheduler
 
-LOG_FORMATTER = "$ {} -> %(asctime)s ::  %(name)s :: %(levelname)s :: %(module)s :: %(message)s".format(APP_NAME)
+LOG_FORMATTER = "$ {} -> %(asctime)s :: %(name)s :: %(levelname)s :: %(module)s :: %(message)s".format(APP_NAME)
 LOG_TIME_FMT = "%m-%d-%Y %I:%M:%S %p"
 
 
@@ -78,9 +78,9 @@ def possible_terms():
     return terms
 
 
-setup_logger(MSG_LOG_NAME, logging.DEBUG)
-setup_logger(JOB_LOG_NAME, logging.DEBUG)
-setup_logger(EXCEPTION_LOG_NAME, logging.ERROR)
+setup_logger(MSG_LOGGER, logging.DEBUG)
+setup_logger(SCHEDULER_LOGGER, logging.DEBUG)
+setup_logger(EXCEPTION_LOGGER, logging.ERROR)
 
 TERM_NAMES_TO_VALUES = load_terms_values()
 SUB_CODES_TO_SUB_NAMES = load_sub_codes_to_names()

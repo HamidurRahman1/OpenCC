@@ -3,18 +3,17 @@ import logging
 import requests
 from re import match
 from bs4 import BeautifulSoup
-from edu.lagcc.opencc.utils.util import EXCEPTION_LOG_NAME
-from edu.lagcc.opencc.utils.util import TERM_NAMES_TO_VALUES
+from edu.lagcc.opencc.utils.util import EXCEPTION_LOGGER
 
 
 class OpenClassSearcher:
 
     URL = "https://globalsearch.cuny.edu/CFGlobalSearchTool/CFSearchToolController"
 
-    def __init__(self, term_name, subject_code, class_num_5_digit):
+    def __init__(self, term_name, term_value, subject_code, class_num_5_digit):
         self.session = requests.Session()
         self.term_name = term_name + " Term"
-        self.__term_value = TERM_NAMES_TO_VALUES[term_name]
+        self.term_value = term_value
         self.subject_code = subject_code
         self.class_num_5_digit = class_num_5_digit
         self.status = False
@@ -22,7 +21,7 @@ class OpenClassSearcher:
         self.clg_trm_dict = {"selectedInstName":    "LaGuardia CC",
                             "inst_selection":       "LAG01",
                             "selectedTermName":     self.term_name,
-                            "term_value":           self.__term_value,
+                            "term_value":           self.term_value,
                             "next_btn":             "Next"}
         self.cls_details_dict = {"subject_name":             self.subject_code,
                                 "selectedSessionName":        "",
@@ -74,5 +73,5 @@ class OpenClassSearcher:
         try:
             return requests.get(OpenClassSearcher.URL).status_code == 200
         except Exception as e:
-            logging.getLogger(EXCEPTION_LOG_NAME).error("CUNY global class search page is down. {}".format(e))
+            logging.getLogger(EXCEPTION_LOGGER).error("CUNY global class search page is down. {}".format(e))
             return False

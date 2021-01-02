@@ -1,24 +1,14 @@
 
 import logging
-import time
 from os import environ
-from apscheduler.schedulers.background import BackgroundScheduler
-from flask import Flask
-from flask import request
-from flask import render_template
+from flask import Flask, request, render_template
 from flask_mysqldb import MySQL
 from MySQLdb._exceptions import MySQLError
 from twilio.base.exceptions import TwilioRestException
-from edu.lagcc.opencc.notifier.sms_sender import Option
-from edu.lagcc.opencc.notifier.sms_sender import SMSSender
-from edu.lagcc.opencc.utils.util import APP_NAME, JOB_LOG_NAME
-from edu.lagcc.opencc.utils.util import POSSIBLE_TERMS
-from edu.lagcc.opencc.utils.util import MSG_LOG_NAME
-from edu.lagcc.opencc.utils.util import EXCEPTION_LOG_NAME
-from edu.lagcc.opencc.utils.util import SUB_CODES_TO_SUB_NAMES
-from edu.lagcc.opencc.task.search_invoker import class_search_scheduler
+from edu.lagcc.opencc.notifier.sms_sender import Option, SMSSender
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequestException
+from edu.lagcc.opencc.utils.util import APP_NAME, POSSIBLE_TERMS, MSG_LOGGER, EXCEPTION_LOGGER, SUB_CODES_TO_SUB_NAMES
 
 
 _app = Flask(__name__)
@@ -45,7 +35,7 @@ mysql = None
 try:
     mysql = MySQLInstance.get_instance()
 except MySQLError as mex:
-    logging.getLogger(EXCEPTION_LOG_NAME).error(mex)
+    logging.getLogger(EXCEPTION_LOGGER).error(mex)
 
 
 def __add_request__(form):
@@ -67,7 +57,7 @@ def __add_request__(form):
         return "Dear {} user, {} You may add a different request for a different class if necessary."\
                .format(APP_NAME, str(dex).lower())
     except Exception as e:
-        logging.getLogger(EXCEPTION_LOG_NAME).error(e)
+        logging.getLogger(EXCEPTION_LOGGER).error(e)
 
 
 @_app.route("/", methods=["GET", "POST"])
@@ -99,22 +89,21 @@ def unsubscribe_user():
             if len(cls_5_digit) == 5 and cls_5_digit.isdigit():
                 if RequestRepository(mysql.connection).delete_request(from_number, int(cls_5_digit)):
                     SMSSender(option=Option.UN_SUB_1, phone_number=from_number, class_num_5_digit=cls_5_digit).send()
-        logging.getLogger(MSG_LOG_NAME).info("Phone: {}, Message: {}".format(from_number, body))
+        logging.getLogger(MSG_LOGGER).info("Phone: {}, Message: {}".format(from_number, body))
         return str()
     except TwilioRestException as rex:
-        logging.getLogger(MSG_LOG_NAME).error(rex)
-        logging.getLogger(MSG_LOG_NAME).error("Phone: {}, Message: {}".format(from_number, body))
+        logging.getLogger(MSG_LOGGER).error(rex)
+        logging.getLogger(MSG_LOGGER).error("Phone: {}, Message: {}".format(from_number, body))
         return str()
     except Exception as e:
-        logging.getLogger(EXCEPTION_LOG_NAME).error(e)
-        logging.getLogger(MSG_LOG_NAME).error("Phone: {}, Message: {}".format(from_number, body))
+        logging.getLogger(EXCEPTION_LOGGER).error(e)
+        logging.getLogger(MSG_LOGGER).error("Phone: {}, Message: {}".format(from_number, body))
         return str()
 
 
 if __name__ == "__main__":
     try:
-        # class_search_scheduler()
         _app.run(use_reloader=False)
     except Exception as ex:
-        logging.getLogger(EXCEPTION_LOG_NAME).error(ex)
+        logging.getLogger(EXCEPTION_LOGGER).error(ex)
 
