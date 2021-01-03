@@ -51,26 +51,36 @@ def __add_request__(form):
         if status:
             SMSSender(option=Option.REQUEST, phone_number=phone_number, subject_name=subject_name,
                       class_num_5_digit=class_num_5_digit, term_name=term_name).send()
-            return "Dear {} user, we have processed your request for {} - {} for {} Term."\
-                   .format(APP_NAME, subject_name, class_num_5_digit, term_name)
+            return True, "Dear {} user, we have processed your request for {} - {} for {} Term. You should be "\
+                         "receiving a confirmation message very shortly."\
+                         .format(APP_NAME, subject_name, class_num_5_digit, term_name)
     except DuplicateRequestException as dex:
-        return "Dear {} user, {} You may add a different request for a different class if necessary."\
-               .format(APP_NAME, str(dex).lower())
+        return False, "Dear {} user, {} You may add a different request for the same class or a different class if "\
+                       "necessary.".format(APP_NAME, dex.message)
+    except ValueError:
+        return False, "The form was not filled properly or invalid input was entered in the form fields. Please " \
+                      "fill out the from properly to make a request."
     except Exception as e:
         logging.getLogger(EXCEPTION_LOGGER).error(e)
+        return False, "An unexpected error occurred which I am trying to fix. Meanwhile, you can contact me and leave" \
+                      "your class info and I will manually add your request as soon as the issue is fixed."
 
 
 @_app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        status = __add_request__(request.form)
-        return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
-                               request_message=status)
+        request_status = __add_request__(request.form)
+        if request_status[0]:
+            return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
+                                   success=True, message=request_status[1])
+        else:
+            return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
+                                   error=True, message=request_status[1])
     else:
         return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES)
 
 
-@_app.route("/"+environ.get("TWILIO_RSP_URI"), methods=["POST"])
+@_app.route("/secret_uri"+'environ.get("TWILIO_RSP_URI")', methods=["POST"])
 def unsubscribe_user():
     from_number = None
     body = None
