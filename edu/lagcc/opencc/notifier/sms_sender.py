@@ -17,10 +17,10 @@ class Option(Enum):
 
 class SMSSender:
 
-    __account_sid = environ.get("TWILIO_ACCOUNT_SID")
-    __auth_token = environ.get("TWILIO_AUTH_TOKEN")
-    __from = environ.get("TWILIO_NUMBER")
-    __msg_service_id = environ.get("MSG_SERVICE_ID")
+    __account_sid = 'environ.get("TWILIO_ACCOUNT_SID")'
+    __auth_token = 'environ.get("TWILIO_AUTH_TOKEN")'
+    __from = 'environ.get("TWILIO_NUMBER")'
+    __msg_service_id = 'environ.get("MSG_SERVICE_ID")'
 
     def __init__(self, option, phone_number, subject_name=None, class_num_5_digit=None, term_name=None):
 
