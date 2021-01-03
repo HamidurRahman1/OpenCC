@@ -79,8 +79,13 @@ def _get_requests_and_search():
         return set()
 
     try:
-        connection = MySQLdb.connect(host=environ.get("MYSQL_HOST"), user=environ.get("MYSQL_USER"),
-                                     passwd=environ.get("MYSQL_PASSWORD"), db=environ.get("MYSQL_DB"))
+        from edu.lagcc.opencc.config.config import MYSQL_HOST
+        from edu.lagcc.opencc.config.config import MYSQL_USER
+        from edu.lagcc.opencc.config.config import MYSQL_PASSWORD
+        from edu.lagcc.opencc.config.config import MYSQL_DB
+
+        connection = MySQLdb.connect(host=MYSQL_HOST, user=MYSQL_USER,
+                                     passwd=MYSQL_PASSWORD, db=MYSQL_DB)
 
         """
             tuple_class_num_term_to_requests: a dictionary
