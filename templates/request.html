@@ -26,15 +26,13 @@
         <div class="add-request">
             <form method="post" action="https://opencc1.herokuapp.com/" id="add-request" name="add-request">
 
-                <strong>Enter your phone number:</strong>
+                <label for="phone-number">Enter your phone number (ex: 123456789): </label>
                 <input type="tel" id="phone-number" name="phone-number" pattern="[1-9]{3}[0-9]{3}[0-9]{4}" placeholder="123456789">
-                <section>Format: 123456789</section>
                 <br>
                 <br>
 
-                <strong>Term:</strong>
+                <label for="term">Select Term: </label>
                 <select id="term" name="term" required>
-                    <option value="None">Select Term</option>
                     {% for key in terms %}
                     <option value="{{ key }},{{ terms.get(key) }}">{{key}}</option>
                     {% endfor %}
@@ -42,9 +40,8 @@
                 <br>
                 <br>
 
-                <strong>Subject:</strong>
+                <label for="subject">Select Course: </label>
                 <select name="subject" id="subject" required>
-                    <option value="None">Select Course</option>
                     {% for sub_code in subs %}
                     {% for sub in subs.get(sub_code) %}
                     <option value="{{ sub_code }},{{sub}}">{{sub}}</option>
@@ -54,7 +51,7 @@
                 <br>
                 <br>
 
-                <label for="class-num-5">5 digit class number:</label>
+                <label for="class-num-5">5 digit class number: </label>
                 <input type="text" id="class-num-5" name="class-num-5" maxlength="5" minlength="5" size="5" required pattern="\d{5}"><br><br>
 
                 <input type="submit" value="Add Request">
