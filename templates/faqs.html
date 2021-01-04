@@ -36,13 +36,16 @@
             </li>
 
             <li>
-                Q: How does this application work in regards to search if a class is closed or not?
-                A: This application has a scheduler which runs in every 2 minutes. The scheduler gets all
+                Q: How does this application work in regards to checking if a class is closed or not?
+                A: This application has a scheduler which runs in every 2.5 minutes. The scheduler gets all
                     the request(s) (e.g. request mean the classes students have entered to get notified when it opens)
                     available and creates threads and search each class. If any of the class is found open then those
                     who have made the request for this class will get notified right away in couples of seconds. Keep
-                    it in mind that if CUNYfirst is down due to maintenance then we will not be able to search your
-                    requested class(es) until it is back online.
+                    it in mind that if CUNYfirst is down due to maintenance then we will not be able to search
+                    requested class(es) until it is back online. In case if a class become open exactly right before
+                    CUNYfirt goes under maintenance, no one will be able to get that class until CUNYfirst is back
+                    online. As the scheduler runs in every 2.5 minutes, you still have a very high chance of getting this
+                    class if CUNYfirst is back online after maintenance.
             </li>
         </ul>
     </div>
