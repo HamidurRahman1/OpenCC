@@ -52,8 +52,8 @@ def __add_request__(form):
             SMSSender(option=Option.REQUEST, phone_number=phone_number, subject_name=subject_name,
                       class_num_5_digit=class_num_5_digit, term_name=term_name).send()
             return True, "Dear {} user, we have processed your request for {} - {} for {} Term. You should be "\
-                         "receiving a confirmation message very shortly."\
-                         .format(APP_NAME, subject_name, class_num_5_digit, term_name)
+                         "receiving a confirmation message very shortly. Check out FAQs for important information "\
+                         "about text messages.".format(APP_NAME, subject_name, class_num_5_digit, term_name)
     except DuplicateRequestException as dex:
         return False, "Dear {} user, {} You may add a different request for the same class or a different class if "\
                        "necessary.".format(APP_NAME, dex.message)
@@ -78,6 +78,16 @@ def index():
                                    error=True, message=request_status[1])
     else:
         return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES)
+
+
+@_app.route("/about.html", methods=["GET"])
+def about():
+    return render_template("about.html")
+
+
+@_app.route("/FAQs.html", methods=["GET"])
+def faqs():
+    return render_template("faqs.html")
 
 
 @_app.route("/secret_uri"+'environ.get("TWILIO_RSP_URI")', methods=["POST"])

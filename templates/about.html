@@ -9,6 +9,8 @@
 </head>
 <body>
 
+{% include "header.html" %}
+
     <div class="about" id="about">
         <p>
             This is a free and an open source web application that notifies, via text,
@@ -19,15 +21,18 @@
 
         <p>
             On why use OpenCC, first and most importantly it is free (completely funded by myself, cost of database and
-            text messages) and open source. You do not need to pay a single dime to use this application (hey, I myself was
+            text messages) and open source. You do not need to pay a single dime to use this application (hey, I, myself was
             a LaGCC student, I know the struggle - 'I wish there was a way to get notified or be on wait list at least')
             and you can look at the source code to see if I am actually storing any other information other than your phone
             number and also check that your phone number is not being shared with anyone else beside this application.
             Secondly, you do not have to install any application to get notified, you just come over to
             <a href="index.html">OpenCC website</a> and fill out the form to make a request and that is all, you are set.
-            And finally, a very convenient way to stop getting text messages, checkout <a href="faqs.html">FAQs</a> on how to.
+            And finally, a very convenient way to stop getting text messages, checkout <a href="FAQs.html">FAQs</a> on how to.
         </p>
     </div>
+
+
+{% include "footer.html" %}
 
 </body>
 </html>
