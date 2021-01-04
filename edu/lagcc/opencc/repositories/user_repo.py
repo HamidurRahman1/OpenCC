@@ -1,9 +1,7 @@
 
-from MySQLdb._exceptions import MySQLError
-from MySQLdb._exceptions import IntegrityError
 from edu.lagcc.opencc.models.models import User
-from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
-from edu.lagcc.opencc.exceptions.exceptions import UserExistsException
+from MySQLdb._exceptions import MySQLError, IntegrityError
+from edu.lagcc.opencc.exceptions.exceptions import NotFoundException, UserExistsException
 
 
 class UserRepository:
@@ -12,21 +10,6 @@ class UserRepository:
 
     def __init__(self, connection):
         self.connection = connection
-
-    def get_user_by_id(self, user_id):
-        """ Returns a User object if an associated user with user_id exists. """
-
-        query = """select * from users where user_id = %s """
-        try:
-            cur = self.connection.cursor()
-            cur.execute(query, (user_id,))
-            user = cur.fetchone()
-            cur.close()
-            if user is None:
-                raise NotFoundException("No user with user_id={} exists".format(user_id))
-            return User(user_id=user[0], phone_number=user[1])
-        except MySQLError as ex:
-            raise MySQLError("Possible malformed input. {}".format(ex))
 
     def get_user_by_phone_num(self, phone_number):
         """ Returns a User object if an associated user with phone_num exists. """
