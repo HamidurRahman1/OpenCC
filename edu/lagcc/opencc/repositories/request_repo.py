@@ -1,13 +1,8 @@
 
-from MySQLdb._exceptions import MySQLError
-from MySQLdb._exceptions import IntegrityError
-from edu.lagcc.opencc.models.models import User
-from edu.lagcc.opencc.models.models import Term
-from edu.lagcc.opencc.models.models import Subject
-from edu.lagcc.opencc.models.models import Request
+from MySQLdb._exceptions import MySQLError, IntegrityError
 from edu.lagcc.opencc.repositories.user_repo import UserRepository
-from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
-from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequestException
+from edu.lagcc.opencc.models.models import User, Term, Subject, Request
+from edu.lagcc.opencc.exceptions.exceptions import NotFoundException, DuplicateRequestException
 
 
 class RequestRepository:
@@ -25,7 +20,7 @@ class RequestRepository:
         """
 
         query = """
-                select r.fk_user_id, u.phone_num, t.term_name, t.term_value, s.subject_code, s.subject_name, r.class_num_5_digit 
+                select r.fk_user_id, u.phone_number, t.term_name, t.term_value, s.subject_code, s.subject_name, r.class_num_5_digit 
                 from requests r
                 inner join users u on u.user_id = r.fk_user_id
                 inner join terms t on r.fk_term_id = t.term_id
@@ -50,6 +45,7 @@ class RequestRepository:
             cur.close()
             return tuple_class_num_term_to_requests
         else:
+            cur.close()
             raise NotFoundException("No requests found to notify.")
 
     def add_request(self, phone_number, term_value, subject_name, subject_code, class_num_5_digit):
@@ -57,7 +53,7 @@ class RequestRepository:
 
         query = """
                 insert into requests (fk_user_id, fk_term_id, fk_subject_id, class_num_5_digit) values 
-                ((select user_id from users where phone_num = %s), 
+                ((select user_id from users where phone_number = %s), 
                 (select term_id from terms where term_value = %s),
                 (select subject_id from subjects where subject_name = %s and subject_code = %s),
                 %s);
@@ -90,11 +86,11 @@ class RequestRepository:
             data = None
             if class_num_5_digit:
                 query = """delete from requests where class_num_5_digit = %(class_num)s and 
-                        fk_user_id = (select user_id from users where phone_num = %(phone)s)"""
+                        fk_user_id = (select user_id from users where phone_number = %(phone)s)"""
                 data = {'phone': from_number, 'class_num': class_num_5_digit}
             else:
                 query = """delete from requests where fk_user_id = 
-                        (select user_id from users where phone_num = %(phone)s)"""
+                        (select user_id from users where phone_number = %(phone)s)"""
                 data = {'phone': from_number}
             cur = self.connection.cursor()
             row = cur.execute(query, data)
