@@ -1,12 +1,20 @@
 
 use opencc_db;
 
-insert into terms (term_value, term_name) values
-('1212','2021 Spring'), ('1219','2021 Fall'), ('1222','2022 Spring'),
-('1229','2022 Fall'), ('1232','2023 Spring'), ('1239','2023 Fall'), ('1242','2024 Spring'), ('1249','2024 Fall'),
-('1252','2025 Spring'), ('1259','2025 Fall'), ('1262','2026 Spring'), ('1269','2026 Fall'), ('1272','2027 Spring'),
-('1279','2027 Fall'), ('1282','2028 Spring'), ('1289','2028 Fall'), ('1292','2029 Spring'), ('1299','2029 Fall');
+-- these users are for testing web page purposes only
+insert into users (phone_num) values
+(1111111111), (2222222222), (3333333333), (4444444444), (5555555555);
 
+insert into terms (term_value, term_name) values
+('1212','2021 Spring'), ('1219','2021 Fall'),
+('1222','2022 Spring'), ('1229','2022 Fall'),
+('1232','2023 Spring'), ('1239','2023 Fall'),
+('1242','2024 Spring'), ('1249','2024 Fall'),
+('1252','2025 Spring'), ('1259','2025 Fall'),
+('1262','2026 Spring'), ('1269','2026 Fall'),
+('1272','2027 Spring'), ('1279','2027 Fall'),
+('1282','2028 Spring'), ('1289','2028 Fall'),
+('1292','2029 Spring'), ('1299','2029 Fall');
 
 insert into subjects (subject_code, subject_name) values
 ('ACCT','BTA 112'),('ACCT','BTA 201'),('ACCT','BTA 111'),('ACCT','BTA 202'),('AMSL','ELM 102'),('AMSL','ELM 103'),
@@ -92,4 +100,16 @@ insert into subjects (subject_code, subject_name) values
 ('UBST','SCN 196'),('UBST','ELN 120'),('UBST','BTN 211'),('UBST','ELN 194'),('UBST','SCN 194'),('UBST','ELN 101'),
 ('UBST','ELN 121'),('VETE','SCV 213'),('VETE','SCV 234'),('VETE','SCV 151'),('VETE','SCV 214'),('VETE','SCV 201'),
 ('VETE','SCV 231'),('VETE','SCV 101'),('VETE','SCV 211');
+
+-- these requests are for testing web page purposes only
+insert into requests (fk_user_id, fk_subject_id, fk_term_id, class_num_5_digit) values
+(1, (select subject_id from subjects where subject_name = 'BTA 111'), (select term_id from terms where term_name = '2021 Spring'), 11111),
+(2, (select subject_id from subjects where subject_name = 'BTA 111'), (select term_id from terms where term_name = '2021 Spring'), 11111),
+(3, (select subject_id from subjects where subject_name = 'BTA 111'), (select term_id from terms where term_name = '2021 Spring'), 11111),
+(4, (select subject_id from subjects where subject_name = 'BTA 111'), (select term_id from terms where term_name = '2021 Spring'), 11111),
+(5, (select subject_id from subjects where subject_name = 'BTA 111'), (select term_id from terms where term_name = '2021 Spring'), 11111);
+
+
+
+
 
