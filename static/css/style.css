@@ -1,14 +1,112 @@
-h1 {
-    color: navajowhite;
-    font-variant-caps: all-small-caps;
-    font-size: 46px;
-}
-
-h3 {
-  color: white;
-  font-size: 36px;
-}
 
 body {
-    background-color: cadetblue;
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #333;
+}
+
+.header-outer {
+    position: relative;
+    height: 350px;
+    color: #fff;
+    text-align: center;
+    background: url("https://codemyui.com/wp-content/uploads/2017/07/envelope-to-paper-plane-animation.gif") no-repeat center center;
+    background-size: cover;
+}
+
+.header-outer:after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 17, 17, 0.5);
+}
+
+.header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    z-index: 10;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    -webkit-animation: fade-in 0.75s 0.25s ease-in forwards;
+    animation: fade-in 0.75s 0.25s ease-in forwards;
+}
+
+.header-content h1 {
+    margin: 0;
+    font-size: 5em;
+    line-height: 1.4em;
+}
+
+.header-content p {
+    margin: 0;
+    font-size: 1.4em;
+    font-style: oblique 30deg;
+    font-family: serif;
+}
+
+nav {
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+}
+
+nav.scrolled {
+    background: rgba(17, 17, 17, 0.9);
+}
+
+nav ul {
+    float: right;
+    list-style: none;
+    padding: 25px;
+    margin: 0;
+}
+
+nav li {
+    float: left;
+}
+
+nav a {
+    font-size: 0.9em;
+    color: #fff;
+    text-decoration: none;
+    margin: 5px 0 0 20px;
+    display: block;
+}
+
+nav a:hover {
+    color: #ededed;
+}
+
+section {
+    width: 100%;
+    margin: 25px auto;
+    padding: 20px;
+    max-width: 800px;
+    font-size: 1.2em;
+    line-height: 1.6em;
+    box-sizing: border-box;
+}
+
+@-webkit-keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

@@ -83,12 +83,12 @@ def index():
 
 @_app.route("/about.html", methods=["GET"])
 def about():
-    return render_template("about.html")
+    return render_template("about.html", title=APP_NAME)
 
 
 @_app.route("/FAQs.html", methods=["GET"])
 def faqs():
-    return render_template("faqs.html")
+    return render_template("faqs.html", title=APP_NAME)
 
 
 @_app.route("/secret_uri"+'environ.get("TWILIO_RSP_URI")', methods=["POST"])
