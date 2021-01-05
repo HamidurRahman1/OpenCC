@@ -67,6 +67,7 @@ def __add_request__(form):
 
 
 @_app.route("/", methods=["GET", "POST"])
+@_app.route("/index.html", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
         request_status = __add_request__(request.form)
