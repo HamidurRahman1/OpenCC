@@ -1,4 +1,6 @@
 
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
+
 /* style applies to all : start */
 body {
     margin: 0;
@@ -197,3 +199,57 @@ nav a:hover {
     background-color: #2E8B57;
 }
 /* request.html styling : end */
+
+/* footer.html styling : start */
+.footer {
+    background-color: #DCDCDC;
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    font: normal 16px times;
+    padding: 30px 30px;
+}
+
+.footer .footer-left p {
+    color: black;
+    font-size: 20px;
+}
+
+.footer .footer-right {
+    float: right;
+    margin-top: 6px;
+    width: 180px;
+}
+
+.footer .footer-right a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    background-color: #33383b;
+    border-radius: 2px;
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 35px;
+    margin-left: 3px;
+    transition:all .25s;
+}
+
+.footer .footer-right a:hover{transform:scale(1.1); -webkit-transform:scale(1.1);}
+
+.footer p.footer-links a:hover{text-decoration:underline;}
+
+@media (max-width: 600px) {
+    .footer .footer-left, .footer .footer-right {
+        text-align: center;
+    }
+    .footer .footer-right {
+        float: none;
+        margin: 0 auto 20px;
+    }
+    .footer .footer-left p.footer-links {
+        line-height: 1.8;
+    }
+}
+/* footer.html styling : end */
