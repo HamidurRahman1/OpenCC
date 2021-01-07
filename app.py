@@ -73,10 +73,10 @@ def index():
         request_status = __add_request__(request.form)
         if request_status[0]:
             return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
-                                   success=True, message=request_status[1])
+                                   success_message=request_status[1])
         else:
             return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
-                                   error=True, message=request_status[1])
+                                   error_message=request_status[1])
     else:
         return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES)
 
