@@ -31,7 +31,8 @@
             <div class="request-form">
                 <form method="post" action="http://127.0.0.1:5000/" id="add-request" name="add-request">
                     <label for="phone-number">Phone Number (ex: 1234567890)</label>
-                    <input type="tel" id="phone-number" name="phone-number" pattern="[1-9]{3}[0-9]{3}[0-9]{4}" placeholder="1234567890" required>
+                    <input type="tel" id="phone-number" name="phone-number" pattern="[1-9]{3}[0-9]{3}[0-9]{4}" placeholder="1234567890"
+                           maxlength="10" minlength="10" size="10" required>
 
                     <label for="term">Select Term</label>
                     <select id="term" name="term" required>
@@ -40,7 +41,7 @@
                         {% endfor %}
                     </select>
 
-                    <label for="subject">Select Course: </label>
+                    <label for="subject">Select Course</label>
                     <select name="subject" id="subject" required>
                         {% for sub_code in subs %}
                         {% for sub in subs.get(sub_code) %}
@@ -49,7 +50,7 @@
                         {% endfor %}
                     </select>
 
-                    <label for="class-num-5">5 digit class number: </label>
+                    <label for="class-num-5">5-Digit Class Number</label>
                     <input type="text" id="class-num-5" name="class-num-5" maxlength="5" minlength="5" size="5" pattern="\d{5}" required><br><br>
 
                     <input type="submit" value="Add Request" class="submit-request">
