@@ -285,3 +285,31 @@ nav a:hover {
     }
 }
 /* footer.html styling : end */
+
+/* about.html styling : start */.about {
+                                    width: 100%;
+                                    margin: 25px auto;
+                                    padding: 20px;
+                                    max-width: 800px;
+                                    font-size: 1.2em;
+                                    line-height: 1.6em;
+                                    box-sizing: border-box;
+                                }
+
+.quote {
+    margin: 0;
+    background: #eee;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.quote blockquote {
+    margin: 1em;
+    font-style: italic;
+    font-size: 27px;
+}
+
+.quote figcaption {
+    margin: 1em;
+}
+/* about.html styling : end */
