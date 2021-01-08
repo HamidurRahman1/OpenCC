@@ -73,22 +73,22 @@ def index():
         request_status = __add_request__(request.form)
         if request_status[0]:
             return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
-                                   success=True, message=request_status[1])
+                                   success_message=request_status[1])
         else:
             return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
-                                   error=True, message=request_status[1])
+                                   error_message=request_status[1])
     else:
         return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES)
 
 
 @_app.route("/about.html", methods=["GET"])
 def about():
-    return render_template("about.html")
+    return render_template("about.html", title=APP_NAME)
 
 
-@_app.route("/FAQs.html", methods=["GET"])
+@_app.route("/faqs.html", methods=["GET"])
 def faqs():
-    return render_template("faqs.html")
+    return render_template("faqs.html", title=APP_NAME)
 
 
 @_app.route("/secret_uri"+'environ.get("TWILIO_RSP_URI")', methods=["POST"])
