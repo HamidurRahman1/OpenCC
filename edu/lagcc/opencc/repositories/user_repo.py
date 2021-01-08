@@ -14,7 +14,7 @@ class UserRepository:
     def get_user_by_phone_num(self, phone_number):
         """ Returns a User object if an associated user with phone_num exists. """
 
-        query = """select * from users where phone_num = %s """
+        query = """select * from users where phone_number = %s """
         try:
             cur = self.connection.cursor()
             cur.execute(query, (phone_number,))
@@ -29,7 +29,7 @@ class UserRepository:
     def save_user(self, phone_number):
         """ Creates a user record in the database using the this phone number. """
 
-        query = """insert into users (phone_num) value (%s)"""
+        query = """insert into users (phone_number) value (%s)"""
         try:
             cur = self.connection.cursor()
             i = cur.execute(query, (phone_number,))
