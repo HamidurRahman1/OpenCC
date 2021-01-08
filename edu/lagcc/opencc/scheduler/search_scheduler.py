@@ -9,8 +9,8 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from edu.lagcc.opencc.notifier.sms_sender import Option, SMSSender
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
 from edu.lagcc.opencc.searcher.class_searcher import OpenClassSearcher
-from edu.lagcc.opencc.utils.util import MSG_LOGGER, EXCEPTION_LOGGER, SCHEDULER_LOGGER
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
+from edu.lagcc.opencc.utils.util import MSG_LOGGER, EXCEPTION_LOGGER, SCHEDULER_LOGGER
 
 
 def print_requests(t_dict):
@@ -79,13 +79,8 @@ def _get_requests_and_search():
         return set()
 
     try:
-        from edu.lagcc.opencc.config.config import MYSQL_HOST
-        from edu.lagcc.opencc.config.config import MYSQL_USER
-        from edu.lagcc.opencc.config.config import MYSQL_PASSWORD
-        from edu.lagcc.opencc.config.config import MYSQL_DB
-
-        connection = MySQLdb.connect(host=MYSQL_HOST, user=MYSQL_USER,
-                                     passwd=MYSQL_PASSWORD, db=MYSQL_DB)
+        connection = MySQLdb.connect(host=environ.get("MYSQL_HOST"), user=environ.get("MYSQL_USER"),
+                                     passwd=environ.get("MYSQL_PASSWORD"), db=environ.get("MYSQL_DB"))
 
         """
             tuple_class_num_term_to_requests: a dictionary
@@ -95,14 +90,18 @@ def _get_requests_and_search():
         tuple_class_num_term_to_requests = RequestRepository(connection).get_requests_to_search_and_notify()
         connection.close()
 
-        logging.getLogger(SCHEDULER_LOGGER).debug("Total requests: {}".format(len(tuple_class_num_term_to_requests)))
+        requests_length = len(tuple_class_num_term_to_requests)
+
+        logging.getLogger(SCHEDULER_LOGGER).debug("Total requests found: {}".format(requests_length))
 
         searching_start = time.time()
         _process_request(tuple_class_num_term_to_requests)
-        logging.getLogger(MSG_LOGGER).info("total time taken to search 60 requests and notify users is: {}".format(time.time()-searching_start))
+        logging.getLogger(MSG_LOGGER).info("Total time taken to search {} requests and notify users is: {}"
+                                           .format(requests_length, time.time()-searching_start))
 
         end = round(time.time()-start)
-        logging.getLogger(MSG_LOGGER).info("total time taken by scheduler for 60 requests is: {}".format(end))
+        logging.getLogger(MSG_LOGGER).info("Total time taken by scheduler for {} requests is: {}"
+                                           .format(requests_length, end))
         if end < expected_end:
             time.sleep(expected_end-end)
     except NotFoundException:
@@ -127,8 +126,8 @@ scheduler.start()
 
 try:
     asyncio.get_event_loop().run_until_complete(_search_scheduler())
-except SystemExit:
-    logging.getLogger(SCHEDULER_LOGGER).debug("system exit")
 except Exception as e:
     logging.getLogger(SCHEDULER_LOGGER).error(e)
+except SystemExit as se:
+    logging.getLogger(SCHEDULER_LOGGER).debug("System EXIT. {}".format(se))
 
