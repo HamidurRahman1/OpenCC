@@ -86,7 +86,7 @@ def about():
     return render_template("about.html", title=APP_NAME)
 
 
-@_app.route("/FAQs.html", methods=["GET"])
+@_app.route("/faqs.html", methods=["GET"])
 def faqs():
     return render_template("faqs.html", title=APP_NAME)
 
