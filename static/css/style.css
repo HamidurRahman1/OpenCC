@@ -166,7 +166,7 @@ nav a:hover {
 }
 
 .request-form label {
-    font-family: fantasy;
+    font-family: Times, Serif, sans-serif;
     font-weight: bold;
     font-size: 18px;
 }
@@ -184,6 +184,12 @@ nav a:hover {
 
 #phone-number:hover, select:hover, #class-num-5:hover {
     background-color: lightgreen;
+}
+
+.request-form input, .request-form select {
+    padding: 5px;
+    font-size: 16px;
+    font-family: 'Lucida Casual', 'Comic Sans MS', sans-serif;
 }
 
 .submit-request {
@@ -271,7 +277,6 @@ nav a:hover {
     transition: 0.1s;
     color: black;
 }
-
 
 @media (max-width: 600px) {
     .footer .footer-all, .footer .footer-social {
