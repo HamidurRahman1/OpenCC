@@ -91,7 +91,7 @@ def faqs():
     return render_template("faqs.html", title=APP_NAME)
 
 
-@_app.route("/secret_uri"+'environ.get("TWILIO_RSP_URI")', methods=["POST"])
+@_app.route("/"+environ.get("TWILIO_RSP_URI"), methods=["POST"])
 def unsubscribe_user():
     from_number = None
     body = None

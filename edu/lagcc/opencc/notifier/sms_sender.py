@@ -47,8 +47,7 @@ class SMSSender:
 
     def send(self):
         try:
-            msg = self.__client.api.account.messages.create(to=self._to, from_=self._from, body=self._body)
-            logging.getLogger(MSG_LOGGER).debug(msg.__str__())
+            self.__client.api.account.messages.create(to=self._to, from_=self._from, body=self._body)
         except TwilioRestException as rex:
             logging.getLogger(MSG_LOGGER).error(rex)
         except Exception as ex:

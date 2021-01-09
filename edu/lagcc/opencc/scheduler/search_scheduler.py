@@ -33,19 +33,15 @@ def _search_request(tuple_class_num_term, requests_set):
         requests_set: the requests (users) who made the request for the 5_digit_class_number and term_name in param 1
     """
     req_obj = next(iter(requests_set))
-    print(req_obj)
     obj = OpenClassSearcher(req_obj.term.term_name, req_obj.term.term_value, req_obj.subject.subject_code,
                             tuple_class_num_term[0]).check_session_one()
-    print("in session 1", obj.found, obj.status, obj.term_name, obj.term_value, obj.class_num_5_digit, obj.subject_code)
     if obj.found:
         if obj.status:
             _send_notification(requests_set)
     else:
         obj = obj.check_session_two()
-        print("in session 2", obj.found, obj.status, obj.term_name, obj.term_value, obj.class_num_5_digit, obj.subject_code)
         if obj.found and obj.status:
             _send_notification(requests_set)
-    print(obj.found, '\t', obj.status)
 
 
 def _process_request(tuple_to_req_dict):
@@ -95,8 +91,6 @@ def _get_requests_and_search():
         requests_length = len(tuple_class_num_term_to_requests)
 
         logging.getLogger(SCHEDULER_LOGGER).debug("Total requests found: {}".format(requests_length))
-
-        # print_requests(tuple_class_num_term_to_requests)
 
         searching_start = time.time()
         _process_request(tuple_class_num_term_to_requests)
