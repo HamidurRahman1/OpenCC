@@ -37,13 +37,11 @@ def _search_request(tuple_class_num_term, requests_set):
                             tuple_class_num_term[0]).check_session_one()
     if obj.found:
         if obj.status:
-            # _send_notification(requests_set)
-            pass
+            _send_notification(requests_set)
     else:
         obj = obj.check_session_two()
         if obj.found and obj.status:
-            # _send_notification(requests_set)
-            pass
+            _send_notification(requests_set)
 
 
 def _process_request(tuple_to_req_dict):
