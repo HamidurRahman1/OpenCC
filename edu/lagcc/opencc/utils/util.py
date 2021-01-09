@@ -6,20 +6,18 @@ import datetime
 
 APP_NAME = "OpenCC"
 
-# possibly change it and read from database at startup
 TERMS_VALUES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/terms_values.properties")
 SUB_CODES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/sub_codes.properties")
 
-MSG_LOGGER = "MESSAGE"                      # logger name for exception related to messages
-EXCEPTION_LOGGER = "EXCEPTION"                # logger name for other exceptions
-SCHEDULER_LOGGER = "SCHEDULER"                # logger name for class search scheduler
+MSG_LOGGER = "MESSAGE"                          # logger name for exception related to messages
+EXCEPTION_LOGGER = "EXCEPTION"                  # logger name for other exceptions
+SCHEDULER_LOGGER = "SCHEDULER"                  # logger name for class search scheduler
 
 LOG_FORMATTER = "$ {} -> %(asctime)s :: %(name)s :: %(levelname)s :: %(module)s :: %(message)s".format(APP_NAME)
 LOG_TIME_FMT = "%m-%d-%Y %I:%M:%S %p"
 
 
 def setup_logger(logger_name, level):
-
     logging.basicConfig(format=LOG_FORMATTER, datefmt=LOG_TIME_FMT, stream=sys.stdout)
     logger = logging.getLogger(logger_name)
     logger.setLevel(level)
@@ -51,7 +49,7 @@ def possible_terms():
     SP = " Spring"
     FA = " Fall"
 
-    if d.month == 1 and d.day < 10:
+    if d.month == 1 and d.day < 7:
         terms[str(d.year-1) + FA] = TERM_NAMES_TO_VALUES[str(d.year-1)+FA]
         terms[str(d.year) + SP] = TERM_NAMES_TO_VALUES[str(d.year)+SP]
     elif d.month >= 1 and d.month <= 5:

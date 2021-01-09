@@ -3,49 +3,56 @@
 <head>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="../static/css/style.css" type="text/css">
-    <script src="../static/script/main.js" charset="utf-8" type="text/javascript"></script>
+    <link rel="icon" href="https://iconarchive.com/download/i79674/martz90/hex/messages-2.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{title}}</title>
 </head>
 <body>
 
-    <div>
-        <ul>
-            <li>
-                Q: How can I add a class to get notified when it is open?
-                A: Navigate to app [will set up the home page link here] and just fill out the form there and you will be all set.
-            </li>
+{% include "header.html" %}
 
-            <li>
-                Q: How do I stop the receiving text messages for requested class(es)?
-                A: You can do one of the followings to stop getting text messages. Regardless of the choice you make, we will send
-                you a text saying that we have deleted your requested class. If you do not get a text message
-                saying we have deleted it then that means you did not have a such request.
-                <strong>1. Completely Stop Getting Text Messages:</strong> you can simply reply to the message saying: cancel all.
-                You <strong>MUST NOT</strong> write anything else before or after <strong>cancel all</strong>. It does not matter if the
-                text <strong>cancel all</strong> is upper case or not. i.e you can still add classes and get notified later on
-                even if you take this approach.
-                <strong>2. Stop Notification for Only One Class:</strong> you can simply reply to the message saying: cancel [5-digit-class-code].
-                ex. cancel 45678 <br>
-                You can find the classes you requested in the chat. You <strong>MUST NOT</strong> write anything else before or after
-                <strong>cancel [5-digit-class-code]</strong>. It does not matter if the text <strong>cancel [5-digit-class-code]</strong> is upper case or not. <br>
-                This is a convenient way to stop getting notification as it allows you to stop getting notification for
-                a class which you may have found a seat or not taking this class anymore or decided to get notification
-                for the same course but a different section. i.e you can still add classes and get notified later on
-                even if you take this approach.
-            </li>
+<div class="faqs-outer">
+    <h1 class="faqs-title">Frequently Asked Questions</h1>
+    <dl class="accordion">
+        <dt>
+            <button class="accordion__button" aria-expanded="true" aria-controls="accordion-resources">Q: How can I add a class to get notified when it is open?</button>
+        </dt>
+        <dd class="accordion__content" id="accordion-resources" aria-hidden="false">
+            <div>&emsp;Navigate to the <a href="index.html" target="_self">OpenCC</a> application and just fill out the form there with the correct information and you will be all set.</div>
+        </dd>
 
-            <li>
-                Q: How does this application work in regards to search if a class is closed or not?
-                A: This application has a scheduler which runs in every 2 minutes. The scheduler gets all
-                    the request(s) (e.g. request mean the classes students have entered to get notified when it opens)
-                    available and creates threads and search each class. If any of the class is found open then those
-                    who have made the request for this class will get notified right away in couples of seconds. Keep
-                    it in mind that if CUNYfirst is down due to maintenance then we will not be able to search your
-                    requested class(es) until it is back online.
-            </li>
-        </ul>
-    </div>
+        <dt>
+            <button class="accordion__button" aria-expanded="true" aria-controls="accordion-markup">Q: How do I stop receiving text messages for requested class(es)?</button>
+        </dt>
+        <dd class="accordion__content" id="accordion-markup" aria-hidden="false">
+            <div>&emsp;You can do one of the followings to stop getting text messages. Regardless of the choice you make, a text will be sent saying that your requested class(es) have been deleted. If you do not get a text message that means you did not have a such request to be deleted.
+                <ol>
+                    <li>
+                        <h3>Completely Stop Getting Text Messages:</h3>
+                        &emsp;You can simply reply to the message saying: <strong><em>cancel all</em></strong>. You <strong>MUST NOT</strong> write anything else before or after <strong><em>cancel all</em></strong>. It does not matter if the text <strong><em>cancel all</em></strong> is upper case or not as long as the replied message only contains <strong><em>cancel all</em></strong> (i.e you can still add classes and get notified even if you take this approach.)
+                    </li>
+                    <li>
+                        <h3><strong>Stop Getting Text Messages for Only One Class:</strong></h3>
+                        &emsp;You can simply reply to the message saying: <strong><em>cancel [5-digit-class-number]</em></strong>. ex. <strong><em>cancel 45678</em></strong>. You can find the classes you requested in the chat. You <strong>MUST NOT</strong> write anything else before or after <strong><em>cancel [5-digit-class-code]</em></strong>. It does not matter if the text <strong><em>cancel [5-digit-class-code]</em></strong> is upper case or not.
+                        <br>
+                        &emsp;This is a convenient way to stop getting notification as it allows you to stop getting notification for a class which you may have found a seat or not taking this class anymore or decided to get notification for the same course but a different section (i.e you can still add classes and get notified later on even if you take this approach.)
+                    </li>
+                </ol>
+            </div>
+        </dd>
+
+        <dt>
+            <button class="accordion__button" aria-expanded="true" aria-controls="accordion-behavior">Q: How does this application work in regards to checking if a class is closed or not?</button>
+        </dt>
+        <dd class="accordion__content" id="accordion-behavior" aria-hidden="false">
+            <div>&emsp;This application has a scheduler which runs in every 2.5 minutes. The scheduler gets all the available requests (e.g. request mean the classes students have entered to get notified when it opens) and creates threads and search each class. If any of the class is found open then those who have made the request for this class will get notified right away in couples of seconds. Keep it in mind that if CUNYfirst is down due to maintenance then we will not be able to search requested class(es) until it is back online. In case if a class become open exactly right before CUNYfirt goes under maintenance, no one will be able to get that class until CUNYfirst is back online. As the scheduler runs in every 2.5 minutes, you still have a very high chance of getting this class if CUNYfirst is back online after maintenance.</div>
+        </dd>
+    </dl>
+</div>
+
+<script src="/static/script/main.js"></script>
+
+{% include "footer.html" %}
 
 </body>
 </html>
