@@ -8,7 +8,7 @@ from edu.lagcc.opencc.utils.util import EXCEPTION_LOGGER
 
 class OpenClassSearcher:
 
-    URL = "https://globalsearch.cuny.edu/CFGlobalSearchTool/search.jsp"
+    URL = "https://globalsearch.cuny.edu/CFGlobalSearchTool/CFSearchToolController"
 
     def __init__(self, term_name, term_value, subject_code, class_num_5_digit):
         self.session = requests.Session()
