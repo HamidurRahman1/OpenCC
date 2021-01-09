@@ -13,10 +13,10 @@ from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.utils.util import MSG_LOGGER, EXCEPTION_LOGGER, SCHEDULER_LOGGER
 
 
-def print_requests(t_dict):
-    for k in t_dict.keys():
-        print(k, "==>")
-        for j in t_dict.get(k):
+def print_requests(tuple_class_num_term_to_requests):
+    for tupl in tuple_class_num_term_to_requests.keys():
+        print(tupl, "==>")
+        for j in tuple_class_num_term_to_requests.get(tupl):
             print(j)
 
 
