@@ -13,10 +13,10 @@ from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.utils.util import MSG_LOGGER, EXCEPTION_LOGGER, SCHEDULER_LOGGER
 
 
-def print_requests(t_dict):
-    for k in t_dict.keys():
-        print(k, "==>")
-        for j in t_dict.get(k):
+def print_requests(tuple_class_num_term_to_requests):
+    for tupl in tuple_class_num_term_to_requests.keys():
+        print(tupl, "==>")
+        for j in tuple_class_num_term_to_requests.get(tupl):
             print(j)
 
 
@@ -42,6 +42,7 @@ def _search_request(tuple_class_num_term, requests_set):
         obj = obj.check_session_two()
         if obj.found and obj.status:
             _send_notification(requests_set)
+    print(obj.found, '\t', obj.status)
 
 
 def _process_request(tuple_to_req_dict):
@@ -92,6 +93,7 @@ def _get_requests_and_search():
 
         logging.getLogger(SCHEDULER_LOGGER).debug("Total requests found: {}".format(requests_length))
 
+        print_requests(tuple_class_num_term_to_requests)
         searching_start = time.time()
         _process_request(tuple_class_num_term_to_requests)
         logging.getLogger(MSG_LOGGER).info("Total time taken to search {} requests and notify users is: {}"
