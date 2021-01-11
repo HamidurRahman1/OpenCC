@@ -1,26 +1,45 @@
 
 import os
 import sys
+import pytz
 import logging
-import datetime
+from datetime import datetime
 
 APP_NAME = "OpenCC"
 
 TERMS_VALUES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/terms_values.properties")
 SUB_CODES_FILE_PATH = os.path.join(os.path.dirname(__file__), "../props/sub_codes.properties")
 
-MSG_LOGGER = "MESSAGE"                          # logger name for exception related to messages
-EXCEPTION_LOGGER = "EXCEPTION"                  # logger name for other exceptions
-SCHEDULER_LOGGER = "SCHEDULER"                  # logger name for class search scheduler
+DATETIME_FORMATTER = "%m-%d-%Y %I:%M:%S %p"
 
-LOG_FORMATTER = "$ {} -> %(asctime)s :: %(name)s :: %(levelname)s :: %(module)s :: %(message)s".format(APP_NAME)
-LOG_TIME_FMT = "%m-%d-%Y %I:%M:%S %p"
+INC_MSG_LOGGER = "INC_MESSAGES_LOGGER"
+EXCEPTION_LOGGER = "EXCEPTIONS_LOGGER"
+APP_HITS_LOGGER = "APP_HITS_LOGGER"
+SCHEDULER_LOGGER = "SCHEDULER_LOGGER"
+
+INC_MSG_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s => %(message)s".format("OpenCC")
+APP_HITS_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s => %(message)s".format("OpenCC")
+TASK_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s => %(message)s".format("OpenCC")
+EXCEPTION_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s :: %(levelname)s :: %(module)s => %(message)s".format("OpenCC")
 
 
-def setup_logger(logger_name, level):
-    logging.basicConfig(format=LOG_FORMATTER, datefmt=LOG_TIME_FMT, stream=sys.stdout)
-    logger = logging.getLogger(logger_name)
+class DateTimeFilter(logging.Filter):
+    def filter(self, record):
+        record.nyc_datetime = formatted_nyc_datetime()
+        return True
+
+
+def formatted_nyc_datetime():
+    return datetime.now(tz=pytz.timezone("America/New_York")).strftime(DATETIME_FORMATTER)
+
+
+def setup_logger(name, formatter, level):
+    logger = logging.getLogger(name)
+    logger.addFilter(DateTimeFilter())
+    handler = logging.StreamHandler(stream=sys.stdout)
+    handler.setFormatter(logging.Formatter(formatter))
     logger.setLevel(level)
+    logger.addHandler(handler)
 
 
 def load_terms_values():
@@ -44,7 +63,7 @@ def load_sub_codes_to_names():
 
 
 def possible_terms():
-    d = datetime.datetime.now()
+    d = datetime.now()
     terms = dict()
     SP = " Spring"
     FA = " Fall"
@@ -76,11 +95,11 @@ def possible_terms():
     return terms
 
 
-setup_logger(MSG_LOGGER, logging.DEBUG)
-setup_logger(SCHEDULER_LOGGER, logging.DEBUG)
-setup_logger(EXCEPTION_LOGGER, logging.ERROR)
+setup_logger(SCHEDULER_LOGGER, TASK_LOG_FORMATTER, logging.DEBUG)
+setup_logger(INC_MSG_LOGGER, INC_MSG_LOG_FORMATTER, logging.DEBUG)
+setup_logger(APP_HITS_LOGGER, APP_HITS_LOG_FORMATTER, logging.INFO)
+setup_logger(EXCEPTION_LOGGER, EXCEPTION_LOG_FORMATTER, logging.ERROR)
 
 TERM_NAMES_TO_VALUES = load_terms_values()
 SUB_CODES_TO_SUB_NAMES = load_sub_codes_to_names()
 POSSIBLE_TERMS = possible_terms()
-
