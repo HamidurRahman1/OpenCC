@@ -10,14 +10,7 @@ from edu.lagcc.opencc.notifier.sms_sender import Option, SMSSender
 from edu.lagcc.opencc.exceptions.exceptions import NotFoundException
 from edu.lagcc.opencc.searcher.class_searcher import OpenClassSearcher
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
-from edu.lagcc.opencc.utils.util import MSG_LOGGER, EXCEPTION_LOGGER, SCHEDULER_LOGGER
-
-
-def print_requests(tuple_class_num_term_to_requests):
-    for tupl in tuple_class_num_term_to_requests.keys():
-        print(tupl, "==>")
-        for j in tuple_class_num_term_to_requests.get(tupl):
-            print(j)
+from edu.lagcc.opencc.utils.util import EXCEPTION_LOGGER, SCHEDULER_LOGGER
 
 
 def _send_notification(requests_set):
@@ -90,23 +83,18 @@ def _get_requests_and_search():
 
         requests_length = len(tuple_class_num_term_to_requests)
 
-        logging.getLogger(SCHEDULER_LOGGER).debug("Total requests found: {}".format(requests_length))
-
         searching_start = time.time()
         _process_request(tuple_class_num_term_to_requests)
-        logging.getLogger(MSG_LOGGER).info("Total time taken to search {} requests and notify users is: {}"
-                                           .format(requests_length, time.time()-searching_start))
+        logging.getLogger(SCHEDULER_LOGGER).info("Total time taken to search {} requests and notify users is: {}".format(requests_length, time.time()-searching_start))
 
         end = round(time.time()-start)
-        logging.getLogger(MSG_LOGGER).info("Total time taken by scheduler for {} requests is: {}"
-                                           .format(requests_length, end))
         if end < expected_end:
             time.sleep(expected_end-end)
     except NotFoundException:
         # thrown by the repository if there are no request to search and notify, just sleep expected time and try again
         time.sleep(expected_end)
     except Exception as ex:
-        logging.getLogger(EXCEPTION_LOGGER).error(ex)
+        logging.getLogger(EXCEPTION_LOGGER).error("Exception type: {}, Message: {}".format(type(ex).__name__, ex.args))
         end = round(time.time()-start)
         if end < expected_end:
             time.sleep(expected_end-end)
@@ -119,13 +107,12 @@ def _search_scheduler():
         yield from _get_requests_and_search()
 
 
-scheduler = AsyncIOScheduler()
-scheduler.start()
-
 try:
+    scheduler = AsyncIOScheduler()
+    scheduler.start()
     asyncio.get_event_loop().run_until_complete(_search_scheduler())
 except Exception as e:
-    logging.getLogger(SCHEDULER_LOGGER).error(e)
+    logging.getLogger(EXCEPTION_LOGGER).error("Exception type: {}, Message: {}".format(type(e).__name__, e.args))
 except SystemExit as se:
-    logging.getLogger(SCHEDULER_LOGGER).debug("System EXIT. {}".format(se))
+    logging.getLogger(EXCEPTION_LOGGER).critical("SYSTEM EXIT. Exception type: {}, Message: {}".format(type(se).__name__, se.args))
 
