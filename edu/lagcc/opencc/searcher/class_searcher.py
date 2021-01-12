@@ -72,6 +72,7 @@ class OpenClassSearcher:
     def is_site_up():
         try:
             return requests.get(OpenClassSearcher.URL).status_code == 200
-        except Exception as e:
-            logging.getLogger(EXCEPTION_LOGGER).error("CUNY global class search page is down. {}".format(e))
+        except Exception:
+            return False
+        except:
             return False
