@@ -1,0 +1,23 @@
+#conditions-modal-wrapper{
+    background-color: rgba(43, 43, 22, 0.5);
+    height: 200vh;
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    padding: 10% 0;
+    overflow-y: hidden;
+    #conditions-modal{
+        position: fixed;
+        background-color: aquamarine;
+        width: 60%;
+        height: 60%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        padding : 10% 0;
+    }
+}

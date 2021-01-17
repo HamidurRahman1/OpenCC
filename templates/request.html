@@ -37,22 +37,21 @@
                 <label for="term">Select Term</label>
                 <select id="term" name="term" required>
                     {% for key in terms %}
-                    <option value="{{ key }},{{ terms.get(key) }}">{{key}}</option>
+                    <option value="{{key}}">{{key}}</option>
                     {% endfor %}
                 </select>
 
                 <label for="subject">Select Course</label>
-                <select name="subject" id="subject" required>
+                <input list="subject" name="subject" id="sub_name">
+                <datalist id="subject">
                     {% for sub_code in subs %}
-                    {% for sub in subs.get(sub_code) %}
-                    <option value="{{ sub_code }},{{sub}}">{{sub}}</option>
+                    <option value="{{sub_code}}"></option>
                     {% endfor %}
-                    {% endfor %}
-                </select>
+                </datalist>
 
                 <label for="class-num-5">5-Digit Class Number</label>
                 <input type="text" id="class-num-5" name="class-num-5" maxlength="5" minlength="5" size="5"
-                       pattern="\d{5}" required><br><br>
+                       pattern="\d{5}" required>
 
                 <input type="submit" value="Add Request" class="submit-request">
         </form>

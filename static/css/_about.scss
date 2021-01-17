@@ -1,0 +1,40 @@
+/* about.html styling : start */
+
+#about-wrapper{
+    width: 60%;
+    height: 80%;
+    background-color: lightcyan;
+    
+}
+
+.about {
+    padding: 2%;
+    height: 100%;
+    width: 100%;
+    font-size: 1em;
+    line-height: 1.5em;
+    background-color: #f2f2f2;
+    border : 1px solid black;
+    border-radius: 25px;
+    box-shadow: 3px 3px 3px 10px rgb(161, 154, 154);
+    text-align: left;
+
+}
+
+.quote {
+    margin: 0;
+    background: #eee;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+.quote blockquote {
+    margin: 1em;
+    font-style: italic;
+    font-size: 1.7em;
+}
+
+.quote figcaption {
+    margin: 1em;
+}
+/* about.html styling : end */

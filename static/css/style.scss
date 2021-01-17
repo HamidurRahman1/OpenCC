@@ -1,0 +1,42 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+/* style applies to all : start */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a{
+    color : black;
+}
+
+body {
+    color: black;
+}
+/* style applies to all : end */
+
+#main-view {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+@import 'header';
+@import 'request';
+@import 'footer';
+
+@import 'condition-modal';
+
+@import 'faqs';
+@import 'about';
+
+
+
+
+
+

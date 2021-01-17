@@ -1,0 +1,18 @@
+<div id="conditions-modal-wrapper">
+    <div id="conditions-modal">
+
+        <h2>Agreement and Conditions</h2>
+        <p>
+          By clicking OK you are agreeing to..
+        </p>
+        <button id="modal-btn">
+            OK
+        </button>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('#modal-btn').onclick = () => {
+      document.querySelector('#conditions-modal-wrapper').style.display = 'none';
+    }
+  </script>

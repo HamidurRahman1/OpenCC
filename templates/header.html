@@ -10,11 +10,9 @@
 <body>
 
 <nav>
-    <ul>
-        <li><a href="http://127.0.0.1:5000/" target="_self">Home</a></li>
-        <li><a href="http://127.0.0.1:5000/about.html" target="_self">About</a></li>
-        <li><a href="http://127.0.0.1:5000/faqs.html" target="_self">FAQs</a></li>
-    </ul>
+    <span class="nav-item" value = "request-wrapper" id="request-trigger">Home</span>
+    <span class="nav-item" value = "about-wrapper" id="about-trigger">About</span>
+    <span class="nav-item" value = "faqs-wrapper" id="faqs-trigger">FAQS</span>
 </nav>
 
 <header>
@@ -28,13 +26,16 @@
 
 <script>
     window.onscroll = scrollShowNav;
+    let navbar = document.querySelector('nav')
     function scrollShowNav() {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            document.getElementsByTagName("nav")[0].style.top = "-50px";
-        } else {
-            document.getElementsByTagName("nav")[0].style.top = "0px";
+            navbar.classList.add("nav-scrolled");
+        }
+        else{
+            navbar.classList.remove("nav-scrolled");
         }
     }
+
 </script>
 
 </body>
