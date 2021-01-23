@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="../static/css/style.css" type="text/css">
-    <link rel="icon" href="https://iconarchive.com/download/i79674/martz90/hex/messages-2.ico" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{{title}}</title>
-</head>
-<body>
-
-    <div class="add-request">
+    <div class="outer-request-form">
         <div class="request-form-title">Add Request to Get Notified</div>
-        <div class="extra-space"></div>
-
         <div class="response">
             <div>
                 {% if success_message %}
@@ -37,26 +24,24 @@
                 <label for="term">Select Term</label>
                 <select id="term" name="term" required>
                     {% for key in terms %}
-                    <option value="{{key}}">{{key}}</option>
+                    <option value="{{ key }},{{ terms.get(key) }}">{{key}}</option>
                     {% endfor %}
                 </select>
 
                 <label for="subject">Select Course</label>
-                <input list="subject" name="subject" id="sub_name">
-                <datalist id="subject">
+                <select name="subject" id="subject" required>
                     {% for sub_code in subs %}
-                    <option value="{{sub_code}}"></option>
+                    {% for sub in subs.get(sub_code) %}
+                    <option value="{{ sub_code }},{{sub}}">{{sub}}</option>
                     {% endfor %}
-                </datalist>
+                    {% endfor %}
+                </select>
 
                 <label for="class-num-5">5-Digit Class Number</label>
                 <input type="text" id="class-num-5" name="class-num-5" maxlength="5" minlength="5" size="5"
-                       pattern="\d{5}" required>
+                       pattern="\d{5}" required><br><br>
 
                 <input type="submit" value="Add Request" class="submit-request">
         </form>
     </div>
     </div>
-
-</body>
-</html>

@@ -1,42 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="../static/css/style.css" type="text/css">
-    <link rel="icon" href="https://iconarchive.com/download/i79674/martz90/hex/messages-2.ico" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{{title}}</title>
-</head>
-<body>
-
-<nav>
-    <span class="nav-item" value = "request-wrapper" id="request-trigger">Home</span>
-    <span class="nav-item" value = "about-wrapper" id="about-trigger">About</span>
-    <span class="nav-item" value = "faqs-wrapper" id="faqs-trigger">FAQS</span>
-</nav>
-
-<header>
+<div class="header">
     <div class="header-outer">
         <div class="header-content">
             <h1>OpenCC</h1>
             <p>A free open source application that notifies <a href="https://www.laguardia.edu/home/Default.aspx" target="_blank">LaGCC</a> student via text messages when their requested class(es) become open.</p>
         </div>
     </div>
-</header>
+</div>
 
-<script>
-    window.onscroll = scrollShowNav;
-    let navbar = document.querySelector('nav')
-    function scrollShowNav() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            navbar.classList.add("nav-scrolled");
-        }
-        else{
-            navbar.classList.remove("nav-scrolled");
-        }
-    }
-
-</script>
-
-</body>
-</html>

@@ -1,40 +1,87 @@
-/* about.html styling : start */
+// /* about.html styling : start */
 
 #about-wrapper{
-    width: 60%;
-    height: 80%;
-    background-color: lightcyan;
-    
+    padding : 0 5%; 
+    min-height: 80vh;
+    width: 100%;
 }
 
 .about {
+    margin : 0 auto;
     padding: 2%;
     height: 100%;
-    width: 100%;
-    font-size: 1em;
-    line-height: 1.5em;
-    background-color: #f2f2f2;
-    border : 1px solid black;
-    border-radius: 25px;
-    box-shadow: 3px 3px 3px 10px rgb(161, 154, 154);
+    width: 80%;
+    font-size: 1.4vmax;
+    line-height: 2em;
     text-align: left;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: ;
 }
+
 
 .quote {
     margin: 0;
-    background: #eee;
+    background: #f2f2f2;
+    border : 1px solid black;
     padding: 1em;
     border-radius: 1em;
+    text-align: center;
 }
 
 .quote blockquote {
     margin: 1em;
     font-style: italic;
-    font-size: 1.7em;
 }
 
 .quote figcaption {
     margin: 1em;
 }
-/* about.html styling : end */
+
+@media only screen and (max-width: 768px) {
+
+    #about-wrapper{
+        padding : 0 5%; 
+    }
+    
+    .about{
+        padding : 2% 0;
+    }
+}
+
+// /* about.html styling : end */
+
+
+// #about-wrapper{
+    // padding : 0 5%; 
+    // min-height: 90vh;
+    // width: 100%;
+// }
+
+// .about {
+//     width: 100%;
+//     margin: 25px auto;
+//     padding: 20px;
+//     max-width: 800px;
+//     font-size: 1.2em;
+//     line-height: 1.6em;
+//     box-sizing: border-box;
+// }
+
+// .quote {
+//     margin: 0;
+//     background: #eee;
+//     padding: 1em;
+//     border-radius: 1em;
+// }
+
+// .quote blockquote {
+//     margin: 1em;
+//     font-style: italic;
+//     font-size: 27px;
+// }
+
+// .quote figcaption {
+//     margin: 1em;
+// }

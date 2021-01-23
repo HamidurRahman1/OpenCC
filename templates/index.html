@@ -1,57 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <link rel="stylesheet" href="../static/css/style.css" type="text/css">
-  <link rel="icon" href="https://iconarchive.com/download/i79674/martz90/hex/messages-2.ico" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{{title}}</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../static/css/style.css" type="text/css" />
+    <link
+      rel="icon"
+      href="https://iconarchive.com/download/i79674/martz90/hex/messages-2.ico"
+      type="image/x-icon"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+  </head>
+  <body>
+    {% include "navbar.html" %}
 
+    <div id="main-view">
+      <!-- <div class="wrapper" id="home-wrapper">{% include "header.html" %}</div> -->
+      <div class="wrapper" id="home-wrapper">{% include "devs.html" %}</div>
+      <div class="wrapper" id="request-wrapper">{% include "request.html" %}</div>
+      <div class="wrapper" id="faqs-wrapper">{% include "faqs.html" %}</div>
+      <div class="wrapper" id="about-wrapper">{% include "about.html" %}</div>
+    </div>
 
-{% include "header.html" %}
+    <script>
+      const WRAPPERS = document.querySelectorAll(".wrapper");
+      WRAPPERS.forEach((w) => (w.style.display = "none"));
 
-<div id="main-view">
-  <div id="request-wrapper">
-    {% include "request.html" %}
-  </div>
-  
-  <div id="faqs-wrapper" style="display: none">
-    {% include "faqs.html" %}
-  </div>
-  
-  <div id="about-wrapper" style="display: none">
-    {% include "about.html" %}
-  </div>
-</div>
+      document.querySelector("#home-wrapper").style.display = "block";
 
-<script>
-      let sections = ["request-wrapper", "faqs-wrapper", "about-wrapper" ];
-      let sectionsDiv = [];
-      sections.forEach( id => sectionsDiv.push(document.querySelector(`#${id}`)));
+      const NAV_ITEMS = document.querySelectorAll(".nav-item");
+      NAV_ITEMS.forEach((n) => {
+        n.onclick = () => {
+          WRAPPERS.forEach(w => w.style.display  = n.getAttribute("value") == w.id ? 'block' : 'none');
+        };
+      });
 
-      const changeSection = id => {
-        sectionsDiv.forEach( s => {
-          s.style.display = id == s.id ? 'block' : 'none';
-        })
-      }
+    </script>
 
-      const addListenerToSpan = id => {
-        let div = document.querySelector(`#${id}`);
-        div.onclick = () => {changeSection(div.getAttribute('value'))};
-      }
-
-      addListenerToSpan('request-trigger');
-      addListenerToSpan('about-trigger');
-      addListenerToSpan('faqs-trigger');
-
-</script>
-
-
-{% include "footer.html" %}
-
-
-
-</body>
+    {% include "footer.html" %}
+  </body>
 </html>

@@ -1,0 +1,82 @@
+.devs{
+    height: 80vh;
+    display: flex;
+    width: 100vw;
+    border : 1px solid black;
+}
+
+.dev-1, .dev-2{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    figure {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        padding : 10%;
+        img{
+            width: 400px;
+            height: auto;
+            border-radius: 10px;
+        }
+        figcaption{
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            // border : 1px solid black;
+            width: 100%;
+            height: 100%;
+            padding : 10%;
+
+        }
+    }
+}
+
+.dev-1{
+  
+}
+
+.dev-1:hover, .dev-2:hover{
+    background-color: rgb(45, 107, 76);
+    color : white;
+    transition: all 1s;
+}
+
+.links{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin : 0 auto;
+    justify-content: space-between;
+    padding : 0 20%;
+    div:first-child{
+        background-color: black;
+    }
+    div:nth-child(2){
+        background-color: white;
+    }
+    div{
+        img{
+            height: 50px;
+            width: auto;
+            border-radius: 25%;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .devs {
+        min-height: 80vh;
+        flex-direction: column;
+    }
+
+    .dev-1, .dev-2{
+        width: 100%;
+    }
+}
