@@ -3,12 +3,18 @@ nav{
     justify-content: space-around;
     align-items: center;
     color : white;
-    font-size: 1.5vmax;
+    font-size: 16px;
     width: 100%;
     padding : 0 20%;
-    background-color:#093320;
-    height: 10vh;
-    letter-spacing: .05em;    
+    background-color:$primary-color;
+    height: 5vh;
+    text-transform: uppercase;
+}
+
+.nav-item{
+    padding : 5px;
+    margin : 5px;
+    border-radius: 20px;
 }
 
 .nav-item:hover{

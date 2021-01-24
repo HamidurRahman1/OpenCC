@@ -1,60 +1,57 @@
 /* request.html styling : start */
 
-#request-wrapper{
-    height: 80vh;
-    width: 100%;
-    
+.outer-request-form{
+    min-height: 90vh;
+    width: 100vw;
+    padding : 0 20%;
 }
 
-.add-request {
-    margin : 0 auto;
-    background-color: #f2f2f2;
-    height: 80vh;
-}
 
 .request-form-title {
-    width: 100%;
-    height: 10vh;
-    font-size: 2vmax;
-    font-weight: bold;
     text-align: center;
-    padding : 2%;
-    border-bottom: 1px solid black;
-}
-
-.request-form {
-    height: 70vh;
-    padding : 5%;
-    width: 70%;
-    margin : 0 auto;
-}
-
-.request-form form{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.request-form label {
+    border-bottom: 1px solid lightgray;
+    font-size: 22px;
     font-weight: bold;
-    font-size: 1.5vmax;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
+.request-form{
+    form{
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        // background-color: lightgray;
+        justify-content: space-around;
+        padding : 5%;
+        .form-element{
+            // background-color: lightcoral;
+            padding : 5px;
+        }
+    }
+
+    label{
+        font-weight: bold;
+        font-size: 24px;
+    }
+
 }
 
 
 
 #phone-number, select, #class-num-5 {
     width: 100%;
-    font-size: 2vw;
+    font-size: 22px;
 }
 
-#phone-number:hover, select:hover, #class-num-5:hover {
+.request-form input:hover, .request-form select:hover {
     background-color: lightgreen;
 }
 
 .submit-request, #phone-number, select, #class-num-5{
-    padding : 2%;
+    padding : 20px;
     border: 4px solid #ccc;
     border-radius: 8px;
 }
@@ -62,56 +59,29 @@
 .submit-request {
     background-color: #4CAF50;
     color: white;
-    // padding: 12px 20px;
     border: none;
-    // border-radius: 4px;
     cursor: pointer;
     width: 100%;
-    font-size: 2vw;
+    font-size: 22px;
 }
 
 .submit-request:hover {
-    background-color: #2E8B57;
+    background-color:red;
 }
 
-.success, .error {
-    // padding: 15px;
-    // border-radius: 15px;
-}
-
-.success {
-    width: 65%;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-    text-align: center;
-    // padding: 15px;
-    // border-radius: 16px;
-    background-image: -webkit-radial-gradient(circle, #52fc03, lightgreen);
-    // border: 3px solid lightgreen;
-}
-
-.error {
-    width: 65%;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-    text-align: center;
-    // padding: 15px;
-    // border-radius: 16px;
-    background-image: -webkit-radial-gradient(circle, red, #DC143C);
-    border: 3px solid red;
-    color: white;
+#terms-and-conditions{
+    background-color: lightblue;
+    text-decoration: underline;
+    &:hover{
+        cursor: pointer;
+    }
 }
 
 
 @media only screen and (max-width: 768px) {
-    .add-request{
-        width: 100%;
-    }
 
-    .request-form label {
-        font-size: 2vmax;
+    .outer-request-form{
+        padding : 0;
     }
 }
-/* request.html styling : end */
+

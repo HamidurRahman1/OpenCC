@@ -3,7 +3,7 @@
     font-size: 22px;
     line-height: 1.6;
     padding-bottom: 80px;
-    min-height: 80vh;
+    height: 100%;
 }
 
 .faqs-title {
@@ -22,8 +22,8 @@
     text-align: left;
     font-size: 1.3rem;
     font-weight: 500;
-    background-color: #6a5acd;
-    color: #fff;
+    background-color: #18A999;
+    color: white;
     border: none;
     padding: 0.7rem 1rem;
     border-radius: 0.25rem;
@@ -78,4 +78,9 @@
 .accordion__content[aria-hidden="true"] {
     display: none;
 }
+
+#accordion-markup{
+    padding: 25px;
+}
+
 /* faqs.html styling : end */

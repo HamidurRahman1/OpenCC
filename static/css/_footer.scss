@@ -1,15 +1,20 @@
 /* footer.html styling : start */
 
 .footer {
-    background-color:#093320;
-    height: 10vh;
+    background-color: $primary-color;
+    height: 5vh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     color : white;
-    font-size: 1.5vmax;
-    letter-spacing: .05em;    
+    font-size: 16px; 
+}
+
+@media only screen and (max-width: 768px) {
+    .footer {
+        // background : #000;
+    }
 }
 
 /* footer.html styling : end */

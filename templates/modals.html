@@ -1,0 +1,50 @@
+<div class ="modal fade-in" id="terms-conditions-modal">
+    <div id="modal-content">
+        <h2>Agreement and Conditions</h2>
+        <p>
+          Use it at your own risk.
+        </p>
+        <button class="modal-close-btn" target="terms-conditions-modal">
+            Close
+        </button>
+    </div>
+  </div>
+
+
+  //if success_message || error_message 
+  <div class ="modal fade-in" id="response-modal">
+    <div id="modal-content">
+        <div>
+          {% if success_message %}
+          <div class="success">{{success_message}}</div>
+          {% endif %}
+      </div>
+      <div>
+          {% if error_message %}
+          <div class="error">{{error_message}}</div>
+          {% endif %}
+      </div>
+        <button class="modal-close-btn" target="response-modal">
+            Close
+        </button>
+    </div>
+  </div>
+//  endif success_message || error_message 
+
+  </div>
+
+  <script>
+
+  document.querySelectorAll('.modal').forEach(m => m.style.display = 'none')
+  document.querySelectorAll('.modal-trigger').forEach( t => {
+    t.onclick = () => {
+      document.querySelector(`#${t.getAttribute('target')}`).style.display = 'block';
+    }
+  })
+
+    document.querySelectorAll('.modal-close-btn').forEach( t => {
+      t.onclick = () => {
+        document.querySelector(`#${t.getAttribute('target')}`).style.display = 'none';
+      }
+    })
+  </script>

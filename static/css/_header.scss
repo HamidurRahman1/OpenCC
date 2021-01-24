@@ -1,6 +1,6 @@
 /* header.html styling : start */
 .header{
-    height: 80vh;
+    height: 90vh;
     width: 100vw;
 }
 .header-outer {
@@ -10,6 +10,7 @@
     text-align: center;
     background: url("https://codemyui.com/wp-content/uploads/2017/07/envelope-to-paper-plane-animation.gif") no-repeat center center;
     background-size: cover;
+    background-color: #109c5d;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,20 +34,19 @@
     flex-direction: column;
     justify-content: space-around;
     z-index: 1;
-    -webkit-animation: fade-in 0.75s 0.25s ease-in forwards;
-    animation: fade-in 0.75s 0.25s ease-in forwards;
     width: 50%;
     padding : 5%;
     height : 60%;
     z-index: 0;
+    transition: all 1s;
     a{
         color : white;
     }
     p{
-        font-size: 3vmin;
+        font-size: 36px;
     }
     h1{
-        font-size: 4vmax;
+        font-size: 56px;
     }
 }
 
