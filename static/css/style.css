@@ -34,6 +34,13 @@ body {
           align-items: center;
 }
 
+.link {
+  text-decoration: underline;
+  font-style: italic;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .fade-in {
   animation: fadeIn ease 1s;
   -webkit-animation: fadeIn ease 1s;
@@ -87,8 +94,8 @@ nav {
 .nav-item:hover {
   cursor: pointer;
   background: #1c6e49;
-  -webkit-transition: background 1s;
-  transition: background 1s;
+  -webkit-transition: background .4s;
+  transition: background .4s;
 }
 
 /* header.html styling : start */
@@ -104,7 +111,6 @@ nav {
   text-align: center;
   background: url("https://codemyui.com/wp-content/uploads/2017/07/envelope-to-paper-plane-animation.gif") no-repeat center center;
   background-size: cover;
-  background-color: #109c5d;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -114,7 +120,6 @@ nav {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: -2;
 }
 
 .header-outer:after {
@@ -125,7 +130,6 @@ nav {
   width: 100%;
   height: 100%;
   background: rgba(22, 22, 22, 0.5);
-  z-index: -2;
 }
 
 .header-content {
@@ -139,13 +143,12 @@ nav {
           flex-direction: column;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  z-index: 1;
   width: 50%;
   padding: 5%;
   height: 60%;
-  z-index: 0;
   -webkit-transition: all 1s;
   transition: all 1s;
+  z-index: 1;
 }
 
 .header-content a {
@@ -195,6 +198,10 @@ nav {
   height: 10vh;
 }
 
+.request-form {
+  overflow: scroll;
+}
+
 .request-form form {
   height: 80vh;
   display: -webkit-box;
@@ -215,7 +222,7 @@ nav {
 
 .request-form label {
   font-weight: bold;
-  font-size: 24px;
+  font-size: 17px;
 }
 
 #phone-number, select, #class-num-5 {
@@ -223,18 +230,18 @@ nav {
   font-size: 22px;
 }
 
-.request-form input:hover, .request-form select:hover {
+.request-form input:not([type=submit]):hover, .request-form select:hover {
   background-color: lightgreen;
 }
 
 .submit-request, #phone-number, select, #class-num-5 {
-  padding: 20px;
+  padding: 1vmax;
   border: 4px solid #ccc;
   border-radius: 8px;
 }
 
 .submit-request {
-  background-color: #4CAF50;
+  background-color: green;
   color: white;
   border: none;
   cursor: pointer;
@@ -243,12 +250,13 @@ nav {
 }
 
 .submit-request:hover {
-  background-color: red;
+  background-color: #226807;
 }
 
 #terms-and-conditions {
-  background-color: lightblue;
+  background-color: #297506;
   text-decoration: underline;
+  color: white;
 }
 
 #terms-and-conditions:hover {
@@ -275,6 +283,9 @@ nav {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.footer a {
   color: white;
   font-size: 16px;
 }
@@ -342,30 +353,37 @@ nav {
 }
 
 .devs {
-  height: 80vh;
+  min-height: 80vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   width: 100vw;
-  border: 1px solid black;
-}
-
-.dev-1, .dev-2 {
-  height: 100%;
-  width: 50%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
+.dev-1, .dev-2 {
+  height: 75vh;
+  width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 15px 15px 15px 15px gray;
+          box-shadow: 15px 15px 15px 15px gray;
+  -webkit-transition: scale 1s;
+  transition: scale 1s;
+  border-radius: 40px;
+}
+
 .dev-1 figure, .dev-2 figure {
-  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -376,16 +394,25 @@ nav {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   width: 100%;
+  height: 100%;
   padding: 10%;
 }
 
-.dev-1 figure img, .dev-2 figure img {
-  width: 400px;
+.dev-1 figure .img-wrapper, .dev-2 figure .img-wrapper {
+  height: 60%;
+}
+
+.dev-1 figure .img-wrapper img, .dev-2 figure .img-wrapper img {
+  border-radius: 25%;
+  -webkit-box-shadow: 5px 5px 5px 5px gray;
+          box-shadow: 5px 5px 5px 5px gray;
+  max-width: 300px;
   height: auto;
-  border-radius: 50%;
+  overflow: hidden;
 }
 
 .dev-1 figure figcaption, .dev-2 figure figcaption {
@@ -400,49 +427,80 @@ nav {
   -ms-flex-pack: distribute;
       justify-content: space-around;
   width: 100%;
+  height: 60%;
+}
+
+.dev-1 figure figcaption h1, .dev-1 figure figcaption h2, .dev-1 figure figcaption .links, .dev-2 figure figcaption h1, .dev-2 figure figcaption h2, .dev-2 figure figcaption .links {
   height: 100%;
-  padding: 10%;
-}
-
-.dev-1:hover, .dev-2:hover {
-  background-color: #2d6b4c;
-  color: white;
-  -webkit-transition: all 1s;
-  transition: all 1s;
-}
-
-.links {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.dev-1 figure figcaption .links, .dev-2 figure figcaption .links {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  width: 80%;
-  margin: 0 auto;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 0 20%;
+  padding: 0 10%;
 }
 
-.links div:first-child {
+.dev-1 figure figcaption .links div, .dev-2 figure figcaption .links div {
+  border: 1px solid black;
+  border-radius: 100px;
+  overflow: hidden;
+  height: 100px;
+  width: 100px;
+  cursor: pointer;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.dev-1 figure figcaption .links div:hover, .dev-2 figure figcaption .links div:hover {
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.dev-1 figure figcaption .links div img, .dev-2 figure figcaption .links div img {
+  height: 100px;
+  width: auto;
+}
+
+.dev-1 figure figcaption .links div:first-child, .dev-2 figure figcaption .links div:first-child {
   background-color: black;
 }
 
-.links div:nth-child(2) {
-  background-color: blue;
+.dev-1 figure figcaption .links div:first-child img, .dev-2 figure figcaption .links div:first-child img {
+  margin: 0 -30px;
 }
 
-.links div {
-  border-radius: 50%;
-  border: 1px solid black;
+.dev-1 figure figcaption .links div:nth-child(2), .dev-2 figure figcaption .links div:nth-child(2) {
+  background-color: white;
 }
 
-.links div img {
-  height: 50px;
-  width: auto;
+.dev-1 figure figcaption .links div:nth-child(3) img, .dev-2 figure figcaption .links div:nth-child(3) img {
+  margin: 0 0 30px -10px;
+  height: 90px;
+}
+
+.dev-1:hover, .dev-2:hover {
+  background-color: #08807a;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  color: white;
 }
 
 @media only screen and (max-width: 768px) {
@@ -482,7 +540,7 @@ nav {
   text-align: left;
   font-size: 1.3rem;
   font-weight: 500;
-  background-color: #18A999;
+  background-color: #0d6d62;
   color: white;
   border: none;
   padding: 0.7rem 1rem;
