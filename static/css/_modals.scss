@@ -1,55 +1,72 @@
-.success, .error {
-    // padding: 15px;
-    // border-radius: 15px;
-}
-
-.success {
-    width: 65%;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-    text-align: center;
-    // padding: 15px;
-    // border-radius: 16px;
-    background-image: -webkit-radial-gradient(circle, #52fc03, lightgreen);
-    // border: 3px solid lightgreen;
-}
-
-.error {
-    width: 65%;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-    text-align: center;
-    // padding: 15px;
-    // border-radius: 16px;
-    background-image: -webkit-radial-gradient(circle, red, #DC143C);
-    border: 3px solid red;
-    color: white;
-}
-
-.modal {
+.modal{
     position: absolute;
-    top : 0;
-    left : 0;
-    width: 100vw;
-    height: 100vh;
-    background : rgba($color: #0e4d06, $alpha: .7);
-    display : flex;
-    justify-content: center;
-    align-items: center;
-    padding : 20%;
-
-    #modal-content{
-        padding : 5%;
+    top : 0; left: 0;
+    height: 100vh;width: 100vw;
+    .modal-wrapper {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        justify-content: space-around;
-        height: 60vh;
-        background-color : white;
-        border-radius: 20px;
-        text-align: center;
+        justify-content: center;
+        height: 100vh;width: 100vw;
+        #modal-inner{
+            width: 600px;height: 300px;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 2px 2px 3px 1px gray;
+            text-align: center;
+            padding : 0;
+            h2{
+                width: 100%;
+              
+                color : white;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .terms-title, .terms-btn{
+                background : black;
+            }
+
+            .success-title, .success-btn{
+                background : green;
+            }
+
+            .error-title, .error-btn{
+                background : red;
+            }
+
+            .content{
+                height: 225px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                margin : 10px;
+                button{
+                    width: 100px;
+                    height: 50px;
+                    font-size: 18px;
+                    margin : 0 auto;
+                    color : white;
+                    &:hover{
+                        cursor : pointer;
+                    }
+                }
+            }
+
+        }
+    
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+    .modal{
+        .modal-wrapper #modal-inner{
+            width: 400px;height: 400px;
+        }
     }
 
 }

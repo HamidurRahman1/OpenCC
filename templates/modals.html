@@ -1,50 +1,68 @@
-<div class ="modal fade-in" id="terms-conditions-modal">
-    <div id="modal-content">
-        <h2>Agreement and Conditions</h2>
+<div class="modal fade-in" id="terms-conditions-modal">
+  <div class="modal-wrapper">
+    <div id="modal-inner">
+      <h2 class="terms-title">Agreement and Conditions</h2>
+      <div class="content">
         <p>
           Use it at your own risk.
         </p>
-        <button class="modal-close-btn" target="terms-conditions-modal">
-            Close
+        <button class="terms-btn modal-close-btn" target="terms-conditions-modal">
+          Close
         </button>
+      </div>
     </div>
   </div>
+</div>
 
-
-  <!-- if success_message || error_message  -->
-  <div class ="modal fade-in" id="response-modal">
-    <div id="modal-content">
-        <div>
-          {% if success_message %}
-          <div class="success">{{success_message}}</div>
-          {% endif %}
-      </div>
-      <div>
-          {% if error_message %}
-          <div class="error">{{error_message}}</div>
-          {% endif %}
-      </div>
-        <button class="modal-close-btn" target="response-modal">
-            Close
+{% if success_message %}
+<div class="modal fade-in" id="sucess-modal">
+  <div class="modal-wrapper">
+    <div id="modal-inner">
+      <h2 class="sucess-title">Success!</h2>
+      <div class="content">
+        <p>
+          {{success_message}}
+        </p>
+        <button class="sucess-btn modal-close-btn" target="sucess-modal">
+          OK
         </button>
+      </div>
     </div>
   </div>
-<!--//  endif success_message || error_message -->
+</div>
+{% endif %}
 
+{% if error_message %}
+<div class="modal fade-in" id="error-modal">
+  <div class="modal-wrapper">
+    <div id="modal-inner">
+      <h2 class="error-title">Error!</h2>
+      <div class="content">
+        <p>
+          {{error_message}}
+        </p>
+        <button class="error-btn modal-close-btn" target="error-modal">
+          OK
+        </button>
+      </div>
+    </div>
   </div>
+</div>
+{% endif %}
+</div>
 
-  <script>
+<script>
 
   document.querySelectorAll('.modal').forEach(m => m.style.display = 'none')
-  document.querySelectorAll('.modal-trigger').forEach( t => {
+  document.querySelectorAll('.modal-trigger').forEach(t => {
     t.onclick = () => {
       document.querySelector(`#${t.getAttribute('target')}`).style.display = 'block';
     }
   })
 
-    document.querySelectorAll('.modal-close-btn').forEach( t => {
-      t.onclick = () => {
-        document.querySelector(`#${t.getAttribute('target')}`).style.display = 'none';
-      }
-    })
-  </script>
+  document.querySelectorAll('.modal-close-btn').forEach(t => {
+    t.onclick = () => {
+      document.querySelector(`#${t.getAttribute('target')}`).style.display = 'none';
+    }
+  })
+</script>

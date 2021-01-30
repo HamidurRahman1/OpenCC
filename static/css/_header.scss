@@ -36,11 +36,11 @@
     height : 60%;
     transition: all 1s;
     z-index: 1;
-    a{
-        color : white;
-    }
+
     p{
-        font-size: 36px;
+        font-size: 36px;   
+        a{color : white};
+        font-style: italic;
     }
     h1{
         font-size: 56px;
