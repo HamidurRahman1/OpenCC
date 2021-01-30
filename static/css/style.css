@@ -80,6 +80,7 @@ nav .nav-shrinked {
 
 nav .nav-links {
   width: 100%;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -107,8 +108,8 @@ nav .nav-links {
 .nav-item:hover {
   cursor: pointer;
   background: #1c6e49;
-  -webkit-transition: background .4s;
-  transition: background .4s;
+  -webkit-transition: background 0.4s;
+  transition: background 0.4s;
 }
 
 @media only screen and (max-width: 768px) {
@@ -128,6 +129,7 @@ nav .nav-links {
         -ms-flex-direction: column;
             flex-direction: column;
     text-align: left;
+    height: auto;
   }
   nav .nav-links span {
     width: 100vh;
@@ -267,6 +269,18 @@ nav .nav-links {
   overflow: scroll;
 }
 
+.request-form fieldset {
+  background-color: #f0eeee;
+}
+
+.request-form legend {
+  background-color: #008000;
+  color: white;
+  padding: 5px 10px;
+  font-size: 22px;
+  border-radius: 10px;
+}
+
 .request-form form {
   height: 80vh;
   display: -webkit-box;
@@ -281,13 +295,8 @@ nav .nav-links {
   padding: 5%;
 }
 
-.request-form form .form-element {
-  padding: 5px;
-}
-
 .request-form label {
-  font-weight: bold;
-  font-size: 17px;
+  font-size: 19px;
 }
 
 #phone-number, select, #class-num-5 {
@@ -301,7 +310,7 @@ nav .nav-links {
 
 .submit-request, #phone-number, select, #class-num-5 {
   padding: 1vmax;
-  border: 4px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 8px;
 }
 
@@ -311,7 +320,7 @@ nav .nav-links {
   border: none;
   cursor: pointer;
   width: 100%;
-  font-size: 22px;
+  font-size: 1.5em;
 }
 
 .submit-request:hover {
@@ -319,9 +328,7 @@ nav .nav-links {
 }
 
 #terms-and-conditions {
-  background-color: #297506;
   text-decoration: underline;
-  color: white;
 }
 
 #terms-and-conditions:hover {
@@ -330,7 +337,7 @@ nav .nav-links {
 
 @media only screen and (max-width: 768px) {
   .outer-request-form {
-    padding: 0;
+    padding: 0 2%;
   }
 }
 
@@ -520,7 +527,16 @@ nav .nav-links {
           transform: scale(1.2);
 }
 
-@media only screen and (max-width: 768px) {
+.dev-1:hover, .dev-2:hover {
+  -webkit-transform: scale(1.4);
+          transform: scale(1.4);
+  -webkit-transition: -webkit-transform .7s ease-in-out;
+  transition: -webkit-transform .7s ease-in-out;
+  transition: transform .7s ease-in-out;
+  transition: transform .7s ease-in-out, -webkit-transform .7s ease-in-out;
+}
+
+@media only screen and (max-width: 960px) {
   .devs {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -530,6 +546,10 @@ nav .nav-links {
   }
   .dev-1, .dev-2 {
     margin-bottom: 40px;
+  }
+  .dev-1:hover, .dev-2:hover {
+    -webkit-transform: none;
+            transform: none;
   }
 }
 
@@ -640,7 +660,7 @@ nav .nav-links {
   padding: 20px;
   max-width: 800px;
   font-size: 1.2em;
-  line-height: 1.6em;
+  line-height: 1.9em;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }

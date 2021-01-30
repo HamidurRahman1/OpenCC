@@ -1,6 +1,8 @@
 <div class="outer-request-form fade-in">
-  <div class="request-form-title">Add Request to Get Notified</div>
+  <!-- <div class="request-form-title">Add Request to Get Notified</div> -->
   <div class="request-form">
+    <fieldset>
+      <legend>Add Request to Get Notified</legend>
     <form
       method="post"
       action="http://127.0.0.1:5000/"
@@ -39,9 +41,7 @@
           {% endfor %} {% endfor %}
         </select>
       </div>
-
-      <div class="form-element"></div>
-
+      
       <div class="form-element">
         <label for="class-num-5">5-Digit Class Number</label>
         <input
@@ -60,11 +60,12 @@
         <input type="checkbox" id="agreed" name="agreed" required/>
         <label for="agreed"
           >I have read and accept the
-          <span class="modal-trigger" target = "terms-conditions-modal"  id="terms-and-conditions">terms of conditions and agreement</span>.</label
+          <span class="modal-trigger" target = "terms-conditions-modal"  id="terms-and-conditions">Terms and Conditions</span>.</label
         >
       </div>
 
       <input type="submit" value="Add Request" class="submit-request" />
+    </fieldset>
     </form>
   </div>
 </div>

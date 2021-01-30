@@ -20,20 +20,27 @@
 
 .request-form{
     overflow: scroll;
+    fieldset {
+        background-color: #f0eeee;
+      }
+      
+    legend {
+        background-color: #008000;
+        color: white;
+        padding: 5px 10px;
+        font-size: 22px;
+        border-radius: 10px;
+    }
     form{
         height: 80vh;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         padding : 5%;
-        .form-element{
-            padding : 5px;
-        }
     }
 
     label{
-        font-weight: bold;
-        font-size: 17px;
+        font-size: 19px;
     }
 
 }
@@ -51,7 +58,7 @@
 
 .submit-request, #phone-number, select, #class-num-5{
     padding : 1vmax;
-    border: 4px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 8px;
 }
 
@@ -61,17 +68,14 @@
     border: none;
     cursor: pointer;
     width: 100%;
-    font-size: 22px;
+    font-size: 1.5em;
     &:hover{
         background-color: rgb(34, 104, 7);
     }
 }
 
 #terms-and-conditions{
-    background-color: rgb(41, 117, 6);
     text-decoration: underline;
-    // padding : 5px;
-    color : white;
     &:hover{
         cursor: pointer;
     }
@@ -81,7 +85,7 @@
 @media only screen and (max-width: 768px) {
 
     .outer-request-form{
-        padding : 0;
+        padding : 0 2%;
     }
 }
 

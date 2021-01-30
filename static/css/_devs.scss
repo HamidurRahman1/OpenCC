@@ -42,10 +42,14 @@
             }
         }
     }
+    &:hover{
+        transform: scale(1.4);
+        transition: transform .7s ease-in-out;
+    }
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 960px) {
     .devs {
         flex-direction: column;
         padding : 5%;
@@ -53,5 +57,8 @@
 
     .dev-1, .dev-2{
         margin-bottom: 40px;
+        &:hover{
+            transform: none;
+        }
     }
 }
