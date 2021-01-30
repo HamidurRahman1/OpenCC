@@ -20,23 +20,23 @@
 
 .request-form{
     overflow: scroll;
-    fieldset {
-        background-color: #f0eeee;
-      }
-      
-    legend {
-        background-color: #008000;
-        color: white;
-        padding: 5px 10px;
-        font-size: 22px;
-        border-radius: 10px;
-    }
     form{
-        height: 80vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        padding : 5%;
+        fieldset {
+            background-color: #f0eeee;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding : 5%;
+        }
+          
+        legend {
+            background-color: #008000;
+            color: white;
+            padding:5px;
+            font-size: 22px;
+            border-radius: 10px;
+        }
     }
 
     label{

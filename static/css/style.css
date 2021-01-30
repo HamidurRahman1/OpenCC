@@ -34,13 +34,6 @@ body {
           align-items: center;
 }
 
-.link {
-  text-decoration: underline;
-  font-style: italic;
-  cursor: pointer;
-  font-weight: bold;
-}
-
 .fade-in {
   animation: fadeIn ease 1s;
   -webkit-animation: fadeIn ease 1s;
@@ -107,7 +100,7 @@ nav .nav-links {
 
 .nav-item:hover {
   cursor: pointer;
-  background: #1c6e49;
+  background: #065e36;
   -webkit-transition: background 0.4s;
   transition: background 0.4s;
 }
@@ -132,12 +125,13 @@ nav .nav-links {
     height: auto;
   }
   nav .nav-links span {
-    width: 100vh;
+    width: 95vw;
     height: 100%;
     border-radius: 0;
     text-align: center;
-    margin: 0;
-    padding: 5%;
+    padding: 20px;
+    border: 1px solid gray;
+    background-color: rgba(10, 54, 34, 0.6);
   }
   nav .nav-shrinked {
     display: block;
@@ -158,6 +152,9 @@ nav .nav-links {
   nav .nav-shrinked .nav-logo {
     font-size: 37px;
     font-style: italic;
+  }
+  nav .nav-shrinked .nav-logo:hover {
+    cursor: pointer;
   }
   nav .nav-shrinked .nav-burger {
     cursor: pointer;
@@ -269,19 +266,8 @@ nav .nav-links {
   overflow: scroll;
 }
 
-.request-form fieldset {
+.request-form form fieldset {
   background-color: #f0eeee;
-}
-
-.request-form legend {
-  background-color: #008000;
-  color: white;
-  padding: 5px 10px;
-  font-size: 22px;
-  border-radius: 10px;
-}
-
-.request-form form {
   height: 80vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -293,6 +279,14 @@ nav .nav-links {
   -ms-flex-pack: distribute;
       justify-content: space-around;
   padding: 5%;
+}
+
+.request-form form legend {
+  background-color: #008000;
+  color: white;
+  padding: 5px;
+  font-size: 22px;
+  border-radius: 10px;
 }
 
 .request-form label {
@@ -633,6 +627,13 @@ nav .nav-links {
           box-shadow: 1px 4px 10px 1px rgba(0, 0, 0, 0.15);
   -webkit-transition: all 200ms linear;
   transition: all 200ms linear;
+}
+
+.accordion__content .link {
+  text-decoration: underline;
+  font-style: italic;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .accordion__content[aria-hidden="false"] {

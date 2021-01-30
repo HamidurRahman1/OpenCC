@@ -69,6 +69,12 @@
     border: 2px solid #eee;
     box-shadow: 1px 4px 10px 1px rgba(0, 0, 0, 0.15);
     transition: all 200ms linear;
+    .link{
+        text-decoration: underline;
+        font-style: italic;
+        cursor: pointer;
+        font-weight: bold;
+    }
 }
 
 .accordion__content[aria-hidden="false"] {

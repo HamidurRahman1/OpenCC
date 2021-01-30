@@ -31,7 +31,7 @@ nav {
 
 .nav-item:hover {
   cursor: pointer;
-  background: #1c6e49;
+  background: #065e36;
   transition: background 0.4s;
 }
 
@@ -50,12 +50,14 @@ nav {
       text-align: left;
       height: auto;
       span {
-        width: 100vh;
+        width: 95vw;
         height: 100%;
         border-radius: 0;
         text-align: center;
-        margin: 0;
-        padding: 5%;
+        padding: 20px;
+
+        border : 1px solid gray;
+        background-color : rgba(#0a3622, 0.6);
       }
     }
     .nav-shrinked {
@@ -70,6 +72,9 @@ nav {
       .nav-logo {
         font-size: 37px;
         font-style: italic;
+        &:hover{
+          cursor: pointer;
+        }
       }
       .nav-burger {
         cursor: pointer;
