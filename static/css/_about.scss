@@ -13,6 +13,11 @@
     font-size: 1.2em;
     line-height: 1.9em;
     box-sizing: border-box;
+    .link{
+        font-weight: bold;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }
 
 .quote {

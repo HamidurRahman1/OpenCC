@@ -13,7 +13,7 @@ document.onclick = (e) => {
 }
 
 window.addEventListener('resize', () => {
-    if ( window.innerHeight > 768 && !visible){
+    if ( window.innerWidth > 768 && !visible){
         navContainer.style.display = visible ? 'none' : 'flex';
         visible = !visible; 
     }

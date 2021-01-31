@@ -18,12 +18,12 @@
 <div class="modal fade-in" id="sucess-modal">
   <div class="modal-wrapper">
     <div id="modal-inner">
-      <h2 class="sucess-title">Success!</h2>
+      <h2 class="success-title">Success!</h2>
       <div class="content">
         <p>
           {{success_message}}
         </p>
-        <button class="sucess-btn modal-close-btn" target="sucess-modal">
+        <button class="success-btn modal-close-btn" target="sucess-modal">
           OK
         </button>
       </div>
@@ -53,7 +53,7 @@
 
 <script>
 
-  document.querySelectorAll('.modal').forEach(m => m.style.display = 'none')
+  document.querySelector('#terms-conditions-modal').style.display = 'none';
   document.querySelectorAll('.modal-trigger').forEach(t => {
     t.onclick = () => {
       document.querySelector(`#${t.getAttribute('target')}`).style.display = 'block';

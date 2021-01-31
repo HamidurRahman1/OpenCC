@@ -363,6 +363,7 @@ nav .nav-links {
   left: 0;
   height: 100vh;
   width: 100vw;
+  z-index: 2;
 }
 
 .modal .modal-wrapper {
@@ -664,6 +665,12 @@ nav .nav-links {
   line-height: 1.9em;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+.about .link {
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .quote {
