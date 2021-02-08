@@ -63,19 +63,17 @@
 </div>
 
 <script>
-  console.log("Hey 2")
   const add_request_form = document.querySelector('#add-request');
-  let form;
   add_request_form.onsubmit = evt => {
     evt.preventDefault();
-    form = new Formdata(add_request_form);
     fetch('/api/request', {
-    method: 'post',
-    body: JSON.stringify(form)
-    }).then(function(response) {
-      return response.json();
-    }).then((d) => {
-      console.log(d);
-    });
+      method: 'post',
+      body: {"hey" : 10} 
+    })
+    // .then(function(response) {
+    //   return response.json();
+    // }).then((d) => {
+    //   console.log(d);
+    // });
   }
 </script>
