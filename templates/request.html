@@ -1,8 +1,6 @@
 <div class="outer-request-form fade-in">
   <div class="request-form">
     <form
-      method="post"
-      action="http://127.0.0.1:5000/"
       id="add-request"
       name="add-request">
     <fieldset>
@@ -63,3 +61,21 @@
     </form>
   </div>
 </div>
+
+<script>
+  console.log("Hey 2")
+  const add_request_form = document.querySelector('#add-request');
+  FormData form;
+  add_request_form.onsubmit = evt => {
+    evt.preventDefault();
+    form = new Formdata(add_request_form);
+    fetch('/api/request', {
+    method: 'post',
+    body: JSON.stringify(form)
+    }).then(function(response) {
+      return response.json();
+    }).then((d) => {
+      console.log(d);
+    });
+  }
+</script>
