@@ -1,9 +1,9 @@
 
 import logging
 from os import environ
-from flask import Flask, request, render_template
 from flask_mysqldb import MySQL
 from MySQLdb._exceptions import MySQLError
+from flask import Flask, request, render_template
 from twilio.base.exceptions import TwilioRestException
 from edu.lagcc.opencc.notifier.sms_sender import Option, SMSSender
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
@@ -66,9 +66,13 @@ def __add_request__(form):
                       "your class info and I will manually add your request as soon as the issue is fixed."
 
 
-@_app.route("/", methods=["GET", "POST"])
-@_app.route("/index.html", methods=["GET", "POST"])
+@_app.route("/", methods=["GET"])
 def index():
+    return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES)
+
+
+@_app.route("/api/request", methods=["POST"])
+def request():
     if request.method == "POST":
         request_status = __add_request__(request.form)
         if request_status[0]:
@@ -77,18 +81,6 @@ def index():
         else:
             return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
                                    error_message=request_status[1])
-    else:
-        return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES)
-
-
-@_app.route("/about.html", methods=["GET"])
-def about():
-    return render_template("about.html", title=APP_NAME)
-
-
-@_app.route("/faqs.html", methods=["GET"])
-def faqs():
-    return render_template("faqs.html", title=APP_NAME)
 
 
 @_app.route("/secret_uri"+'environ.get("TWILIO_RSP_URI")', methods=["POST"])
