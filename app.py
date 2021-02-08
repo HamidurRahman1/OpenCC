@@ -45,13 +45,15 @@ def __add_request__(form):
         subject_code, subject_name = form.get("subject").split(",")
         class_num_5_digit = int(form.get("class-num-5"))
 
-        req_repo = RequestRepository(mysql.connection)
-        status = req_repo.add_request(phone_number, int(term_value), subject_name, subject_code, class_num_5_digit)
+        print(phone_number, term_name, term_value, subject_name, subject_code, class_num_5_digit)
 
-        if status:
-            SMSSender(option=Option.REQUEST, phone_number=phone_number, subject_name=subject_name,
-                      class_num_5_digit=class_num_5_digit, term_name=term_name).send()
-            return True, "Dear {} user, we have processed your request for {} - {} for {} Term. You should be "\
+        # req_repo = RequestRepository(mysql.connection)
+        # status = req_repo.add_request(phone_number, int(term_value), subject_name, subject_code, class_num_5_digit)
+        #
+        # if status:
+        #     SMSSender(option=Option.REQUEST, phone_number=phone_number, subject_name=subject_name,
+        #               class_num_5_digit=class_num_5_digit, term_name=term_name).send()
+        return True, "Dear {} user, we have processed your request for {} - {} for {} Term. You should be "\
                          "receiving a confirmation message very shortly. Check out FAQs for important information "\
                          "about text messages.".format(APP_NAME, subject_name, class_num_5_digit, term_name)
     except DuplicateRequestException as dex:
@@ -72,15 +74,16 @@ def index():
 
 
 @_app.route("/api/request", methods=["POST"])
-def request():
-    if request.method == "POST":
-        request_status = __add_request__(request.form)
-        if request_status[0]:
-            return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
-                                   success_message=request_status[1])
-        else:
-            return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
-                                   error_message=request_status[1])
+def _request():
+    print(request.get_json(silent=True))
+    return "post successful"
+    # request_status = __add_request__(request.form)
+    # if request_status[0]:
+    #     return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
+    #                            success_message=request_status[1])
+    # else:
+    #     return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
+    #                            error_message=request_status[1])
 
 
 @_app.route("/secret_uri"+'environ.get("TWILIO_RSP_URI")', methods=["POST"])
