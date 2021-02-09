@@ -62,18 +62,4 @@
   </div>
 </div>
 
-<script>
-  const add_request_form = document.querySelector('#add-request');
-  add_request_form.onsubmit = evt => {
-    evt.preventDefault();
-    fetch('/api/request', {
-      method: 'post',
-      body: {"hey" : 10} 
-    })
-    // .then(function(response) {
-    //   return response.json();
-    // }).then((d) => {
-    //   console.log(d);
-    // });
-  }
-</script>
+<script src="../static/script/request.js"></script>
