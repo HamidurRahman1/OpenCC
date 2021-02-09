@@ -3,8 +3,8 @@ import logging
 from os import environ
 from flask_mysqldb import MySQL
 from MySQLdb._exceptions import MySQLError
-from flask import Flask, request, render_template
 from twilio.base.exceptions import TwilioRestException
+from flask import Flask, request, render_template, jsonify
 from edu.lagcc.opencc.notifier.sms_sender import Option, SMSSender
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequestException
@@ -38,12 +38,12 @@ except MySQLError as mex:
     logging.getLogger(EXCEPTION_LOGGER).error(mex)
 
 
-def __add_request__(form):
+def __add_request(form_data_as_dict):
     try:
-        phone_number = int(form.get("phone-number"))
-        term_name, term_value = form.get("term").split(",")
-        subject_code, subject_name = form.get("subject").split(",")
-        class_num_5_digit = int(form.get("class-num-5"))
+        phone_number = int(form_data_as_dict.get("phone-number"))
+        term_name, term_value = form_data_as_dict.get("term").split(",")
+        subject_code, subject_name = form_data_as_dict.get("subject").split(",")
+        class_num_5_digit = int(form_data_as_dict.get("class-num-5"))
 
         print(phone_number, term_name, term_value, subject_name, subject_code, class_num_5_digit)
 
@@ -75,15 +75,11 @@ def index():
 
 @_app.route("/api/request", methods=["POST"])
 def _request():
-    print(request.get_json(silent=True))
-    return "post successful"
-    # request_status = __add_request__(request.form)
-    # if request_status[0]:
-    #     return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
-    #                            success_message=request_status[1])
-    # else:
-    #     return render_template("index.html", title=APP_NAME, terms=POSSIBLE_TERMS, subs=SUB_CODES_TO_SUB_NAMES,
-    #                            error_message=request_status[1])
+    request_status = __add_request(request.get_json(silent=True))
+    if request_status[0]:
+        return jsonify(success=request_status[1])
+    else:
+        return jsonify(error=request_status[1])
 
 
 @_app.route("/secret_uri"+'environ.get("TWILIO_RSP_URI")', methods=["POST"])

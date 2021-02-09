@@ -15,5 +15,7 @@ add_request_form.onsubmit = evt => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(requestInfo)
-  }).then(data => console.log(data));
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
 }
