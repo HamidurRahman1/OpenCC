@@ -1,5 +1,7 @@
+import * as modal from "./modal.js";
+
 const add_request_form = document.querySelector('#add-request');
-let formData;
+let formData, requestInfo;
 add_request_form.onsubmit = evt => {
   evt.preventDefault();
   formData = new FormData(add_request_form);
@@ -17,5 +19,9 @@ add_request_form.onsubmit = evt => {
     body: JSON.stringify(requestInfo)
   })
   .then(response => response.json())
-  .then(data => console.log(data));
+  .then(data => 
+    {
+      modal.showModal('success' in data ? '#sucess-modal' : '#error-modal', data[Object.keys(data)[0]])
+    }
+  );
 }

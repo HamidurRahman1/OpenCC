@@ -14,14 +14,13 @@
   </div>
 </div>
 
-{% if success_message %}
 <div class="modal fade-in" id="sucess-modal">
   <div class="modal-wrapper">
     <div id="modal-inner">
       <h2 class="success-title">Success!</h2>
       <div class="content">
         <p>
-          {{success_message}}
+      
         </p>
         <button class="success-btn modal-close-btn" target="sucess-modal">
           OK
@@ -30,16 +29,14 @@
     </div>
   </div>
 </div>
-{% endif %}
 
-{% if error_message %}
 <div class="modal fade-in" id="error-modal">
   <div class="modal-wrapper">
     <div id="modal-inner">
       <h2 class="error-title">Error!</h2>
       <div class="content">
         <p>
-          {{error_message}}
+         
         </p>
         <button class="error-btn modal-close-btn" target="error-modal">
           OK
@@ -48,21 +45,6 @@
     </div>
   </div>
 </div>
-{% endif %}
 </div>
 
-<script>
-
-  document.querySelector('#terms-conditions-modal').style.display = 'none';
-  document.querySelectorAll('.modal-trigger').forEach(t => {
-    t.onclick = () => {
-      document.querySelector(`#${t.getAttribute('target')}`).style.display = 'block';
-    }
-  })
-
-  document.querySelectorAll('.modal-close-btn').forEach(t => {
-    t.onclick = () => {
-      document.querySelector(`#${t.getAttribute('target')}`).style.display = 'none';
-    }
-  })
-</script>
+<script type="module" src="../static/script/modal.js"></script>
