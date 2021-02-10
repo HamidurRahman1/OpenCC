@@ -21,7 +21,12 @@ add_request_form.onsubmit = evt => {
   .then(response => response.json())
   .then(data => 
     {
-      modal.showModal('success' in data ? '#sucess-modal' : '#error-modal', data[Object.keys(data)[0]])
+      if('success' in data){
+        modal.showModal('#sucess-modal', data[Object.keys(data)[0]]);
+        add_request_form.reset();
+      }
+      else
+        modal.showModal('#error-modal', data[Object.keys(data)[0]])
     }
   );
 }
