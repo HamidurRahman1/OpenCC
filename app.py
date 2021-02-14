@@ -45,27 +45,29 @@ def __add_request(form_data_as_dict):
         subject_code, subject_name = form_data_as_dict.get("subject").split(",")
         class_num_5_digit = int(form_data_as_dict.get("class-num-5"))
 
-        print(phone_number, term_name, term_value, subject_name, subject_code, class_num_5_digit)
-
         # req_repo = RequestRepository(mysql.connection)
         # status = req_repo.add_request(phone_number, int(term_value), subject_name, subject_code, class_num_5_digit)
         #
         # if status:
         #     SMSSender(option=Option.REQUEST, phone_number=phone_number, subject_name=subject_name,
         #               class_num_5_digit=class_num_5_digit, term_name=term_name).send()
-        return True, "Dear {} user, we have processed your request for {} - {} for {} Term. You should be "\
-                         "receiving a confirmation message very shortly. Check out FAQs for important information "\
-                         "about text messages.".format(APP_NAME, subject_name, class_num_5_digit, term_name)
+        #     return True, "Dear {} user, we have processed your request for {} - {} for {} Term. You should be "\
+        #                  "receiving a confirmation message very shortly. Check out FAQs for important information "\
+        #                  "about text messages.".format(APP_NAME, subject_name, class_num_5_digit, term_name)
+        return True, "Application is in Beta mode. Your current request is not being saved, and to show the "\
+                     "application flow we have listed the information. Phone number: {}, Term: {}, Class: {} - {}"\
+                     .format(phone_number, term_name, subject_name, class_num_5_digit)
     except DuplicateRequestException as dex:
         return False, "Dear {} user, {} You may add a different request for the same class or a different class if "\
                        "necessary.".format(APP_NAME, dex.message)
     except ValueError:
-        return False, "The form was not filled properly or invalid input was entered in the form fields. Please " \
+        return False, "The form was not filled properly or invalid input was entered in the form fields. Please "\
                       "fill out the from properly to make a request."
     except Exception as e:
         logging.getLogger(EXCEPTION_LOGGER).error(e)
-        return False, "An unexpected error occurred which I am trying to fix. Meanwhile, you can contact me and leave" \
-                      "your class info and I will manually add your request as soon as the issue is fixed."
+        return False, "An unexpected error occurred which I am trying to fix. Meanwhile, you can contact Hamidur "\
+                      "Rahman and leave your class info and your request will be added manually as soon as the issue "\
+                      "is fixed."
 
 
 @_app.route("/", methods=["GET"])
@@ -82,7 +84,7 @@ def _request():
         return jsonify(error=request_status[1])
 
 
-@_app.route("/secret_uri"+'environ.get("TWILIO_RSP_URI")', methods=["POST"])
+@_app.route("/secret_uri"+environ.get("TWILIO_RSP_URI"), methods=["POST"])
 def unsubscribe_user():
     from_number = None
     body = None
