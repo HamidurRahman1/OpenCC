@@ -56,10 +56,10 @@ def __add_request(form_data_as_dict):
         #                  "about text messages.".format(APP_NAME, subject_name, class_num_5_digit, term_name)
         return True, "Application is in Beta mode. Your current request is not being saved, and to show the "\
                      "application flow we have listed the information. Phone number: {}, Term: {}, Class: {} - {}"\
-                     .format(phone_number, term_name, subject_name, class_num_5_digit)
+            .format(phone_number, term_name, subject_name, class_num_5_digit)
     except DuplicateRequestException as dex:
         return False, "Dear {} user, {} You may add a different request for the same class or a different class if "\
-                       "necessary.".format(APP_NAME, dex.message)
+                      "necessary.".format(APP_NAME, dex.message)
     except ValueError:
         return False, "The form was not filled properly or invalid input was entered in the form fields. Please "\
                       "fill out the from properly to make a request."
