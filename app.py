@@ -120,4 +120,3 @@ if __name__ == "__main__":
         _app.run(use_reloader=False)
     except Exception as ex:
         logging.getLogger(EXCEPTION_LOGGER).error(ex)
-
