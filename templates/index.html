@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <link rel="stylesheet" href="../static/css/style.css" type="text/css">
-  <link rel="icon" href="https://iconarchive.com/download/i79674/martz90/hex/messages-2.ico" type="image/x-icon">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{{title}}</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../static/css/style.css" type="text/css" />
+    <link
+      rel="icon"
+      href="https://iconarchive.com/download/i79674/martz90/hex/messages-2.ico"
+      type="image/x-icon"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+  </head>
+  <body>
+    {% include "navbar.html" %}
 
-{% include "header.html" %}
-{% include "request.html" %}
-{% include "footer.html" %}
+    <div id="main-view">
+      <div class="wrapper" id="home-wrapper">{% include "header.html" %}</div>
+      <div class="wrapper" id="devs-wrapper">{% include "devs.html" %}</div>
+      <div class="wrapper" id="request-wrapper">{% include "request.html" %}</div>
+      <div class="wrapper" id="faqs-wrapper">{% include "faqs.html" %}</div>
+      <div class="wrapper" id="about-wrapper">{% include "about.html" %}</div>
+    </div>
 
-</body>
+    <script src="../static/script/routing.js"></script>
+    {% include "modals.html" %}
+    {% include "footer.html" %}
+  </body>
 </html>

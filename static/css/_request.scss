@@ -1,0 +1,91 @@
+/* request.html styling : start */
+
+.outer-request-form{
+    min-height: 80vh;
+    width: 100vw;
+    padding : 0 20%;
+}
+
+
+.request-form-title {
+    text-align: center;
+    border-bottom: 1px solid lightgray;
+    font-size: 22px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
+.request-form{
+    overflow: scroll;
+    form{
+        fieldset {
+            background-color: #f0eeee;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding : 5%;
+        }
+          
+        legend {
+            background-color: #008000;
+            color: white;
+            padding:5px;
+            font-size: 22px;
+            border-radius: 10px;
+        }
+    }
+
+    label{
+        font-size: 19px;
+    }
+
+}
+
+
+
+#phone-number, select, #class-num-5 {
+    width: 100%;
+    font-size: 22px;
+}
+
+.request-form input:not([type=submit]):hover, .request-form select:hover{
+    background-color: lightgreen;
+}
+
+.submit-request, #phone-number, select, #class-num-5{
+    padding : 1vmax;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+.submit-request {
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.5em;
+    &:hover{
+        background-color: rgb(34, 104, 7);
+    }
+}
+
+#terms-and-conditions{
+    text-decoration: underline;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    .outer-request-form{
+        padding : 0 2%;
+    }
+}
+

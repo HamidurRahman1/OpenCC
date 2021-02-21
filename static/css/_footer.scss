@@ -1,0 +1,22 @@
+/* footer.html styling : start */
+
+.footer {
+    background-color: $primary-color;
+    height: 5vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a{
+        color : white;
+        font-size: 16px; 
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .footer {
+        // background : #000;
+    }
+}
+
+/* footer.html styling : end */

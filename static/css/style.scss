@@ -1,0 +1,89 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cardo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+/* style applies to all : start */
+
+$primary-font : 'Montserrat', sans-serif;
+$secondary-font : 'Cardo', serif;
+$third-font : 'Quicksand', sans-serif;
+
+$primary-color : #02522e;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $third-font;
+}
+
+a{
+    color : black;
+}
+
+body {
+    color: black;
+    min-height: 100vh;
+}
+/* style applies to all : end */
+
+#main-view {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+
+
+
+.fade-in {
+    animation: fadeIn ease 1s;
+    -webkit-animation: fadeIn ease 1s;
+    -moz-animation: fadeIn ease 1s;
+    -o-animation: fadeIn ease 1s;
+    -ms-animation: fadeIn ease 1s;
+    }
+    @keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+    }
+    
+    @-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+    }
+    
+    @-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+    }
+    
+    @-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+    }
+    
+    @-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+    }
+
+@import 'navbar';
+
+@import 'header';
+@import 'request';
+@import 'footer';
+
+@import 'modals';
+
+@import 'devs';
+@import 'faqs';
+@import 'about';
+
+
+
+
+
+
+

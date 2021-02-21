@@ -1,45 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <link rel="stylesheet" href="../static/css/style.css" type="text/css">
-    <link rel="icon" href="https://iconarchive.com/download/i79674/martz90/hex/messages-2.ico" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{{title}}</title>
-</head>
-<body>
-
-{% include "header.html" %}
-
-    <div class="about" id="about">
+    <div class="about fade-in" id="about">
 
         <figure class="quote">
             <blockquote>I wish there was a way to get notified or be on wait list at least.</blockquote>
             <figcaption>&mdash; LaGCC Student(s)</figcaption>
         </figure>
-
+        <br>
         <p>
-            &emsp;This is a <strong><em>free</em></strong> and an <strong><em>
-            <a href="https://github.com/HamidurRahman1/OpenCC" target="_blank">open source</a></em></strong> web
-            application that notifies, via text,
-            <a href="https://www.laguardia.edu/home/Default.aspx" target="_blank">LaGuardia Community College</a>
-            students when their requested classes become open. Students do not need anything other than a valid US phone
-            number to receive text and that is all, nothing else.
+            &emsp;This is a <strong>free</strong> and <strong>
+            <a href="https://github.com/HamidurRahman1/OpenCC" target="_blank">open source</a></strong> web
+            application that notifies <a href="https://www.laguardia.edu/home/Default.aspx" target="_blank">
+            LaGuardia Community College</a> students via text message when their requested classes become open.
+            Students do not need anything other than a valid US phone number to receive the text message.
         </p>
-
+        <br>
         <p>
             &emsp;<strong>On why use OpenCC</strong>, first and most importantly it is free (completely funded by myself,
-            cost of database and text messages) and open source. You do not need to pay a single dime to use this
-            application (hey, I, myself was a LaGCC student, I know the struggle) and you can look at the source code to
-            see if I am actually storing any other information other than your phone number and also check that your
-            phone number is not being shared with anyone else beside the notifications purposes. Secondly, you do not
-            have to install any application to get notified, you just come over to
-            <a href="index.html">OpenCC website</a> and fill out the form to make a request and that is all, you are set.
-            And finally, a very convenient way to stop getting text messages, checkout <a href="faqs.html">FAQs</a> on how to.
+            cost of database and text messages), open source (hey, I, myself was a LaGCC student, I know the struggle)
+            and you can look at the source code to see if I am storing information other than your phone number, also check that your
+            phone number is not being shared with anyone else beside for notification purposes. Secondly, you do not
+            have to install any application to get notified, you can just visit
+            <span class="link" value = "home-wrapper" id="home-trigger">OpenCC website</span>
+            and fill out the form to make a request. Finally, a convenient way to stop getting text messages,
+            checkout <span class="link" value = "faqs-wrapper" id="faqs-trigger">FAQs</span> on how to.
         </p>
     </div>
-
-{% include "footer.html" %}
-
-</body>
-</html>
