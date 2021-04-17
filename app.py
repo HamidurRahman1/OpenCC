@@ -8,7 +8,7 @@ from flask import Flask, request, render_template, jsonify
 from edu.lagcc.opencc.notifier.sms_sender import Option, SMSSender
 from edu.lagcc.opencc.repositories.request_repo import RequestRepository
 from edu.lagcc.opencc.exceptions.exceptions import DuplicateRequestException
-from edu.lagcc.opencc.utils.util import APP_NAME, POSSIBLE_TERMS, MSG_LOGGER, EXCEPTION_LOGGER, SUB_CODES_TO_SUB_NAMES
+from edu.lagcc.opencc.utils.util import APP_NAME, POSSIBLE_TERMS, INC_MSG_LOGGER, EXCEPTION_LOGGER, SUB_CODES_TO_SUB_NAMES
 
 
 _app = Flask(__name__)
@@ -103,15 +103,15 @@ def unsubscribe_user():
             if len(cls_5_digit) == 5 and cls_5_digit.isdigit():
                 if RequestRepository(mysql.connection).delete_request(from_number, int(cls_5_digit)):
                     SMSSender(option=Option.UN_SUB_1, phone_number=from_number, class_num_5_digit=cls_5_digit).send()
-        logging.getLogger(MSG_LOGGER).info("Phone: {}, Message: {}".format(from_number, body))
+        logging.getLogger(INC_MSG_LOGGER).info("Phone: {}, Message: {}".format(from_number, body))
         return str()
     except TwilioRestException as rex:
-        logging.getLogger(MSG_LOGGER).error(rex)
-        logging.getLogger(MSG_LOGGER).error("Phone: {}, Message: {}".format(from_number, body))
+        logging.getLogger(INC_MSG_LOGGER).error(rex)
+        logging.getLogger(INC_MSG_LOGGER).error("Phone: {}, Message: {}".format(from_number, body))
         return str()
     except Exception as e:
         logging.getLogger(EXCEPTION_LOGGER).error(e)
-        logging.getLogger(MSG_LOGGER).error("Phone: {}, Message: {}".format(from_number, body))
+        logging.getLogger(INC_MSG_LOGGER).error("Phone: {}, Message: {}".format(from_number, body))
         return str()
 
 
