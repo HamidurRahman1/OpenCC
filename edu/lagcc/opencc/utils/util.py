@@ -17,10 +17,10 @@ EXCEPTION_LOGGER = "EXCEPTIONS_LOGGER"
 APP_HITS_LOGGER = "APP_HITS_LOGGER"
 SCHEDULER_LOGGER = "SCHEDULER_LOGGER"
 
-INC_MSG_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s => %(message)s".format("OpenCC")
-APP_HITS_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s => %(message)s".format("OpenCC")
-TASK_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s => %(message)s".format("OpenCC")
-EXCEPTION_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s :: %(levelname)s :: %(module)s => %(message)s".format("OpenCC")
+INC_MSG_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s => %(message)s".format(APP_NAME)
+APP_HITS_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s => %(message)s".format(APP_NAME)
+TASK_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s => %(message)s".format(APP_NAME)
+EXCEPTION_LOG_FORMATTER = "$ {} -> %(nyc_datetime)s :: %(name)s :: %(levelname)s :: %(module)s => %(message)s".format(APP_NAME)
 
 
 class DateTimeFilter(logging.Filter):
